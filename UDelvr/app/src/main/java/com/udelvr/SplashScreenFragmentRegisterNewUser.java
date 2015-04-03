@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.udelvr.slidingmenu.MainActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,6 +51,16 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
             @Override
             public void onClick(View v) {
                 selectImage();
+            }
+        });
+
+        btn_register = (Button)this.findViewById(R.id.button_register);
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(),MainActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Register"
         android:textColor="@color/udelvr_blue"
-        android:id="@+id/button"
+        android:id="@+id/button_register"
         android:background="@drawable/roundedgraybutton"
         android:layout_marginTop="25dp"
         android:layout_below="@+id/editText_password"

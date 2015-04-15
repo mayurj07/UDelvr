@@ -54,4 +54,14 @@
     <!--facebook credential -->
     <string name="facebook_app_id">790241384392743</string>
 
+    <!--add_shipment.xml -->
+    <string name="add_shipment">Add shipment</string>
+    <string name="recipient_name">Recipient\'s name</string>
+    <string name="item_desc">Describe your package</string>
+    <string name="weight">How much your package weight</string>
+    <string name="address">Recipient\'s address</string>
+    <string name="time">Pick up time</string>
+    <string name="button_add_shipment">Add shipment</string>
+    <string name="or">--- OR ----</string>
+
 </resources>

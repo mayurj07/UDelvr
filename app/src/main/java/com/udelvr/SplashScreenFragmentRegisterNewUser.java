@@ -109,10 +109,6 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         }
     };
 
-
-
-
-
 //	public static Fragment newInstance(Context context) {
 //        SplashScreenFragmentRegisterNewUser f = new SplashScreenFragmentRegisterNewUser();
 //

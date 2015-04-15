@@ -13,6 +13,7 @@
     <string name="fullname">Full Name</string>
     <string name="mobilenumber">Mobile number</string>
     <string name="zip">Zip code</string>
+    <string name="or">--- OR ----</string>
 
 
     <string name="password">Password</string>
@@ -62,6 +63,6 @@
     <string name="address">Recipient\'s address</string>
     <string name="time">Pick up time</string>
     <string name="button_add_shipment">Add shipment</string>
-    <string name="or">--- OR ----</string>
+
 
 </resources>

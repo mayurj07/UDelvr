@@ -1,6 +1,7 @@
 
 package com.udelvr;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import android.util.Log;
+import com.facebook.Session;
+import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
@@ -42,31 +45,6 @@ public class SplashScreenFragmentSignIn extends Fragment {
 
             }
         });
-        uiHelper = new UiLifecycleHelper(this, statusCallback);
-        uiHelper.onCreate(savedInstanceState);
-        // facebook login btn
-        authButton = (LoginButton) findViewById(R.id.authButton);
-        authButton.setReadPermissions(Arrays.asList("email","user_location", "user_birthday"));
-        authButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
-            @Override
-            public void onUserInfoFetched(GraphUser user) {
-                if (user != null) {
-                    Log.e(TAG,"user: " + user + user.getName());
-//                    username.setText("Username: " + user.getName());
-//                    birthday.setText("birthday: " + user.asMap().get("birthday").toString());
-//                    gender.setText("gender: " + user.asMap().get("gender").toString());
-//                    email.setText("email: " + user.asMap().get("email").toString());
-                    //Log.e(TAG,"userid: " +user.getId());
-//                            Log.e(TAG,"email: " + user.asMap());
-                    String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
-                    Log.e(TAG,"image: " + imageURL);
-                    //new LoadProfileImage(profile_pic).execute(imageURL);
-                } else {
-                    Log.e(TAG,"You are not log in");
-                }
-            }
-        });
         return root;
 	}
-	
 }

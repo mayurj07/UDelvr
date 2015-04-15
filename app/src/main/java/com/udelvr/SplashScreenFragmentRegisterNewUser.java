@@ -19,12 +19,21 @@ import android.widget.Button;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.slidingmenu.MainActivity;
-
+import android.util.Log;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.InputStream;
+import java.util.Arrays;
+import android.app.Activity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Button;
+import android.util.Log;
+import android.content.Intent;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;

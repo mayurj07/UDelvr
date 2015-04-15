@@ -80,7 +80,6 @@
             android:layout_below="@+id/item_weight"
             android:layout_centerHorizontal="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:layout_alignEnd="@+id/expireDate"/>
 
 

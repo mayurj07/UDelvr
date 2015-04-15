@@ -3,6 +3,7 @@
     package="com.udelvr">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,7 +11,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SpashScreen"
+            android:name=".splashScreen.SpashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/FullscreenTheme">
@@ -22,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".SplashScreenFragmentRegisterNewUser"
+            android:name=".splashScreen.SplashScreenFragmentRegisterNewUser"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/FullscreenTheme">
@@ -31,8 +32,6 @@
         <activity
             android:name=".slidingmenu.MainActivity"
             android:label="@string/app_name"
-
-
             >
 
         </activity>

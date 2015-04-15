@@ -1,0 +1,23 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="udelvr_gray">#FF2c3e50</color>
+    <color name="udelvr_white">#ffffffff</color>
+    <color name="udelvr_hint_white">#ffCCC9C5</color>
+    <color name="udelvr_black_green">#18BC9C</color>
+    <color name="udelvr_black_orange">#FFF09F20</color>
+
+    <color name="udelvr_purple">#715DEC</color>
+    <color name="udelvr_blue">#3684D2</color>
+
+    <color name="udelvr_pink">#F5535F</color>
+
+    <color name="udelvr_grey">#C2C2C2</color>
+    <color name="list_item_title">#fff</color>
+    <color name="list_background">#303030</color>
+    <color name="list_background_pressed">#992416</color>
+    <color name="list_divider">#272727</color>
+    <color name="counter_text_bg">#626262</color>
+    <color name="counter_text_color">#c5c4c4</color>
+
+</resources>

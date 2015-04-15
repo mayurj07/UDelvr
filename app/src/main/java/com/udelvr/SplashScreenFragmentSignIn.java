@@ -16,12 +16,15 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+import com.facebook.widget.LoginButton.UserInfoChangedCallback;
+
+import java.util.Arrays;
 
 public class SplashScreenFragmentSignIn extends Fragment {
 
-    private static final String TAG = "REGISTER SPLASH";
     private LoginButton authButton;
     private UiLifecycleHelper uiHelper;
+    private static final String TAG = "REGISTER SPLASH";
     Button btn_register;
     ViewGroup root;
 
@@ -30,8 +33,6 @@ public class SplashScreenFragmentSignIn extends Fragment {
 
 		return f;
 	}
-
-
 
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -45,6 +46,40 @@ public class SplashScreenFragmentSignIn extends Fragment {
 
             }
         });
-        return root;
+
+
+        authButton = (LoginButton) root.findViewById(R.id.authButton);
+        authButton.setReadPermissions(Arrays.asList("email", "user_location", "user_birthday"));
+        authButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
+            @Override
+            public void onUserInfoFetched(GraphUser user) {
+                if (user != null) {
+                    Log.e(TAG,"user: " + user + user.getName());
+//                    username.setText("Username: " + user.getName());
+//                    birthday.setText("birthday: " + user.asMap().get("birthday").toString());
+//                    gender.setText("gender: " + user.asMap().get("gender").toString());
+//                    email.setText("email: " + user.asMap().get("email").toString());
+                    //Log.e(TAG,"userid: " +user.getId());
+//                            Log.e(TAG,"email: " + user.asMap());
+                    String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
+                    Log.e(TAG,"image: " + imageURL);
+                    //new LoadProfileImage(profile_pic).execute(imageURL);
+                } else {
+                    Log.e(TAG,"You are not log in");
+                }
+            }
+        });
+    return root;
 	}
+    private Session.StatusCallback statusCallback = new Session.StatusCallback() {
+        @Override
+        public void call(Session session, SessionState state,
+                         Exception exception) {
+            if (state.isOpened()) {
+                Log.d("MainActivity", "Facebook session opened.");
+            } else if (state.isClosed()) {
+                Log.d("MainActivity", "Facebook session closed.");
+            }
+        }
+    };
 }

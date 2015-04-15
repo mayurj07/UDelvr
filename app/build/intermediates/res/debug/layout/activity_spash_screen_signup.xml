@@ -92,6 +92,29 @@
             android:layout_marginTop="15dp"
             android:layout_gravity="bottom" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/or"
+            android:textColor="@color/udelvr_white"
+            android:textSize="20dp"
+            android:id="@+id/textView"
+            android:typeface="monospace"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="50dp" />
+
+        <!-- facebook login button -->
+        <com.facebook.widget.LoginButton
+            android:id="@+id/authButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/button_signup"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"/>
+
     </LinearLayout>
 </ScrollView>
 <!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/src/main/res/layout/activity_spash_screen_signup.xml -->

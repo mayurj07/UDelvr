@@ -20,8 +20,6 @@ public class SplashScreenFragmentHome extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen, null);
-
-
 		return root;
 	}
 	

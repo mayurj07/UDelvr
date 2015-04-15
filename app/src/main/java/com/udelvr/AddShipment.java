@@ -84,8 +84,7 @@ public class AddShipment extends Activity {
 
     private static final String TAG = "Date picker";
     // Widget GUI
-    Button btnCalendar, btnTimePicker;
-    EditText txtDate, txtTime;
+    Button btnCalendar, btnTimePicker, camera;
 
     // Variable for storing current date and time
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -107,6 +106,13 @@ public class AddShipment extends Activity {
             @Override
             public void onClick(View v) {
                 showDatePicker();
+            }
+        });
+        camera = (Button)this.findViewById(R.id.camera);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
             }
         });
 

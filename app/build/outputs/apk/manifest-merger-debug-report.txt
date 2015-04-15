@@ -59,12 +59,10 @@ ADDED from AndroidManifest.xml:14:5
 		ADDED from AndroidManifest.xml:15:9
 application
 ADDED from AndroidManifest.xml:17:5
-MERGED from com.android.support:support-v4:21.0.3:16:5
-MERGED from com.android.support:support-v4:21.0.3:16:5
+MERGED from com.android.support:support-v4:20.0.0:17:5
+MERGED from com.android.support:support-v4:20.0.0:17:5
 MERGED from com.facebook.android:facebook-android-sdk:3.21.1:24:5
-MERGED from com.android.support:support-v4:21.0.3:16:5
-MERGED from com.facebook.android:facebook-android-sdk:3.21.1:24:5
-MERGED from com.android.support:support-v4:21.0.3:16:5
+MERGED from com.android.support:support-v4:20.0.0:17:5
 	android:label
 		ADDED from AndroidManifest.xml:20:9
 	android:allowBackup
@@ -127,15 +125,23 @@ ADDED from AndroidManifest.xml:44:9
 		ADDED from AndroidManifest.xml:46:13
 	android:name
 		ADDED from AndroidManifest.xml:45:13
+activity#com.udelvr.AddShipment
+ADDED from AndroidManifest.xml:49:9
+	android:label
+		ADDED from AndroidManifest.xml:52:13
+	android:configChanges
+		ADDED from AndroidManifest.xml:51:13
+	android:theme
+		ADDED from AndroidManifest.xml:53:13
+	android:name
+		ADDED from AndroidManifest.xml:50:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
-MERGED from com.android.support:support-v4:21.0.3:15:5
+MERGED from com.android.support:support-v4:20.0.0:16:5
 MERGED from UDelvr:circularImageView:unspecified:7:5
-MERGED from com.android.support:support-v4:21.0.3:15:5
+MERGED from com.android.support:support-v4:20.0.0:16:5
 MERGED from com.facebook.android:facebook-android-sdk:3.21.1:20:5
-MERGED from com.android.support:support-v4:21.0.3:15:5
-MERGED from com.facebook.android:facebook-android-sdk:3.21.1:20:5
-MERGED from com.android.support:support-v4:21.0.3:15:5
+MERGED from com.android.support:support-v4:20.0.0:16:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0

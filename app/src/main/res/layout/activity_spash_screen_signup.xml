@@ -104,7 +104,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="50dp" />
 
-        <!-- facebook login button -->
         <com.facebook.widget.LoginButton
             android:id="@+id/authButton"
             android:layout_width="match_parent"

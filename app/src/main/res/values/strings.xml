@@ -63,6 +63,7 @@
     <string name="address">Recipient\'s address</string>
     <string name="time">Pick up time</string>
     <string name="button_add_shipment">Add shipment</string>
+    <string name="title_activity_add_shipment">Add Shipment</string>
 
 
 </resources>

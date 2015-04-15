@@ -16,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.slidingmenu.MainActivity;
 import android.util.Log;
 import java.io.File;
@@ -34,18 +32,11 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.util.Log;
 import android.content.Intent;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
-import com.facebook.widget.LoginButton;
-import com.facebook.widget.LoginButton.UserInfoChangedCallback;
+import com.mikhaellopez.circularimageview.CircularImageView;
+
 
 public class SplashScreenFragmentRegisterNewUser extends Activity {
 
-    private static final String TAG = "REGISTER";
-    private LoginButton authButton;
-    private UiLifecycleHelper uiHelper;
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
     ViewGroup root;
@@ -55,13 +46,11 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        uiHelper = new UiLifecycleHelper(this, statusCallback);
-        uiHelper.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_details);
         getActionBar().hide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        circularImageView = (CircularImageView)this.findViewById(R.id.profilepic);
+        circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
         //circularImageView.setBorderColor(getResources().getColor());
         circularImageView.setBorderWidth(5);
         circularImageView.addShadow();
@@ -72,52 +61,15 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
             }
         });
 
-        btn_register = (Button)this.findViewById(R.id.button_register);
-
+        btn_register = (Button) this.findViewById(R.id.button_register);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(),MainActivity.class);
+                Intent intent = new Intent(getApplication(), MainActivity.class);
                 startActivity(intent);
             }
         });
-
-        // facebook login btn
-        authButton = (LoginButton) findViewById(R.id.authButton);
-        authButton.setReadPermissions(Arrays.asList("email","user_location", "user_birthday"));
-        authButton.setUserInfoChangedCallback(new UserInfoChangedCallback() {
-            @Override
-            public void onUserInfoFetched(GraphUser user) {
-                if (user != null) {
-                    Log.e(TAG,"user: " + user + user.getName());
-//                    username.setText("Username: " + user.getName());
-//                    birthday.setText("birthday: " + user.asMap().get("birthday").toString());
-//                    gender.setText("gender: " + user.asMap().get("gender").toString());
-//                    email.setText("email: " + user.asMap().get("email").toString());
-                    //Log.e(TAG,"userid: " +user.getId());
-//                            Log.e(TAG,"email: " + user.asMap());
-                    String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
-                    Log.e(TAG,"image: " + imageURL);
-                    //new LoadProfileImage(profile_pic).execute(imageURL);
-                } else {
-                    Log.e(TAG,"You are not log in");
-                }
-            }
-        });
     }
-
-    private Session.StatusCallback statusCallback = new Session.StatusCallback() {
-        @Override
-        public void call(Session session, SessionState state,
-                         Exception exception) {
-            if (state.isOpened()) {
-                Log.d("MainActivity", "Facebook session opened.");
-            } else if (state.isClosed()) {
-                Log.d("MainActivity", "Facebook session closed.");
-            }
-        }
-    };
-
 //	public static Fragment newInstance(Context context) {
 //        SplashScreenFragmentRegisterNewUser f = new SplashScreenFragmentRegisterNewUser();
 //

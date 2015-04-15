@@ -46,6 +46,13 @@
             android:label="@string/app_name">
         </activity>
 
+        <activity
+            android:name=".AddShipment"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_add_shipment"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+
     </application>
 
 </manifest>

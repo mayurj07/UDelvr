@@ -34,7 +34,7 @@ import com.facebook.widget.LoginButton.UserInfoChangedCallback;
 
 public class SplashScreenFragmentRegisterNewUser extends Activity {
 
-    private static final String TAG = "Register page";
+    private static final String TAG = "REGISTER";
     private LoginButton authButton;
     private UiLifecycleHelper uiHelper;
     private static final int REQUEST_CAMERA = 100;
@@ -90,7 +90,6 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                     String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
                     Log.e(TAG,"image: " + imageURL);
                     //new LoadProfileImage(profile_pic).execute(imageURL);
-
                 } else {
                     Log.e(TAG,"You are not log in");
                 }

@@ -92,7 +92,16 @@
             android:layout_marginTop="15dp"
             android:layout_gravity="bottom" />
 
-
+        <!-- facebook login -->
+        <com.facebook.widget.LoginButton
+            android:id="@+id/authButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/button_signup"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"/>
     </LinearLayout>
 </ScrollView>
 <!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/src/main/res/layout/activity_spash_screen_signup.xml -->

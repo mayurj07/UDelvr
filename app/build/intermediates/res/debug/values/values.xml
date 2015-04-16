@@ -154,7 +154,10 @@
     <string name="password">Password</string>
     <string name="recipient_name">Recipient\'s name</string>
     <string name="time">Pick up time</string>
+<<<<<<< HEAD
     <string name="title_activity_add_shipment">Add Shipment</string>
+=======
+>>>>>>> master
     <string name="title_activity_spash_screen">SpashScreen</string>
     <string name="title_activity_splash_screen">UDelvr</string>
     <string name="weight">How much your package weight</string>

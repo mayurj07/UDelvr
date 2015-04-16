@@ -1,5 +1,5 @@
 
-package com.udelvr;
+package com.udelvr.splashScreen;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,18 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SplashScreenFragmentDriver extends Fragment {
+import com.udelvr.R;
+
+public class SplashScreenFragmentHome extends Fragment {
 
 
 	public static Fragment newInstance(Context context) {
-        SplashScreenFragmentDriver f = new SplashScreenFragmentDriver();
+        SplashScreenFragmentHome f = new SplashScreenFragmentHome();
 		
 		return f;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen_driver, null);
+		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen, null);
+
+
 		return root;
 	}
 	

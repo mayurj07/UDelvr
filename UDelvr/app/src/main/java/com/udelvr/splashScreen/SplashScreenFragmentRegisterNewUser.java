@@ -1,5 +1,5 @@
 
-package com.udelvr;
+package com.udelvr.splashScreen;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,12 +12,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.udelvr.R;
+import com.udelvr.retrofitRESTClient.RestClient;
 import com.udelvr.slidingmenu.MainActivity;
 
 import java.io.File;
@@ -26,6 +29,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.MultipartTypedOutput;
+import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
+
 public class SplashScreenFragmentRegisterNewUser extends Activity {
 
     private static final int REQUEST_CAMERA = 100;
@@ -33,7 +43,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
     ViewGroup root;
     Button btn_register;
     CircularImageView circularImageView;
-
+    File f;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +70,8 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(),MainActivity.class);
+
+
                 startActivity(intent);
             }
         });
@@ -130,7 +142,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
-                File f = new File(Environment.getExternalStorageDirectory()
+                 f = new File(Environment.getExternalStorageDirectory()
                         .toString());
                 for (File temp : f.listFiles()) {
                     if (temp.getName().equals("temp.jpg")) {
@@ -152,7 +164,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                             .getExternalStorageDirectory()
                             + File.separator
                             + "Phoenix" + File.separator + "default";
-                    f.delete();
+                    //f.delete();
                     OutputStream fOut = null;
                     File file = new File(path, String.valueOf(System
                             .currentTimeMillis()) + ".jpg");
@@ -178,7 +190,31 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                 Bitmap bm;
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
+
+                File myFile = new File(tempPath);
+
+                /****/
+                MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
+                multipartTypedOutput.addPart("user",new TypedString("Android"));
+                multipartTypedOutput.addPart("file", new TypedFile("sa",myFile));
+
+                RestClient.get().postCreateUser(multipartTypedOutput, new Callback<String>() {
+                    @Override
+                    public void success(String createUserResponse, Response response) {
+                       // Toast.makeText(ApplicationContextProvider.getContext(), "Success" + createUserResponse, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("Test!!!", "CanNot Create.." + error);
+                        //Toast.makeText(ApplicationContextProvider.getContext(), "failed!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                /****/
+
                 circularImageView.setImageBitmap(bm);
+
             }
         }
     }

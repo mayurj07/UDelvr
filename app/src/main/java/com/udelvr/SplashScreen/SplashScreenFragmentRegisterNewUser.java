@@ -20,8 +20,8 @@ import android.widget.Button;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.R;
-import com.udelvr.retrofitRESTClient.RestClient;
-import com.udelvr.slidingmenu.MainActivity;
+import com.udelvr.RESTClient.RestClient;
+import com.udelvr.Slidingmenu.MainActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;

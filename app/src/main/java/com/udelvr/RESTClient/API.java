@@ -1,4 +1,4 @@
-package com.udelvr.retrofitRESTClient;
+package com.udelvr.RESTClient;
 
 
 import retrofit.Callback;

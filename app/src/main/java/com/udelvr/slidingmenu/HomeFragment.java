@@ -1,4 +1,4 @@
-package com.udelvr.slidingmenu;
+package com.udelvr.Slidingmenu;
 
 import android.app.Fragment;
 import android.content.Context;

@@ -3,16 +3,12 @@
     package="com.udelvr">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="com.udelvr.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-    <uses-permission android:name="com.udelvr.permission.C2D_MESSAGE" />
-    <permission android:protectionLevel="signature"
-        android:name="com.parse.starter.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +18,7 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/ic_launcher"/>
         <activity
-            android:name=".SpashScreen"
+            android:name=".SplashScreen.SpashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/FullscreenTheme">
@@ -32,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashScreenFragmentRegisterNewUser"
+            android:name=".SplashScreen.SplashScreenFragmentRegisterNewUser"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/FullscreenTheme">
@@ -47,7 +43,7 @@
         </activity>
 
         <activity
-            android:name=".AddShipment"
+            android:name=".Shipment.AddShipment"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_add_shipment"
             android:theme="@style/FullscreenTheme">

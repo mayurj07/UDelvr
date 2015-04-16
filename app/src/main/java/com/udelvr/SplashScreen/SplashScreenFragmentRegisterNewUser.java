@@ -1,8 +1,8 @@
-package com.udelvr;
+
+package com.udelvr.SplashScreen;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,163 +12,88 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import com.udelvr.slidingmenu.MainActivity;
-import android.util.Log;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.InputStream;
-import java.util.Arrays;
-import android.app.Activity;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Button;
-import android.util.Log;
-import android.content.Intent;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TimePicker;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
-import com.udelvr.AddShipment;
-
+import com.udelvr.R;
+import com.udelvr.retrofitRESTClient.RestClient;
+import com.udelvr.slidingmenu.MainActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Calendar;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
-import android.util.Log;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.MultipartTypedOutput;
+import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
-/**
- * Created by sophiango on 4/14/15.
- */
-public class AddShipment extends Activity {
+
+public class SplashScreenFragmentRegisterNewUser extends Activity {
 
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
-    Button add_shipment_btn, timePicker, datePicker;
+    ViewGroup root;
+    Button btn_register;
     CircularImageView circularImageView;
 
-    private static final String TAG = "Date picker";
-    // Widget GUI
-    Button btnCalendar, btnTimePicker, camera;
-
-    // Variable for storing current date and time
-    private int mYear, mMonth, mDay, mHour, mMinute;
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_shipment);
-
-        timePicker = (Button)this.findViewById(R.id.timePicker);
-        timePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker();
-            }
-        });
-        datePicker = (Button)this.findViewById(R.id.datePicker);
-        datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
-            }
-        });
-        camera = (Button)this.findViewById(R.id.camera);
-        camera.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_register_details);
+        getActionBar().hide();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
+        //circularImageView.setBorderColor(getResources().getColor());
+        circularImageView.setBorderWidth(5);
+        circularImageView.addShadow();
+        circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
             }
         });
 
-        add_shipment_btn = (Button)this.findViewById(R.id.button_add_shipment);
-        add_shipment_btn.setOnClickListener(new View.OnClickListener() {
+        btn_register = (Button) this.findViewById(R.id.button_register);
+        btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectImage();
+                Intent intent = new Intent(getApplication(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
+//	public static Fragment newInstance(Context context) {
+//        SplashScreenFragmentRegisterNewUser f = new SplashScreenFragmentRegisterNewUser();
+//
+//		return f;
+//	}
 
-    private void showDatePicker(){
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//       // btn_register = (Button) root.findViewById(R.id.button_signup);
+//
+//
+//    }
 
-        // Launch Date Picker Dialog
-        DatePickerDialog dpd = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        // Display Selected date in textbox
-//                        txtDate.setText(dayOfMonth + "-"
-//                                + (monthOfYear + 1) + "-" + year);
-                        Log.e(TAG,"Date set: " + mYear + "," + mMonth + "," + mDay);
-                    }
-                }, mYear, mMonth, mDay);
-
-        dpd.show();
-    }
-
-    private void showTimePicker(){
-        // Process to get Current Time
-        final Calendar c = Calendar.getInstance();
-        mHour = c.get(Calendar.HOUR_OF_DAY);
-        mMinute = c.get(Calendar.MINUTE);
-
-        // Launch Time Picker Dialog
-        TimePickerDialog tpd = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay,
-                                          int minute) {
-                        // Display Selected time in textbox
-//                        txtTime.setText(hourOfDay + ":" + minute);
-                        Log.e(TAG,"Time set: " + mHour + "," + mMinute + ",");
-                    }
-                }, mHour, mMinute, false);
-
-        tpd.show();
-    }
+//    @Override
+//	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+//		 root = (ViewGroup) inflater.inflate(R.layout.activity_register_details, null);
+//
+//
+//        return root;
+//	}
 
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",
@@ -201,6 +126,7 @@ public class AddShipment extends Activity {
         });
         builder.show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -232,6 +158,9 @@ public class AddShipment extends Activity {
                     OutputStream fOut = null;
                     File file = new File(path, String.valueOf(System
                             .currentTimeMillis()) + ".jpg");
+
+
+
                     try {
                         fOut = new FileOutputStream(file);
                         bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
@@ -253,8 +182,38 @@ public class AddShipment extends Activity {
                 String tempPath = getPath(selectedImageUri, this);
                 Bitmap bm;
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
+
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
+
+                /**Dummy REST call**/
+                File myFile = new File(tempPath);
+
+                MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
+                multipartTypedOutput.addPart("fullName",new TypedString("Prasad Shirsath"));
+                multipartTypedOutput.addPart("email",new TypedString("prasadss.in@gmail.com"));
+                multipartTypedOutput.addPart("mobileNo",new TypedString("9989899898"));
+                multipartTypedOutput.addPart("password",new TypedString("!@#!@#!@#"));
+                multipartTypedOutput.addPart("deviceID",new TypedString("!@#!@#!@#"));
+                multipartTypedOutput.addPart("file", new TypedFile("sa",myFile));
+
+
+                RestClient.get().postCreateUser(multipartTypedOutput, new Callback<String>() {
+                    @Override
+                    public void success(String createUserResponse, Response response) {
+                        System.out.print("SENT REQUEST!!!!");
+                        // Toast.makeText(ApplicationContextProvider.getContext(), "Success" + createUserResponse, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("Test!!!", "CanNot Create.." + error);
+                        //Toast.makeText(ApplicationContextProvider.getContext(), "failed!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                /******/
                 circularImageView.setImageBitmap(bm);
+
             }
         }
     }

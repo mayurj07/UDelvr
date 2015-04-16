@@ -104,7 +104,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="50dp" />
 
-        <!-- facebook login button -->
         <com.facebook.widget.LoginButton
             android:id="@+id/authButton"
             android:layout_width="match_parent"
@@ -117,4 +116,4 @@
 
     </LinearLayout>
 </ScrollView>
-<!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/src/main/res/layout/activity_spash_screen_signup.xml -->
+<!-- From: file:/Users/prasadshirsath/UDelvr/app/src/main/res/layout/activity_spash_screen_signup.xml -->

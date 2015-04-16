@@ -47,4 +47,4 @@
         android:layout_centerVertical="true"
         android:background="@drawable/rounded_celll" />
     </LinearLayout>
-</RelativeLayout><!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/src/main/res/layout/footer.xml -->
+</RelativeLayout><!-- From: file:/Users/prasadshirsath/UDelvr/app/src/main/res/layout/footer.xml -->

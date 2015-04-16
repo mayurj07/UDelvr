@@ -1,7 +1,6 @@
 
-package com.udelvr;
+package com.udelvr.SplashScreen;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +15,7 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
-import com.facebook.widget.LoginButton.UserInfoChangedCallback;
+import com.udelvr.R;
 
 import java.util.Arrays;
 

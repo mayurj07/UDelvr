@@ -1,10 +1,12 @@
-package com.udelvr;
+package com.udelvr.SplashScreen;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.udelvr.R;
 
 
 public class SpashScreen extends FragmentActivity {

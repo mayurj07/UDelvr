@@ -1,8 +1,8 @@
-
-package com.udelvr;
+package com.udelvr.Shipment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,85 +13,124 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
-import com.udelvr.slidingmenu.MainActivity;
+
+import com.udelvr.R;
+
 import android.util.Log;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.InputStream;
-import java.util.Arrays;
-import android.app.Activity;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Button;
-import android.util.Log;
-import android.content.Intent;
+
+import android.widget.TimePicker;
+
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 
-public class SplashScreenFragmentRegisterNewUser extends Activity {
+import java.util.Calendar;
+
+import android.app.DatePickerDialog;
+import android.widget.DatePicker;
+
+/**
+ * Created by sophiango on 4/14/15.
+ */
+public class AddShipment extends Activity {
 
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
-    ViewGroup root;
-    Button btn_register;
+    Button add_shipment_btn, timePicker, datePicker;
     CircularImageView circularImageView;
 
+    private static final String TAG = "Date picker";
+    // Widget GUI
+    Button btnCalendar, btnTimePicker, camera;
+
+    // Variable for storing current date and time
+    private int mYear, mMonth, mDay, mHour, mMinute;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_details);
-        getActionBar().hide();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
-        //circularImageView.setBorderColor(getResources().getColor());
-        circularImageView.setBorderWidth(5);
-        circularImageView.addShadow();
-        circularImageView.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.add_shipment);
+
+        timePicker = (Button)this.findViewById(R.id.timePicker);
+        timePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePicker();
+            }
+        });
+        datePicker = (Button)this.findViewById(R.id.datePicker);
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
+        camera = (Button)this.findViewById(R.id.camera);
+        camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
             }
         });
 
-        btn_register = (Button) this.findViewById(R.id.button_register);
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        add_shipment_btn = (Button)this.findViewById(R.id.button_add_shipment);
+        add_shipment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
-                startActivity(intent);
+                selectImage();
             }
         });
     }
-//	public static Fragment newInstance(Context context) {
-//        SplashScreenFragmentRegisterNewUser f = new SplashScreenFragmentRegisterNewUser();
-//
-//		return f;
-//	}
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//       // btn_register = (Button) root.findViewById(R.id.button_signup);
-//
-//
-//    }
+    private void showDatePicker(){
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
-//    @Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-//		 root = (ViewGroup) inflater.inflate(R.layout.activity_register_details, null);
-//
-//
-//        return root;
-//	}
+        // Launch Date Picker Dialog
+        DatePickerDialog dpd = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // Display Selected date in textbox
+//                        txtDate.setText(dayOfMonth + "-"
+//                                + (monthOfYear + 1) + "-" + year);
+                        Log.e(TAG,"Date set: " + mYear + "," + mMonth + "," + mDay);
+                    }
+                }, mYear, mMonth, mDay);
+
+        dpd.show();
+    }
+
+    private void showTimePicker(){
+        // Process to get Current Time
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+
+        // Launch Time Picker Dialog
+        TimePickerDialog tpd = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        // Display Selected time in textbox
+//                        txtTime.setText(hourOfDay + ":" + minute);
+                        Log.e(TAG,"Time set: " + mHour + "," + mMinute + ",");
+                    }
+                }, mHour, mMinute, false);
+
+        tpd.show();
+    }
 
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",
@@ -124,7 +163,6 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         });
         builder.show();
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -26,3 +26,7 @@ local.properties
 /src/main/resources/rebel.xml
 
 .settings/
+gradle*
+.gradle/*
+.idea/*
+

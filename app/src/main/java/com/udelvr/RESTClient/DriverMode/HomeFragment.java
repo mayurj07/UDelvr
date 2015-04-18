@@ -1,4 +1,4 @@
-package com.udelvr.CustomerMode;
+package com.udelvr.RESTClient.DriverMode;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -12,41 +12,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.melnykov.fab.FloatingActionButton;
-import com.udelvr.DriverMode.DriverMainActivity;
 import com.udelvr.R;
-import com.udelvr.CustomerMode.Shipment.AddShipment;
-import com.udelvr.CustomerMode.Shipment.PackageListAdapter;
-import com.udelvr.CustomerMode.Shipment.PackageManager;
+import com.udelvr.RESTClient.DriverMode.Shipment.AddShipment;
+import com.udelvr.RESTClient.DriverMode.Shipment.PackageListAdapter;
+import com.udelvr.RESTClient.DriverMode.Shipment.PackageManager;
 
 public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     Button add_shipment_btn;
     private PackageListAdapter mAdapter;
 
-    FloatingActionButton fab_customer;
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        fab_customer = (FloatingActionButton)getActivity().findViewById(R.id.fab_customer);
 
         mRecyclerView = (RecyclerView)getActivity().findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new PackageListAdapter(PackageManager.getInstance().getPackages(), R.layout.row_package, getActivity());
         mRecyclerView.setAdapter(mAdapter);
-
-        fab_customer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), DriverMainActivity.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
 
     }
 

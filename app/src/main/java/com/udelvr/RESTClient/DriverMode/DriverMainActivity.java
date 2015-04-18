@@ -1,4 +1,4 @@
-package com.udelvr.CustomerMode;
+package com.udelvr.RESTClient.DriverMode;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -16,13 +16,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.udelvr.R;
-import com.udelvr.CustomerMode.adapter.NavDrawerListAdapter;
-import com.udelvr.CustomerMode.model.NavDrawerItem;
+import com.udelvr.RESTClient.DriverMode.adapter.NavDrawerListAdapter;
+import com.udelvr.RESTClient.DriverMode.model.NavDrawerItem;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends Activity {
+public class DriverMainActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;

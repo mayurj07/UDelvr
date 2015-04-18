@@ -6,18 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_shipment"
-        android:textColor="@color/udelvr_white"
-        android:id="@+id/button_add_shipment"
-        android:layout_marginTop="25dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/udelvr_blue"
-        />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
@@ -27,11 +15,11 @@
         android:layout_alignParentStart="true" />
 
     <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab_customer"
+        android:id="@+id/fab_driver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:src="@mipmap/fab_car"
+        android:src="@mipmap/fab_box"
         fab:fab_colorNormal="@color/udelvr_white"
         fab:fab_colorPressed="@color/udelvr_blue"
         fab:fab_colorRipple="@color/udelvr_blue"

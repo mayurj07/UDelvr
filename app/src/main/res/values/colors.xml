@@ -17,4 +17,12 @@
     <color name="counter_text_bg">#626262</color>
     <color name="counter_text_color">#c5c4c4</color>
 
+
+<!--for material layiout-->
+<color name="primary">#673ab7</color>
+<color name="primary_dark">#512da8</color>
+<color name="accent">#ffc400</color>
+<color name="text_primary">#D9FFFFFF</color>
+<color name="text_secondary">#D9000000</color>
+<color name="photo_tint">#88101010</color>
 </resources>

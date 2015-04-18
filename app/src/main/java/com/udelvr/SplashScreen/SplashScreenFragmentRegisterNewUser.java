@@ -67,6 +67,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 Intent intent = new Intent(getApplication(), MainActivity.class);
                 startActivity(intent);
             }

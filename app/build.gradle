@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21
+  //  buildToolsVersion "19.1.0"
+    buildToolsVersion "21.0.2"
+
 
     defaultConfig {
         applicationId "com.udelvr"
-        minSdkVersion 19
-        targetSdkVersion 19
+        minSdkVersion 21
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -25,9 +27,16 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:19.1.0'
     compile project(':circularImageView')
     compile 'com.facebook.android:facebook-android-sdk:3.21.1'
     compile 'com.squareup.retrofit:retrofit:1.6.1'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    //for floating action button
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    //for pull to refresh
+    compile 'com.quentindommerc.superlistview:library:1.5.2'
+
+    //recycler and card view
+    compile 'com.android.support:recyclerview-v7:21.+'
+    compile 'com.android.support:cardview-v7:21.+'
 }

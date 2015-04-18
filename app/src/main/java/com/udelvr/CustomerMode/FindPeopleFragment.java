@@ -1,4 +1,4 @@
-package com.udelvr.Slidingmenu;
+package com.udelvr.CustomerMode;
 
 import android.app.Fragment;
 import android.os.Bundle;

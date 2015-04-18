@@ -1,4 +1,4 @@
-package com.udelvr.Slidingmenu;
+package com.udelvr.CustomerMode;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 
 import com.udelvr.R;
 
-public class CommunityFragment extends Fragment {
+public class PagesFragment extends Fragment {
 	
-	public CommunityFragment(){}
+	public PagesFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_community, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_pages, container, false);
          
         return rootView;
     }

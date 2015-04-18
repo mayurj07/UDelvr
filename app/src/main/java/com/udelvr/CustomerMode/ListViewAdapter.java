@@ -1,4 +1,4 @@
-package com.udelvr.Slidingmenu;
+package com.udelvr.CustomerMode;
 
 /**
  * Created by prasadshirsath on 4/17/15.

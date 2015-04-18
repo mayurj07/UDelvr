@@ -1,4 +1,4 @@
-package com.udelvr.Slidingmenu.model;
+package com.udelvr.CustomerMode.model;
 
 public class NavDrawerItem {
 	

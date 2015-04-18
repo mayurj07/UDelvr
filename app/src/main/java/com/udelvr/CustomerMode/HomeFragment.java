@@ -1,4 +1,4 @@
-package com.udelvr.Slidingmenu;
+package com.udelvr.CustomerMode;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -13,13 +13,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.udelvr.R;
-import com.udelvr.Shipment.AddShipment;
-import com.udelvr.Slidingmenu.model.PackageManager;
+import com.udelvr.CustomerMode.Shipment.AddShipment;
+import com.udelvr.CustomerMode.Shipment.PackageListAdapter;
+import com.udelvr.CustomerMode.Shipment.PackageManager;
 
 public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     Button add_shipment_btn;
     private PackageListAdapter mAdapter;
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -54,11 +57,8 @@ public class HomeFragment extends Fragment {
         add_shipment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAdapter.add();
                 Intent i = new Intent(getActivity(), AddShipment.class);
                 startActivity(i);
-
-
             }
         });
 
@@ -67,6 +67,10 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+    }
 
 }

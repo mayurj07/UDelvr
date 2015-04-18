@@ -1,4 +1,4 @@
-package com.udelvr.Slidingmenu.model;
+package com.udelvr.CustomerMode.Shipment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +24,9 @@ public class PackageManager
             packages=new ArrayList<Package>();
         return  packages;
     }
-    public void add(int i)
+    public void add(Package apackage)
     {
-        Package apackage=new Package();
         packages.add(apackage);
+
     }
 }

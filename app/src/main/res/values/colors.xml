@@ -4,6 +4,7 @@
     <color name="udelvr_gray">#FF2c3e50</color>
     <color name="udelvr_white">#ffffffff</color>
     <color name="udelvr_hint_white">#ffCCC9C5</color>
+
     <color name="udelvr_black_green">#18BC9C</color>
     <color name="udelvr_black_orange">#FFF09F20</color>
     <color name="udelvr_purple">#715DEC</color>
@@ -25,4 +26,9 @@
 <color name="text_primary">#D9FFFFFF</color>
 <color name="text_secondary">#D9000000</color>
 <color name="photo_tint">#88101010</color>
+
+
+    <!--List view-->
+    <color name="udelvr_list_title">#D9000000</color>
+    <color name="udelvr_list_subtitle">#88101010</color>
 </resources>

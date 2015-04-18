@@ -21,7 +21,7 @@ import android.widget.Button;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.R;
 import com.udelvr.RESTClient.RestClient;
-import com.udelvr.Slidingmenu.MainActivity;
+import com.udelvr.CustomerMode.MainActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;

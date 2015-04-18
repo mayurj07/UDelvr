@@ -3,37 +3,76 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
-    card_view:cardCornerRadius="5dp"
-    android:layout_height="match_parent">
+    card_view:cardCornerRadius="10dp"
+    android:layout_height="match_parent"
+    android:tint="@color/photo_tint"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <ImageView
-            android:id="@+id/countryImage"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:tint="@color/photo_tint"
-            android:layout_centerInParent="true"
+
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/packageThumbnailImage"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/udelvr_driver"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+<!--recipients name as title-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Prasad Shirsath"
+            android:id="@+id/recipientsName"
+            android:layout_alignTop="@+id/packageThumbnailImage"
+            android:gravity="left"
+            android:layout_margin="5dp"
+            android:textColor="@color/udelvr_list_title"
+            android:typeface="sans"
+            android:textSize="20dip"
+            android:textStyle="bold"
             />
+        <!--Destination-->
+
+        <!--date time-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="On:"
+            android:id="@+id/dateTime"
+            android:gravity="left"
+            android:textColor="@color/udelvr_list_subtitle"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textStyle="bold"
+            android:layout_margin="5dp"
+            android:layout_below="@+id/recipientsName"
+            android:layout_alignParentStart="true" />
 
         <TextView
-            android:id="@+id/countryName"
-            android:gravity="center"
-            android:background="?android:selectableItemBackground"
-            android:focusable="true"
-            android:clickable="true"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textSize="24sp"
-            android:layout_centerInParent="true"
-            android:textColor="@android:color/white"
-            />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Status:"
+            android:id="@+id/status"
+            android:gravity="left"
+            android:textColor="@color/udelvr_list_subtitle"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_below="@+id/dateTime"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>

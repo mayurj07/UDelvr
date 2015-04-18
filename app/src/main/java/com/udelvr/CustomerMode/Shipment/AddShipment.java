@@ -1,7 +1,8 @@
-package com.udelvr.Shipment;
+package com.udelvr.CustomerMode.Shipment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,27 +13,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.R;
 
-import android.util.Log;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import android.widget.TimePicker;
-
-import com.mikhaellopez.circularimageview.CircularImageView;
-
-
 import java.util.Calendar;
-
-import android.app.DatePickerDialog;
-import android.widget.DatePicker;
 
 /**
  * Created by sophiango on 4/14/15.
@@ -43,6 +39,7 @@ public class AddShipment extends Activity {
     private static final int SELECT_FILE = 101;
     Button add_shipment_btn, timePicker, datePicker;
     CircularImageView circularImageView;
+    Bitmap image;
 
     private static final String TAG = "Date picker";
     // Widget GUI
@@ -51,10 +48,14 @@ public class AddShipment extends Activity {
     // Variable for storing current date and time
     private int mYear, mMonth, mDay, mHour, mMinute;
 
+    private TextView recipientsName;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_shipment);
+
+        recipientsName=(TextView)findViewById(R.id.recipient);
 
         timePicker = (Button)this.findViewById(R.id.timePicker);
         timePicker.setOnClickListener(new View.OnClickListener() {
@@ -82,10 +83,12 @@ public class AddShipment extends Activity {
         add_shipment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectImage();
+                addShipment();
             }
         });
     }
+
+
 
     private void showDatePicker(){
         final Calendar c = Calendar.getInstance();
@@ -182,9 +185,8 @@ public class AddShipment extends Activity {
 
                     bm = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             btmapOptions);
-
+                    image=bm;
                     // bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
-                    circularImageView.setImageBitmap(bm);
 
                     String path = android.os.Environment
                             .getExternalStorageDirectory()
@@ -216,8 +218,9 @@ public class AddShipment extends Activity {
                 Bitmap bm;
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
-                circularImageView.setImageBitmap(bm);
+                image=bm;
             }
+
         }
     }
     public String getPath(Uri uri, Activity activity) {
@@ -227,5 +230,16 @@ public class AddShipment extends Activity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    void addShipment()
+    {
+        Package p = new Package();
+        p.recipientName=recipientsName.getText().toString();
+        p.dateTime=""+mMonth+"/"+mDay+"/"+mYear+" "+mHour+":"+mMinute;
+        p.image=image;
+        PackageManager.getInstance().add(p);
+        finish();
+
     }
 }

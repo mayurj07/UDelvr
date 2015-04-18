@@ -1,4 +1,4 @@
-package com.udelvr.Slidingmenu;
+package com.udelvr.CustomerMode;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -16,8 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.udelvr.R;
-import com.udelvr.Slidingmenu.adapter.NavDrawerListAdapter;
-import com.udelvr.Slidingmenu.model.NavDrawerItem;
+import com.udelvr.CustomerMode.adapter.NavDrawerListAdapter;
+import com.udelvr.CustomerMode.model.NavDrawerItem;
 
 import java.util.ArrayList;
 

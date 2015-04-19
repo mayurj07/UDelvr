@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.udelvr.DriverMode.Shipment.DriverPackage;
+import com.udelvr.DriverMode.Shipment.DriverPackageManager;
 import com.udelvr.DriverMode.adapter.NavDrawerListAdapter;
 import com.udelvr.DriverMode.model.NavDrawerItem;
 import com.udelvr.R;
@@ -141,6 +143,9 @@ public class DriverMainActivity extends Activity {
 		// Handle action bar actions click
 		switch (item.getItemId()) {
 		case R.id.action_settings:
+            DriverPackage d = new DriverPackage();
+            d.destination="New Yourk";
+            DriverPackageManager.getInstance().add(d);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

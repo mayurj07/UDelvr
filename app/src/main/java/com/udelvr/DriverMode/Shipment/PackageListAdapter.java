@@ -1,7 +1,6 @@
 package com.udelvr.DriverMode.Shipment;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.udelvr.R;
 
 import java.util.List;
@@ -19,12 +20,12 @@ import java.util.List;
  */
 public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.ViewHolder>{
 
-    private static List<Package> packages;
+    private static List<DriverPackage> driverPackages;
     private int rowLayout;
     private Context mContext;
 
-    public PackageListAdapter(List<Package> packages, int rowLayout, Context context) {
-        this.packages = packages;
+    public PackageListAdapter(List<DriverPackage> driverPackages, int rowLayout, Context context) {
+        this.driverPackages = driverPackages;
         this.rowLayout = rowLayout;
         this.mContext = context;
     }
@@ -39,33 +40,47 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Package aPackage = packages.get(i);
-        viewHolder.packageName.setText(aPackage.recipientName);
-        viewHolder.packageImage.setImageDrawable(new BitmapDrawable(mContext.getResources(), aPackage.image));
+        DriverPackage aDriverPackage = driverPackages.get(i);
+        viewHolder.destination.setText(aDriverPackage.destination );
+
+        //Picasso.with(mContext).setIndicatorsEnabled(true);
+        String latEiffelTower = "48.858235";
+        String lngEiffelTower = "2.294571";
+        String url = "http://maps.google.com/maps/api/staticmap?center=" + latEiffelTower + "," + lngEiffelTower + "&zoom=15&size=500x500&sensor=true";
+        Picasso.with(mContext).load(url).fit().centerCrop().into(viewHolder.packageMap, new Callback() {
+            @Override
+            public void onSuccess() {
+                System.out.println("onSuccess");
+            }
+
+            @Override
+            public void onError() {
+                System.out.println("onSuccessFail");
+            }
+        });
+      //  viewHolder.packageMap.setImageDrawable(new BitmapDrawable(mContext.getResources(), aDriverPackage.image));
     }
 
     @Override
     public int getItemCount() {
-        return packages == null ? 0 : packages.size();
+        return driverPackages == null ? 0 : driverPackages.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView packageName;
-        public ImageView packageImage;
+        public TextView destination;
+        public ImageView packageMap;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            packageName = (TextView) itemView.findViewById(R.id.recipientsName);
-
-            packageImage = (ImageView)itemView.findViewById(R.id.packageThumbnailImage);
+            destination = (TextView) itemView.findViewById(R.id.destinationText);
+            packageMap = (ImageView)itemView.findViewById(R.id.packageDestinationStaticMap);
         }
 
     }
 
-    public void add(Package apackage)
+    public void add(DriverPackage apackage)
     {
-        packages.add(apackage);
-
+        driverPackages.add(apackage);
     }
 
     public void notifyDataSetChanges()

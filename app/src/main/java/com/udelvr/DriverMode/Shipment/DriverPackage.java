@@ -5,14 +5,13 @@ import android.graphics.Bitmap;
 /**
  * Created by prasadshirsath on 4/17/15.
  */
-public class Package {
+public class DriverPackage {
 
-
-        public String recipientName;
         public String dateTime;
-        public String imageUrl;
+        public int cash;
         public Bitmap image;
-        public String status;
+        public String destination;
+        public String source;
 
 
 }

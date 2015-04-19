@@ -23,16 +23,16 @@
 <color name="primary">#00BCD4</color>
 <color name="primary_dark">#0097A7</color>
 <color name="accent">#00BCD4</color>
-<color name="text_primary">#212121</color>
+<color name="text_primary">#FFFFFF</color>
 <color name="text_secondary">#727272</color>
 <color name="photo_tint">#88101010</color>
 
 
     <!--for driver mode material layiout-->
-    <color name="driver_primary">#CDDC39</color>
-    <color name="driver_primary_dark">#AFB42B</color>
+    <color name="driver_primary">#8BC34A</color>
+    <color name="driver_primary_dark">#689F38</color>
     <color name="driver_accent">#CDDC39</color>
-    <color name="driver_text_primary">#212121</color>
+    <color name="driver_text_primary">#FFFFFF</color>
     <color name="driver_text_secondary">#727272</color>
     <color name="driver_photo_tint">#88101010</color>
 
@@ -40,4 +40,9 @@
     <!--List view-->
     <color name="udelvr_list_title">#D9000000</color>
     <color name="udelvr_list_subtitle">#88101010</color>
+
+    <!--SwipeRefreshLayout-->
+        <color name="orange">#FF9900</color>
+        <color name="green">#009900</color>
+        <color name="blue">#000099</color>
 </resources>

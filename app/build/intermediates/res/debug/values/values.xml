@@ -349,8 +349,9 @@
     <string name="add_shipment">Add shipment</string>
     <string name="address">Recipient\'s address</string>
     <string name="app_name">UDelvr</string>
-    <string name="apply_btn">Apply</string>
+    <string name="apply">Apply</string>
     <string name="button_add_shipment">Add shipment</string>
+    <string name="camera_license">Take picture of your license</string>
     <!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.21.1/res/values/values.xml -->
     <eat-comment/>
     <string name="com_facebook_choose_friends">Choose Friends</string>
@@ -382,6 +383,9 @@
     <string name="com_facebook_usersettingsfragment_log_in_button">Log in…</string>
     <string name="com_facebook_usersettingsfragment_logged_in">Logged in</string>
     <string name="com_facebook_usersettingsfragment_not_logged_in">Not logged in</string>
+    <!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="date_expire">Expired by: mm/dd/yy</string>
     <!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/build/intermediates/exploded-aar/com.melnykov/floatingactionbutton/1.3.0/res/values/values.xml -->
     <eat-comment/>
     <string name="define_FloatingActionButton"/>
@@ -412,17 +416,16 @@
     <!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="mobilenumber">Mobile number</string>
-    <string name="month_expire">month expire</string>
     <string name="or">--- OR ----</string>
     <string name="password">Password</string>
     <string name="pickup_address">Where to pick up package</string>
+    <string name="pickup_date">Pick up date</string>
+    <string name="pickup_time">Pick up time</string>
     <string name="recipient_name">Recipient\'s name</string>
-    <string name="time">Pick up time</string>
     <string name="title_activity_add_shipment">Add Shipment</string>
     <string name="title_activity_spash_screen">SpashScreen</string>
     <string name="title_activity_splash_screen">UDelvr</string>
     <string name="weight">How much your package weight</string>
-    <string name="year_expire">year expire</string>
     <string name="zip">Zip code</string>
     <!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/src/main/res/values/styles.xml -->
     <eat-comment/>

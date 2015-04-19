@@ -84,31 +84,93 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/item_desc"
-            android:layout_alignEnd="@+id/timePicker" />
+            android:layout_alignEnd="@+id/timePicker_row" />
 
-        <Button
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:id="@+id/timePicker_row"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Time picker"
-            android:id="@+id/timePicker"
-            android:layout_marginTop="15dp"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@+id/datePicker_row"
+            android:layout_marginTop="15dp"
             android:layout_below="@+id/item_weight"
-            android:layout_alignEnd="@+id/datePicker"/>
+            android:orientation="horizontal"
+            >
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/pickup_time"
+                android:ems="10"
+                android:id="@+id/pickup_time"
+                android:textColor="@color/black_overlay"
+                android:textColorHint="@color/udelvr_hint_white"
+                />
 
-        <Button
-            android:layout_width="wrap_content"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time picker"
+                android:id="@+id/timePicker"/>
+        </LinearLayout>
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Time picker"-->
+            <!--android:id="@+id/timePicker"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_below="@+id/item_weight"-->
+            <!--android:layout_alignEnd="@+id/datePicker"/>-->
+
+        <LinearLayout
+            android:id="@+id/datePicker_row"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date Picker"
-            android:id="@+id/datePicker"
-            android:layout_marginTop="15dp"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/timePicker"
-            android:layout_alignEnd="@+id/camera"/>
+            android:layout_alignEnd="@+id/camera"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/timePicker_row"
+            android:orientation="horizontal"
+            >
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/pickup_date"
+                android:ems="10"
+                android:id="@+id/pickup_date"
+                android:textColor="@color/black_overlay"
+                android:textColorHint="@color/udelvr_hint_white"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date picker"
+                android:id="@+id/datePicker"/>
+        </LinearLayout>
+
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Date Picker"-->
+            <!--android:id="@+id/datePicker"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_below="@+id/timePicker"-->
+            <!--android:layout_alignEnd="@+id/camera"/>-->
 
 
         <Button
@@ -120,7 +182,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/datePicker"
+            android:layout_below="@+id/datePicker_row"
             android:layout_alignEnd="@+id/button_add_shipment"/>
 
 

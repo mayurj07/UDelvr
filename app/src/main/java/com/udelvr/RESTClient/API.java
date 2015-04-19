@@ -15,6 +15,9 @@ public interface API {
     @POST("/users/signup")
     void createUser(@Body MultipartTypedOutput multipartTypedOutput,
                         Callback<UserResponse> callback);
+
+//    @POST("/shipment")
+//    void createShipment(@Body MultipartTypedOutput multipartTypedOutput, Callback<ShipmentModel> callback);
 //
 //    @POST("/user/login")
 //    void postLoginUser(@Body LoginData credentials,

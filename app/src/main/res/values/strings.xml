@@ -62,13 +62,16 @@
     <string name="weight">How much your package weight</string>
     <string name="address">Recipient\'s address</string>
     <string name="pickup_address">Where to pick up package</string>
-    <string name="time">Pick up time</string>
+    <string name="pickup_time">Pick up time</string>
+    <string name="pickup_date">Pick up date</string>
     <string name="button_add_shipment">Add shipment</string>
     <string name="title_activity_add_shipment">Add Shipment</string>
     <!--be a driver.xml-->
     <string name="driver_license">Your valid driver license</string>
-    <string name="month_expire">month expire</string>
-    <string name="year_expire">year expire</string>
+    <!--<string name="day_expire">dd</string>-->
+    <!--<string name="month_expire">mm</string>-->
+    <!--<string name="year_expire">yy</string>-->
+    <string name="date_expire">Expired by: mm/dd/yy</string>
     <string name="apply">Apply</string>
     <string name="camera_license">Take picture of your license</string>
 

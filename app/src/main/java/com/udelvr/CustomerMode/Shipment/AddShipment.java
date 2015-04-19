@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -48,14 +49,17 @@ public class AddShipment extends Activity {
     // Variable for storing current date and time
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    private TextView recipientsName;
+    private EditText recipientName, recipientAddress, pickupAddress, pickupTime, pickupDate ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_shipment);
-
-        recipientsName=(TextView)findViewById(R.id.recipient);
+        recipientName=(EditText)findViewById(R.id.recipient);
+        recipientAddress=(EditText)findViewById(R.id.address);
+        pickupAddress=(EditText)findViewById(R.id.pickup_address);
+        pickupTime=(EditText)findViewById(R.id.pickup_time);
+        pickupDate=(EditText)findViewById(R.id.pickup_date);
 
         timePicker = (Button)this.findViewById(R.id.timePicker);
         timePicker.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +110,8 @@ public class AddShipment extends Activity {
                         // Display Selected date in textbox
 //                        txtDate.setText(dayOfMonth + "-"
 //                                + (monthOfYear + 1) + "-" + year);
-                        Log.e(TAG,"Date set: " + mYear + "," + mMonth + "," + mDay);
+//                        Log.e(TAG,"Date set: " + mYear + "," + mMonth + "," + mDay);
+                        pickupDate.setText(mMonth + "/" + mDay + "/" + mYear, TextView.BufferType.EDITABLE);
                     }
                 }, mYear, mMonth, mDay);
 
@@ -128,7 +133,8 @@ public class AddShipment extends Activity {
                                           int minute) {
                         // Display Selected time in textbox
 //                        txtTime.setText(hourOfDay + ":" + minute);
-                        Log.e(TAG,"Time set: " + mHour + "," + mMinute + ",");
+//                        Log.e(TAG,"Time set: " + mHour + "," + mMinute + ",");
+                        pickupTime.setText(mHour+":"+mMinute);
                     }
                 }, mHour, mMinute, false);
 
@@ -235,7 +241,7 @@ public class AddShipment extends Activity {
     void addShipment()
     {
         Package p = new Package();
-        p.recipientName=recipientsName.getText().toString();
+        p.recipientName=recipientName.getText().toString();
         p.dateTime=""+mMonth+"/"+mDay+"/"+mYear+" "+mHour+":"+mMinute;
         p.image=image;
         PackageManager.getInstance().add(p);

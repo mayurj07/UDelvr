@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
-    <TextView
-        android:id="@+id/txtLabel"
-         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="16dp"
-        android:text="Home View"/>
+
 
     <Button
         android:layout_width="wrap_content"
@@ -18,19 +13,32 @@
         android:textColor="@color/udelvr_white"
         android:id="@+id/button_add_shipment"
         android:layout_marginTop="25dp"
-        android:layout_below="@+id/expireDate"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:background="@color/udelvr_blue"
         />
-    
-    <!--<ImageView android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/txtLabel"-->
-        <!--android:src="@drawable/ic_home"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="10dp"/>-->
-    
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.udelvr.CustomerMode.HomeFragment"
+        android:layout_below="@+id/button_add_shipment"
+        android:layout_alignParentStart="true" />
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab_customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@mipmap/fab_car"
+        fab:fab_colorNormal="@color/udelvr_white"
+        fab:fab_colorPressed="@color/primary_dark"
+        fab:fab_colorRipple="@color/primary"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
 <!-- From: file:/Users/sophiango/AndroidStudioProjects/UDelvr-master/UDelvr/app/src/main/res/layout/fragment_home.xml -->

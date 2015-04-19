@@ -1,0 +1,98 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragmentaddshipment"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tesla.prasadshirsath.tesla.SignupDetails"
+    android:background="@color/udelvr_white"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/driver_license"
+            android:textColorHint="@color/udelvr_hint_white"
+            android:ems="10"
+            android:id="@+id/driver_license"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/black_overlay"
+            android:layout_alignEnd="@+id/month_expire"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/month_expire"
+            android:ems="10"
+            android:layout_marginTop="15dp"
+            android:id="@+id/month_expire"
+            android:textColor="@color/black_overlay"
+            android:textColorHint="@color/udelvr_hint_white"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/driver_license"
+            android:layout_alignEnd="@+id/year_expire" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:id="@+id/year_expire"
+            android:hint="@string/year_expire"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/month_expire"
+            android:textColor="@color/black_overlay"
+            android:textColorHint="@color/udelvr_hint_white"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@+id/camera"/>
+
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take picture of your license"
+        android:id="@+id/camera"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/year_expire"
+        android:layout_alignEnd="@+id/apply_btn"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/camera_license"
+            android:id="@+id/camera"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/year_expire"
+            android:layout_alignEnd="@+id/apply_btn"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/apply"
+            android:textColor="@color/udelvr_white"
+            android:id="@+id/apply_btn"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/camera"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/udelvr_blue"/>
+
+
+
+    </RelativeLayout>
+</ScrollView>

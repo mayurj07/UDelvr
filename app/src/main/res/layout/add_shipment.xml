@@ -41,6 +41,21 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/recipient"
+            android:layout_alignEnd="@+id/pickup_address" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:hint="@string/pickup_address"
+            android:ems="10"
+            android:layout_marginTop="15dp"
+            android:id="@+id/pickup_address"
+            android:textColor="@color/black_overlay"
+            android:textColorHint="@color/udelvr_hint_white"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/address"
             android:layout_alignEnd="@+id/item_desc" />
 
         <EditText
@@ -49,7 +64,7 @@
             android:id="@+id/item_desc"
             android:hint="@string/item_desc"
             android:layout_marginTop="15dp"
-            android:layout_below="@+id/address"
+            android:layout_below="@+id/pickup_address"
             android:textColor="@color/black_overlay"
             android:textColorHint="@color/udelvr_hint_white"
             android:layout_alignParentStart="true"
@@ -76,50 +91,50 @@
             android:layout_height="wrap_content"
             android:text="Time picker"
             android:id="@+id/timePicker"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/item_weight"
-            android:layout_alignEnd="@+id/datePicker"
-            />
+            android:layout_alignEnd="@+id/datePicker"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date Picker"
             android:id="@+id/datePicker"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/timePicker"
             android:layout_alignEnd="@+id/camera"/>
 
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Take picture"
             android:id="@+id/camera"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/datePicker"
-            android:layout_alignEnd="@+id/camera"
             android:layout_alignEnd="@+id/button_add_shipment"/>
 
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_shipment"
-            android:textColor="@color/udelvr_black_green"
+            android:textColor="@color/udelvr_white"
             android:id="@+id/button_add_shipment"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:layout_below="@+id/camera"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
-            android:background="@color/udelvr_blue"/>
-
-
+            android:backgroundTint="@color/udelvr_blue"/>
 
     </RelativeLayout>
 </ScrollView>

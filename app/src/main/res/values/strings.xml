@@ -61,9 +61,36 @@
     <string name="item_desc">Describe your package</string>
     <string name="weight">How much your package weight</string>
     <string name="address">Recipient\'s address</string>
+    <string name="pickup_address">Where to pick up package</string>
     <string name="time">Pick up time</string>
     <string name="button_add_shipment">Add shipment</string>
     <string name="title_activity_add_shipment">Add Shipment</string>
+    <!--be a driver.xml-->
+    <string name="driver_license">Your valid driver license</string>
+    <string name="month_expire">month expire</string>
+    <string name="year_expire">year expire</string>
+    <string name="apply">Apply</string>
+    <string name="camera_license">Take picture of your license</string>
+
+    <!-- Drivers Nav Drawer Menu Items -->
+    <string-array name="driver_nav_drawer_items">
+        <item >Driver Home</item>
+        <item >Find People</item>
+        <item >Photos</item>
+        <item >Communities</item>
+        <item >Pages</item>
+        <item >What\'s Hot</item>
+    </string-array>
+    <!-- Driver's Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="driver_nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_people</item>
+        <item>@drawable/ic_photos</item>
+        <item>@drawable/ic_communities</item>
+        <item>@drawable/ic_pages</item>
+        <item>@drawable/ic_whats_hot</item>
+    </array>
 
 
 </resources>

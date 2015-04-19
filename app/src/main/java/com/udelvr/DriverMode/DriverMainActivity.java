@@ -144,7 +144,12 @@ public class DriverMainActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
             DriverPackage d = new DriverPackage();
-            d.destination="New Yourk";
+            d.destination="Mountain View,SJ";
+            d.destinationLatitude="37.386052";
+            d.destinationLongitude="-122.083851";
+            d.dateTime="20th April 2015 2:30 PM";
+            d.amount=45;
+
             DriverPackageManager.getInstance().add(d);
 			return true;
 		default:

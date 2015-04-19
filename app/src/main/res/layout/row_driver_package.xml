@@ -27,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="San Mateo"
             android:layout_margin="5dp"
             android:id="@+id/destinationText"
             android:layout_alignBottom="@+id/packageDestinationStaticMap"
@@ -38,7 +37,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_margin="5dp"
-            android:text="$35"
             android:id="@+id/amountText"
             android:layout_below="@+id/packageDestinationStaticMap"
             android:layout_alignEnd="@+id/packageDestinationStaticMap" />
@@ -48,7 +46,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_margin="5dp"
-            android:text="4th April 2015 12:30"
             android:id="@+id/dateTimeText"
             android:layout_below="@+id/packageDestinationStaticMap"
             android:layout_alignStart="@+id/packageDestinationStaticMap" />

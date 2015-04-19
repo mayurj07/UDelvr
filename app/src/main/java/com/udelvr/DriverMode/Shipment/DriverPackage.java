@@ -8,10 +8,15 @@ import android.graphics.Bitmap;
 public class DriverPackage {
 
         public String dateTime;
-        public int cash;
-        public Bitmap image;
+        public int amount;
+        public Bitmap packageImage;
         public String destination;
         public String source;
+
+        public String destinationLatitude;
+        public String destinationLongitude;
+        public String sourceLatitude;
+        public String sourceLongitude;
 
 
 }

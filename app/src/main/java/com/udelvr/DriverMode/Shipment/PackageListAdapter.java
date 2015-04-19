@@ -42,11 +42,10 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         DriverPackage aDriverPackage = driverPackages.get(i);
         viewHolder.destination.setText(aDriverPackage.destination );
-
-        //Picasso.with(mContext).setIndicatorsEnabled(true);
-        String latEiffelTower = "48.858235";
-        String lngEiffelTower = "2.294571";
-        String url = "http://maps.google.com/maps/api/staticmap?center=" + latEiffelTower + "," + lngEiffelTower + "&zoom=15&size=500x500&sensor=true";
+        viewHolder.amount.setText("$"+aDriverPackage.amount);
+        viewHolder.dateTime.setText(aDriverPackage.dateTime);
+        Picasso.with(mContext).setIndicatorsEnabled(true);
+        String url = "http://maps.google.com/maps/api/staticmap?center="+aDriverPackage.destinationLatitude+ "," +aDriverPackage.destinationLongitude+ "&markers="+aDriverPackage.destinationLatitude+ "," +aDriverPackage.destinationLongitude+"&zoom=15&size=500x300&sensor=true";
         Picasso.with(mContext).load(url).fit().centerCrop().into(viewHolder.packageMap, new Callback() {
             @Override
             public void onSuccess() {
@@ -68,12 +67,19 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView destination;
+        public TextView amount;
+        public TextView dateTime;
         public ImageView packageMap;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             destination = (TextView) itemView.findViewById(R.id.destinationText);
             packageMap = (ImageView)itemView.findViewById(R.id.packageDestinationStaticMap);
+            amount=(TextView)itemView.findViewById(R.id.amountText);
+            dateTime=(TextView)itemView.findViewById(R.id.dateTimeText);
+
+
         }
 
     }

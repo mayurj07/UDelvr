@@ -1,4 +1,4 @@
-# UDelvr
+# UDelvr <img src="https://magnum.travis-ci.com/nkukday/UDelvr.svg?token=xrQwpza592SQtXySipJo&branch=master">
 Android Application with RESTful services.<br>
 #TechStack<br>
 Spring with JAVA/MongoDB for RESTful Services.<br>

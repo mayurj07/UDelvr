@@ -5,11 +5,11 @@
     <!--<style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">-->
         <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
     <!--</style>-->
-    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- theme customizations -->
     </style>
 
-    <style name="FullscreenTheme" parent="android:Theme.Material.NoActionBar.Fullscreen">
+    <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@null</item>
         <item name="metaButtonBarStyle">@style/ButtonBar</item>

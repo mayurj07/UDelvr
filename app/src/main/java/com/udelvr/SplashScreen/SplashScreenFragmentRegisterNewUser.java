@@ -17,24 +17,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.udelvr.ApplicationContextProvider;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
-import com.udelvr.RESTClient.RestClient;
+import com.udelvr.RESTClient.User.User;
+import com.udelvr.RESTClient.User.UserController;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit.mime.MultipartTypedOutput;
-import retrofit.mime.TypedFile;
-import retrofit.mime.TypedString;
 
 
 public class SplashScreenFragmentRegisterNewUser extends Activity {
@@ -44,6 +41,8 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
     ViewGroup root;
     Button btn_register;
     CircularImageView circularImageView;
+    EditText editTextFullName,editTextEmail,editTextPassword,editTextMobile;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,14 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         getActionBar().hide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        user = new User();
+
+        editTextFullName = (EditText)findViewById(R.id.editText_fullname);
+        editTextEmail = (EditText)findViewById(R.id.editText_email);
+        editTextPassword = (EditText)findViewById(R.id.editText_password);
+        editTextMobile = (EditText)findViewById(R.id.editText_mobile);
+
         circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
         //circularImageView.setBorderColor(getResources().getColor());
         circularImageView.setBorderWidth(5);
@@ -67,9 +74,22 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
-                startActivity(intent);
+
+                user.setFullName(editTextFullName.getText().toString());
+                user.setEmail(editTextEmail.getText().toString());
+                user.setPassword(editTextPassword.getText().toString());
+                user.setMobileNo(editTextMobile.getText().toString());
+
+
+
+                if(UserController.registerNewUser(user)){
+                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
+                    Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(ApplicationContextProvider.getContext(),"Registation Failed!",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }
@@ -149,7 +169,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                             btmapOptions);
 
                     // bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
-                    circularImageView.setImageBitmap(bm);
+
 
                     String path = android.os.Environment
                             .getExternalStorageDirectory()
@@ -160,6 +180,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                     File file = new File(path, String.valueOf(System
                             .currentTimeMillis()) + ".jpg");
 
+                    circularImageView.setImageBitmap(bm);
 
 
                     try {
@@ -167,6 +188,11 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                         bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
                         fOut.flush();
                         fOut.close();
+
+
+                        user.setprofilePhoto(file);
+
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -179,15 +205,13 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                 }
             } else if (requestCode == SELECT_FILE) {
                 Uri selectedImageUri = data.getData();
-
                 String tempPath = getPath(selectedImageUri, this);
                 Bitmap bm;
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
-
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
-
-
+                user.setprofilePhoto(new File(getPath(selectedImageUri, this)));
                 circularImageView.setImageBitmap(bm);
+
 
             }
         }

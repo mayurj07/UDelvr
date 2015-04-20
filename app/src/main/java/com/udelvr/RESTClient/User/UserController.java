@@ -28,7 +28,6 @@ public class UserController {
        multipartTypedOutput.addPart("deviceId", new TypedString(new AuthStore(ApplicationContextProvider.getContext()).getDeviceid()));
        multipartTypedOutput.addPart("profilePhoto", new TypedFile("profilephoto", user.getprofilePhoto()));
 
-
        RestClient.get().createUser(multipartTypedOutput, new Callback<UserResponse>() {
            @Override
            public void success(UserResponse userResponse, Response response) {
@@ -39,14 +38,16 @@ public class UserController {
                auth.setUserid(userResponse.getUserId());
                auth.setDeviceid(userResponse.getDeviceId());
                auth.setPassword(userResponse.getPassword());
+               success[0]=true;
 
            }
 
            @Override
            public void failure(RetrofitError error) {
+               success[0]=false;
 
            }
        });
-            return true;
+            return success[0];
     }
 }

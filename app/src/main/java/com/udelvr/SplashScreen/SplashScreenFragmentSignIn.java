@@ -42,6 +42,7 @@ public class SplashScreenFragmentSignIn extends Fragment {
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
                 startActivity(intent);
             }

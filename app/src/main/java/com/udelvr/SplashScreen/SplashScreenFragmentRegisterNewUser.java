@@ -73,16 +73,12 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 user.setFullName(editTextFullName.getText().toString());
                 user.setEmail(editTextEmail.getText().toString());
                 user.setPassword(editTextPassword.getText().toString());
                 user.setMobileNo(editTextMobile.getText().toString());
 
-
-
                 if(UserController.registerNewUser(user)){
-                   // Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
                     Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
                     startActivity(intent);
                 }else{

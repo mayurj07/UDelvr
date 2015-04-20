@@ -52,29 +52,29 @@ public class ApplyToBeDriver extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.be_a_driver);
-        driver_license=(TextView)findViewById(R.id.driver_license);
-        date_expire=(TextView)findViewById(R.id.date_expire);
-        datePicker = (Button)this.findViewById(R.id.datePicker);
-        datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
-            }
-        });
-        camera = (Button)this.findViewById(R.id.camera);
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage();
-            }
-        });
-        apply = (Button)this.findViewById(R.id.apply_btn);
-        apply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        driver_license=(TextView)findViewById(R.id.driver_license);
+//        date_expire=(TextView)findViewById(R.id.date_expire);
+//        datePicker = (Button)this.findViewById(R.id.datePicker);
+//        datePicker.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDatePicker();
+//            }
+//        });
+//        camera = (Button)this.findViewById(R.id.camera);
+//        camera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                selectImage();
+//            }
+//        });
+//        apply = (Button)this.findViewById(R.id.apply_btn);
+//        apply.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
 

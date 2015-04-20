@@ -16,12 +16,20 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.EditText;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.udelvr.ApplicationContextProvider;
+import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
+import com.udelvr.RESTClient.User.UserController;
+import com.udelvr.RESTClient.Shipment.Shipment;
+import com.udelvr.RESTClient.Shipment.ShipmentController;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +45,8 @@ public class AddShipment extends Activity {
 
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
-    Button add_shipment_btn, timePicker, datePicker;
+    Button add_shipment_btn;
+    ImageButton timePicker, datePicker;
     CircularImageView circularImageView;
     Bitmap image;
 
@@ -47,43 +56,79 @@ public class AddShipment extends Activity {
 
     // Variable for storing current date and time
     private int mYear, mMonth, mDay, mHour, mMinute;
-
-    private TextView recipientsName;
+    private EditText recipientsName, sourceAddress, destAddress, packageDesc, packageWeight, pickupTime, pickupDate ;
+    private Shipment shipment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_shipment);
+        shipment = new Shipment();
+        recipientsName=(EditText)findViewById(R.id.recipient);
+        sourceAddress=(EditText)findViewById(R.id.input_address);
+        destAddress=(EditText)findViewById(R.id.input_pickup_address);
+        packageDesc=(EditText)findViewById(R.id.item_desc);
+        packageWeight=(EditText)findViewById(R.id.item_weight);
+        pickupTime=(EditText)findViewById(R.id.pickup_time);
+        pickupDate=(EditText)findViewById(R.id.pickup_date);
 
-        recipientsName=(TextView)findViewById(R.id.recipient);
-
-        timePicker = (Button)this.findViewById(R.id.timePicker);
+        timePicker = (ImageButton)this.findViewById(R.id.timePicker);
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showTimePicker();
             }
         });
-        datePicker = (Button)this.findViewById(R.id.datePicker);
+        datePicker = (ImageButton)this.findViewById(R.id.datePicker);
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker();
             }
         });
-        camera = (Button)this.findViewById(R.id.camera);
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage();
-            }
-        });
+//        camera = (Button)this.findViewById(R.id.camera);
+//        camera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                selectImage();
+//            }
+//        });
 
         add_shipment_btn = (Button)this.findViewById(R.id.button_add_shipment);
         add_shipment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addShipment();
+                shipment.setRecipientName(recipientsName.getText().toString());
+//                shipment.setSourceAddress(editTextEmail.getText().toString());
+//                shipment.setDestinationAddress(editTextPassword.getText().toString());
+                shipment.setPackageDescription(packageDesc.getText().toString());
+                shipment.setPackageWeight(packageWeight.getText().toString());
+                shipment.setPickupTime(pickupTime.getText().toString());
+                shipment.setPickupDate(pickupDate.getText().toString());
+//                shipment.setShipmentImage(editTextMobile.getText().toString());
+//                shipment.setCustomerId(editTextMobile.getText().toString());
+                shipment.setCustomerID("12345");
+
+                // temp hardcode
+//                shipment.setShipmentImage("https://s3-us-west-1.amazonaws.com/project.bucket1/5");
+                shipment.setSourceLat("37.3351870");
+                shipment.setSourceLong("-121.8810720");
+                shipment.setDestinationLat("37.3351870");
+                shipment.setDestinationLong("-121.8810720");
+                shipment.setSourceAddress("1 Washington Sq, San Jose, CA 95192");
+                shipment.setDestinationAddress("1 Washington Sq, San Jose, CA 95192");
+
+
+
+                if(ShipmentController.addNewShipment(shipment)){
+//                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
+//                    Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
+//                    startActivity(intent);
+                    Toast.makeText(ApplicationContextProvider.getContext(), "Add new shipment successfully!", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(ApplicationContextProvider.getContext(), "Registation Failed!", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }
@@ -104,9 +149,9 @@ public class AddShipment extends Activity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         // Display Selected date in textbox
-//                        txtDate.setText(dayOfMonth + "-"
-//                                + (monthOfYear + 1) + "-" + year);
-                        Log.e(TAG,"Date set: " + mYear + "," + mMonth + "," + mDay);
+                        pickupDate.setText(dayOfMonth + "-"
+                                + (monthOfYear + 1) + "-" + year);
+//                        Log.e(TAG,"Date set: " + mYear + "," + mMonth + "," + mDay);
                     }
                 }, mYear, mMonth, mDay);
 
@@ -127,8 +172,8 @@ public class AddShipment extends Activity {
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
                         // Display Selected time in textbox
-//                        txtTime.setText(hourOfDay + ":" + minute);
-                        Log.e(TAG,"Time set: " + mHour + "," + mMinute + ",");
+                        pickupTime.setText(hourOfDay + ":" + minute);
+//                        Log.e(TAG,"Time set: " + mHour + "," + mMinute + ",");
                     }
                 }, mHour, mMinute, false);
 

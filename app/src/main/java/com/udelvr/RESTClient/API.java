@@ -1,17 +1,14 @@
 package com.udelvr.RESTClient;
 
 
-import com.udelvr.RESTClient.User.User;
+import com.udelvr.RESTClient.Shipment.ShipmentResponse;
 import com.udelvr.RESTClient.User.UserResponse;
-
-import java.util.List;
 
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
-import retrofit.http.Path;
 import retrofit.mime.MultipartTypedOutput;
 
 /**
@@ -19,18 +16,19 @@ import retrofit.mime.MultipartTypedOutput;
  */
 public interface API {
     @Multipart
-    @POST("/users/signup")
+    @POST("/user/signup")
     void createUser(@Body MultipartTypedOutput multipartTypedOutput,
                         Callback<UserResponse> callback);
 
-    @GET("/user/{id}/shipments")
-    List<User> groupList(@Path("id") int userId,Callback<UserResponse> callback);
+//    @GET("/user/{id}/shipments")
+//    List<User> groupList(@Path("id") int userId,Callback<UserResponse> callback);
+//
+    @GET("/driverShipment")
+    void groupList(Callback<ShipmentResponse> callback);
 
-    @GET("/driver/shipments")
-    List<User> groupList(@Path("id") int userId,Callback<UserResponse> callback);
-
-
-
+    @POST("/shipment")
+    void addNewShipment(@Body MultipartTypedOutput multipartTypedOutput,
+                    Callback<ShipmentResponse> callback);
 //    @POST("/user/login")
 //    void postLoginUser(@Body LoginData credentials,
 //                       Callback<LoginResponse> callback);

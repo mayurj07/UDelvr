@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.mikhaellopez.circularimageview;
+package com.mikhaellopez.circularimageview.test;
 
 public final class R {
     public static final class attr {
@@ -16,7 +16,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int border=0x7f010000;
+        public static final int border=0x7f010000;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -25,7 +25,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int border_color=0x7f010002;
+        public static final int border_color=0x7f010002;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -35,11 +35,11 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int border_width=0x7f010001;
+        public static final int border_width=0x7f010001;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int circularImageViewStyle=0x7f010004;
+        public static final int circularImageViewStyle=0x7f010004;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -47,7 +47,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int shadow=0x7f010003;
+        public static final int shadow=0x7f010003;
     }
     public static final class styleable {
         /** Attributes that can be used with a CircularImageView.
@@ -56,10 +56,10 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CircularImageView_border com.mikhaellopez.circularimageview:border}</code></td><td></td></tr>
-           <tr><td><code>{@link #CircularImageView_border_color com.mikhaellopez.circularimageview:border_color}</code></td><td></td></tr>
-           <tr><td><code>{@link #CircularImageView_border_width com.mikhaellopez.circularimageview:border_width}</code></td><td></td></tr>
-           <tr><td><code>{@link #CircularImageView_shadow com.mikhaellopez.circularimageview:shadow}</code></td><td></td></tr>
+           <tr><td><code>{@link #CircularImageView_border com.mikhaellopez.circularimageview.test:border}</code></td><td></td></tr>
+           <tr><td><code>{@link #CircularImageView_border_color com.mikhaellopez.circularimageview.test:border_color}</code></td><td></td></tr>
+           <tr><td><code>{@link #CircularImageView_border_width com.mikhaellopez.circularimageview.test:border_width}</code></td><td></td></tr>
+           <tr><td><code>{@link #CircularImageView_shadow com.mikhaellopez.circularimageview.test:shadow}</code></td><td></td></tr>
            </table>
            @see #CircularImageView_border
            @see #CircularImageView_border_color
@@ -70,7 +70,7 @@ containing a value of this type.
             0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003
         };
         /**
-          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.R.attr#border}
+          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.test.R.attr#border}
           attribute's value can be found in the {@link #CircularImageView} array.
 
 
@@ -80,11 +80,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.mikhaellopez.circularimageview:border
+          @attr name com.mikhaellopez.circularimageview.test:border
         */
-        public static int CircularImageView_border = 0;
+        public static final int CircularImageView_border = 0;
         /**
-          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.R.attr#border_color}
+          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.test.R.attr#border_color}
           attribute's value can be found in the {@link #CircularImageView} array.
 
 
@@ -95,11 +95,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.mikhaellopez.circularimageview:border_color
+          @attr name com.mikhaellopez.circularimageview.test:border_color
         */
-        public static int CircularImageView_border_color = 2;
+        public static final int CircularImageView_border_color = 2;
         /**
-          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.R.attr#border_width}
+          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.test.R.attr#border_width}
           attribute's value can be found in the {@link #CircularImageView} array.
 
 
@@ -111,11 +111,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.mikhaellopez.circularimageview:border_width
+          @attr name com.mikhaellopez.circularimageview.test:border_width
         */
-        public static int CircularImageView_border_width = 1;
+        public static final int CircularImageView_border_width = 1;
         /**
-          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.R.attr#shadow}
+          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.test.R.attr#shadow}
           attribute's value can be found in the {@link #CircularImageView} array.
 
 
@@ -125,16 +125,16 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.mikhaellopez.circularimageview:shadow
+          @attr name com.mikhaellopez.circularimageview.test:shadow
         */
-        public static int CircularImageView_shadow = 3;
+        public static final int CircularImageView_shadow = 3;
         /** Attributes that can be used with a Theme.
            <p>Includes the following attributes:</p>
            <table>
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #Theme_circularImageViewStyle com.mikhaellopez.circularimageview:circularImageViewStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #Theme_circularImageViewStyle com.mikhaellopez.circularimageview.test:circularImageViewStyle}</code></td><td></td></tr>
            </table>
            @see #Theme_circularImageViewStyle
          */
@@ -142,14 +142,14 @@ containing a value of this type.
             0x7f010004
         };
         /**
-          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.R.attr#circularImageViewStyle}
+          <p>This symbol is the offset where the {@link com.mikhaellopez.circularimageview.test.R.attr#circularImageViewStyle}
           attribute's value can be found in the {@link #Theme} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.mikhaellopez.circularimageview:circularImageViewStyle
+          @attr name com.mikhaellopez.circularimageview.test:circularImageViewStyle
         */
-        public static int Theme_circularImageViewStyle = 0;
+        public static final int Theme_circularImageViewStyle = 0;
     };
 }

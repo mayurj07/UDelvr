@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -25,7 +24,6 @@ import com.udelvr.ApplicationContextProvider;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
-import com.udelvr.RESTClient.User.UserController;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -82,8 +80,8 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
 
 
 
-                if(UserController.registerNewUser(user)){
-                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
+                if(true){//UserController.registerNewUser(user)){
+                   // Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
                     Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
                     startActivity(intent);
                 }else{

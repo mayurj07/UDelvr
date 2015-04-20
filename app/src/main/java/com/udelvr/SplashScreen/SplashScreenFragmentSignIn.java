@@ -15,6 +15,7 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 
 import java.util.Arrays;
@@ -24,7 +25,7 @@ public class SplashScreenFragmentSignIn extends Fragment {
     private LoginButton authButton;
     private UiLifecycleHelper uiHelper;
     private static final String TAG = "REGISTER SPLASH";
-    Button btn_register;
+    Button btn_register,btn_signin;
     ViewGroup root;
 
 	public static Fragment newInstance(Context context) {
@@ -37,6 +38,14 @@ public class SplashScreenFragmentSignIn extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		 root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen_signup, container,false);
         btn_register = (Button) root.findViewById(R.id.button_signup);
+        btn_signin = (Button)root.findViewById(R.id.button_signin);
+        btn_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
+                startActivity(intent);
+            }
+        });
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

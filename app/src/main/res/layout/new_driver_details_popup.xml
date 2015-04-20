@@ -37,7 +37,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="160dp"
                     android:id="@+id/imageView"
-                    android:background="@drawable/pizza_my_heart_detail"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
 

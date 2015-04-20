@@ -46,13 +46,13 @@ public class AddShipment extends Activity {
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
     Button add_shipment_btn;
-    ImageButton timePicker, datePicker;
+    ImageButton timePicker, datePicker, camera;
     CircularImageView circularImageView;
     Bitmap image;
 
     private static final String TAG = "Date picker";
     // Widget GUI
-    Button btnCalendar, btnTimePicker, camera;
+    Button btnCalendar, btnTimePicker;
 
     // Variable for storing current date and time
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -71,7 +71,6 @@ public class AddShipment extends Activity {
         packageWeight=(EditText)findViewById(R.id.item_weight);
         pickupTime=(EditText)findViewById(R.id.pickup_time);
         pickupDate=(EditText)findViewById(R.id.pickup_date);
-
         timePicker = (ImageButton)this.findViewById(R.id.timePicker);
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,13 +85,13 @@ public class AddShipment extends Activity {
                 showDatePicker();
             }
         });
-//        camera = (Button)this.findViewById(R.id.camera);
-//        camera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                selectImage();
-//            }
-//        });
+        camera = (ImageButton)this.findViewById(R.id.shipment_img);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
 
         add_shipment_btn = (Button)this.findViewById(R.id.button_add_shipment);
         add_shipment_btn.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +104,7 @@ public class AddShipment extends Activity {
                 shipment.setPackageWeight(packageWeight.getText().toString());
                 shipment.setPickupTime(pickupTime.getText().toString());
                 shipment.setPickupDate(pickupDate.getText().toString());
-//                shipment.setShipmentImage(editTextMobile.getText().toString());
+
 //                shipment.setCustomerId(editTextMobile.getText().toString());
                 shipment.setCustomerID("12345");
 
@@ -118,13 +117,13 @@ public class AddShipment extends Activity {
                 shipment.setSourceAddress("1 Washington Sq, San Jose, CA 95192");
                 shipment.setDestinationAddress("1 Washington Sq, San Jose, CA 95192");
 
-
-
                 if(ShipmentController.addNewShipment(shipment)){
 //                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
 //                    Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
 //                    startActivity(intent);
                     Toast.makeText(ApplicationContextProvider.getContext(), "Add new shipment successfully!", Toast.LENGTH_LONG).show();
+                    addShipment();
+
                 }else{
                     Toast.makeText(ApplicationContextProvider.getContext(), "Registation Failed!", Toast.LENGTH_LONG).show();
                 }
@@ -183,10 +182,8 @@ public class AddShipment extends Activity {
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",
                 "Cancel" };
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Photo!");
-
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
@@ -211,6 +208,7 @@ public class AddShipment extends Activity {
         });
         builder.show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -230,9 +228,8 @@ public class AddShipment extends Activity {
 
                     bm = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             btmapOptions);
-                    image=bm;
-                    // bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
 
+                    // bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
                     String path = android.os.Environment
                             .getExternalStorageDirectory()
                             + File.separator
@@ -241,11 +238,14 @@ public class AddShipment extends Activity {
                     OutputStream fOut = null;
                     File file = new File(path, String.valueOf(System
                             .currentTimeMillis()) + ".jpg");
+                    System.out.println("bitmap: " + bm);
+                    camera.setImageBitmap(bm);
                     try {
                         fOut = new FileOutputStream(file);
                         bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
                         fOut.flush();
                         fOut.close();
+                        shipment.setShipmentImage(file);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -258,14 +258,13 @@ public class AddShipment extends Activity {
                 }
             } else if (requestCode == SELECT_FILE) {
                 Uri selectedImageUri = data.getData();
-
                 String tempPath = getPath(selectedImageUri, this);
                 Bitmap bm;
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
-                image=bm;
+                shipment.setShipmentImage(new File(getPath(selectedImageUri, this)));
+                camera.setImageBitmap(bm);
             }
-
         }
     }
     public String getPath(Uri uri, Activity activity) {
@@ -281,10 +280,13 @@ public class AddShipment extends Activity {
     {
         Package p = new Package();
         p.recipientName=recipientsName.getText().toString();
-        p.dateTime=""+mMonth+"/"+mDay+"/"+mYear+" "+mHour+":"+mMinute;
-        p.image=image;
+//        p.dateTime=""+mMonth+"/"+mDay+"/"+mYear+" "+mHour+":"+mMinute;
+        p.dateTime=shipment.getPickupTime() + " " + shipment.getPickupDate();
+        BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
+        Bitmap bmp = BitmapFactory.decodeFile(shipment.getShipmentImage().getAbsolutePath(),btmapOptions);
+        p.image= bmp;
+        p.status=shipment.getStatus();
         PackageManager.getInstance().add(p);
         finish();
-
     }
 }

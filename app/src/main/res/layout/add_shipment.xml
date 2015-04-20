@@ -44,7 +44,6 @@
                 android:inputType="textPostalAddress"
                 android:hint="@string/address"
                 android:ems="10"
-                android:hint="@string/address"
                 android:id="@+id/input_address"
                 android:textColor="@color/black_overlay"
                 android:textColorHint="@color/udelvr_hint_white"/>
@@ -72,7 +71,6 @@
                 android:inputType="textPostalAddress"
                 android:hint="@string/address"
                 android:ems="10"
-                android:hint="@string/address"
                 android:id="@+id/input_pickup_address"
                 android:textColor="@color/black_overlay"
                 android:textColorHint="@color/udelvr_hint_white"/>
@@ -82,35 +80,7 @@
                 android:src="@drawable/default_profile"
                 android:layout_centerHorizontal="true" />
         </LinearLayout>
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:inputType="textPostalAddress"-->
-            <!--android:hint="@string/address"-->
-            <!--android:ems="10"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:id="@+id/address"-->
-            <!--android:textColor="@color/black_overlay"-->
-            <!--android:textColorHint="@color/udelvr_hint_white"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_below="@+id/recipient"-->
-            <!--android:layout_alignEnd="@+id/pickup_address" />-->
 
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:inputType="textPostalAddress"-->
-            <!--android:hint="@string/pickup_address"-->
-            <!--android:ems="10"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:id="@+id/pickup_address"-->
-            <!--android:textColor="@color/black_overlay"-->
-            <!--android:textColorHint="@color/udelvr_hint_white"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_below="@+id/address"-->
-            <!--android:layout_alignEnd="@+id/item_desc" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -126,7 +96,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="item_information"
+                android:id="@+id/item_information"
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <EditText
@@ -151,8 +121,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="item_information">
+                android:layout_height="wrap_content">
                 <ImageButton
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -162,35 +131,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/item_desc"-->
-            <!--android:hint="@string/item_desc"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:layout_below="@+id/pickup_address"-->
-            <!--android:textColor="@color/black_overlay"-->
-            <!--android:textColorHint="@color/udelvr_hint_white"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignEnd="@+id/item_weight"/>-->
-
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:inputType="numberDecimal"-->
-            <!--android:hint="@string/weight"-->
-            <!--android:ems="10"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:id="@+id/item_weight"-->
-            <!--android:textColor="@color/black_overlay"-->
-            <!--android:textColorHint="@color/udelvr_hint_white"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_below="@+id/item_desc"-->
-            <!--android:layout_alignEnd="@+id/timePicker_row" />-->
-
 
         <LinearLayout
             android:id="@+id/timePicker_row"
@@ -222,18 +162,6 @@
                 android:id="@+id/timePicker"/>
         </LinearLayout>
 
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Time picker"-->
-            <!--android:id="@+id/timePicker"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_below="@+id/item_weight"-->
-            <!--android:layout_alignEnd="@+id/datePicker"/>-->
-
         <LinearLayout
             android:id="@+id/datePicker_row"
             android:layout_width="match_parent"
@@ -263,39 +191,6 @@
                 android:id="@+id/datePicker"/>
         </LinearLayout>
 
-
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Date Picker"-->
-            <!--android:id="@+id/datePicker"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_below="@+id/timePicker"-->
-            <!--android:layout_alignEnd="@+id/camera"/>-->
-
-
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Take picture"-->
-            <!--android:id="@+id/camera"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_below="@+id/datePicker_row"-->
-            <!--android:layout_alignEnd="@+id/button_add_shipment"/>-->
-
-        <!--<ImageButton-->
-            <!--android:layout_width="95dp"-->
-            <!--android:layout_height="95dp"-->
-            <!--android:id="@+id/shipment_img"-->
-            <!--android:src="@drawable/default_profile"-->
-            <!--android:layout_below="@+id/datePicker_row"-->
-            <!--android:layout_centerHorizontal="true" />-->
 
         <Button
             android:layout_width="match_parent"

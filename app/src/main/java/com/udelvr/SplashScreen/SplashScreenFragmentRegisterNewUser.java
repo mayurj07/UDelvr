@@ -24,6 +24,7 @@ import com.udelvr.ApplicationContextProvider;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
+import com.udelvr.RESTClient.User.UserController;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,7 +81,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
 
 
 
-                if(true){//UserController.registerNewUser(user)){
+                if(UserController.registerNewUser(user)){
                    // Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
                     Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
                     startActivity(intent);
@@ -91,28 +92,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
             }
         });
     }
-//	public static Fragment newInstance(Context context) {
-//        SplashScreenFragmentRegisterNewUser f = new SplashScreenFragmentRegisterNewUser();
-//
-//		return f;
-//	}
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//       // btn_register = (Button) root.findViewById(R.id.button_signup);
-//
-//
-//    }
-
-//    @Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-//		 root = (ViewGroup) inflater.inflate(R.layout.activity_register_details, null);
-//
-//
-//        return root;
-//	}
 
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",

@@ -33,6 +33,13 @@ public class UserController {
            @Override
            public void success(UserResponse userResponse, Response response) {
 
+               AuthStore auth = new AuthStore(ApplicationContextProvider.getContext());
+               auth.setEmail(userResponse.getEmail());
+               auth.setProfilePicUrl(userResponse.getProfileURL());
+               auth.setUserid(userResponse.getUserId());
+               auth.setDeviceid(userResponse.getDeviceId());
+               auth.setPassword(userResponse.getPassword());
+
            }
 
            @Override

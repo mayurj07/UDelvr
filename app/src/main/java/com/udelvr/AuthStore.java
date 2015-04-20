@@ -33,13 +33,13 @@ public class AuthStore
     {
         return mPrefs.getString("auth",null);
     }
-    public void setUsername(String email)
+    public void setEmail(String email)
     {
         Editor editor = mPrefs.edit();
         editor.putString("email",email);
         editor.commit();
     }
-    public String getUsername()
+    public String getEmail()
     {
         return mPrefs.getString("email",null);
     }
@@ -70,6 +70,35 @@ public class AuthStore
         editor.putString("deviceid",deviceid);
         editor.commit();
     }
+    public String getUserId() {
 
+        String id=mPrefs.getString("userid",null);
+        if(id == null){
+            return Settings.Secure.getString(ApplicationContextProvider.getContext().getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+        }
+        return id;
+    }
+    public void setUserid(String userid)
+    {
+        Editor editor = mPrefs.edit();
+        editor.putString("userid",userid);
+        editor.commit();
+    }
 
+    public String getProfilePicUrl() {
+
+        String id=mPrefs.getString("profilepicurl",null);
+        if(id == null){
+            return Settings.Secure.getString(ApplicationContextProvider.getContext().getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+        }
+        return id;
+    }
+    public void setProfilePicUrl(String profilePicUrl)
+    {
+        Editor editor = mPrefs.edit();
+        editor.putString("profilepicurl",profilePicUrl);
+        editor.commit();
+    }
 }

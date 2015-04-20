@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -83,7 +82,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
 
 
                 if(UserController.registerNewUser(user)){
-                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
+                   // Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
                     Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
                     startActivity(intent);
                 }else{
@@ -93,28 +92,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
             }
         });
     }
-//	public static Fragment newInstance(Context context) {
-//        SplashScreenFragmentRegisterNewUser f = new SplashScreenFragmentRegisterNewUser();
-//
-//		return f;
-//	}
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//       // btn_register = (Button) root.findViewById(R.id.button_signup);
-//
-//
-//    }
-
-//    @Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-//		 root = (ViewGroup) inflater.inflate(R.layout.activity_register_details, null);
-//
-//
-//        return root;
-//	}
 
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",

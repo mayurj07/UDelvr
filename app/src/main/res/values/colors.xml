@@ -18,6 +18,8 @@
     <color name="counter_text_bg">#626262</color>
     <color name="counter_text_color">#c5c4c4</color>
 
+    <color name="driver_detail_yellowtext">#c5c4c4</color>
+
 
 <!--for material layiout-->
 <color name="primary">#00BCD4</color>

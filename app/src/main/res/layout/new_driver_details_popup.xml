@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context="com.tesla.prasadshirsath.tesla.LunchSpotPopup"
-    android:background="#00FFFFFF"
+    android:background="#10000000"
     android:id="@+id/lunchspot_popup"
     >
 
@@ -11,15 +11,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="55dp"
+                       android:layout_marginTop="55dp"
             android:layout_marginBottom="55dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-
-
             android:id="@+id/relativeLayout">
+
 
 
             <RelativeLayout
@@ -30,50 +27,97 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/roundedwhitebutton"
                 android:orientation="vertical"
-                android:weightSum="1">
 
+                android:weightSum="1">
 
                 <ImageView
                     android:layout_width="fill_parent"
-                    android:layout_height="160dp"
-                    android:id="@+id/imageView"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="LocationSpot"
-                    android:textColor="#000000"
-                    android:id="@+id/textView_locationname"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_below="@+id/imageView"
-                    android:layout_alignParentStart="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="About"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="#000000"
-                    android:id="@+id/textView_about"
-                    android:layout_alignStart="@+id/textView_locationname"
-                    android:layout_below="@+id/textView_locationname"
-                    android:layout_alignEnd="@+id/textView_locationname" />
-
-                <TextView
-                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Say something about me"
-                    android:padding="10dp"
-                    android:id="@+id/textView4"
-                    android:layout_below="@+id/textView_about"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentBottom="true" />
+                    android:id="@+id/imageView2"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/driver_detail"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentStart="true"
+                    android:layout_above="@+id/driver_license" />
+
+                    <LinearLayout
+                        android:id="@+id/driver_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_above="@+id/datePicker_row"
+                        android:layout_alignParentStart="true">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/driver_license"
+                            android:textColorHint="@color/udelvr_hint_white"
+                            android:ems="10"
+                            android:textColor="@color/black_overlay"
+                            android:id="@+id/edittext_driver_licence"
+                            />
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/default_profile"
+                            android:id="@+id/camera_driver_licence"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/datePicker_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_above="@+id/apply_btn"
+                        android:layout_margin="5dp"
+                        android:layout_alignParentStart="true">
+                        <EditText
+                            android:layout_width="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:hint="@string/date_expire"
+                            android:ems="10"
+                            android:id="@+id/edittext_expire_date"
+                            android:textColor="@color/black_overlay"
+                            android:textColorHint="@color/udelvr_hint_white"
+                            />
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/default_profile"
+                            android:id="@+id/datePicker"/>
+                    </LinearLayout>
+
+
+
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:text="@string/apply"
+                        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+                        android:id="@+id/apply_btn"
+                        android:background="@drawable/roundedgraybutton"
+                        android:textColorHighlight="@color/udelvr_blue"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Driver's Details"
+                    android:textColor="@color/driver_detail_yellowtext"
+                    android:id="@+id/textView2"
+                    android:layout_above="@+id/driver_license"
+                    android:layout_alignStart="@+id/datePicker_row" />
+
 
             </RelativeLayout>
 

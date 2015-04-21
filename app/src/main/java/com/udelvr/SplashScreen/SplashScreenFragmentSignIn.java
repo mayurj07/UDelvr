@@ -45,6 +45,7 @@ public class SplashScreenFragmentSignIn extends Fragment {
 
                 Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {

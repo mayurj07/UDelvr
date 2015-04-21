@@ -81,6 +81,8 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                 if(UserController.registerNewUser(user)){
                     Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
                     startActivity(intent);
+                    finish();
+
                 }else{
                     Toast.makeText(ApplicationContextProvider.getContext(),"Registation Failed!",Toast.LENGTH_LONG).show();
                 }

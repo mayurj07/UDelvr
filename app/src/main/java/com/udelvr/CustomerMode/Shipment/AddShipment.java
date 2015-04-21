@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.CustomerMode.CustomerMainActivity;
+import com.udelvr.Map.EditMapActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.UserController;
 import com.udelvr.RESTClient.Shipment.Shipment;
@@ -39,14 +40,14 @@ import java.io.OutputStream;
 import java.util.Calendar;
 
 /**
- * Created by sophiango on 4/14/15.
+ * Authored by sophiango and prasadshirsath
  */
 public class AddShipment extends Activity {
 
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
     Button add_shipment_btn;
-    ImageButton timePicker, datePicker, camera;
+    ImageButton timePicker, datePicker, camera, sourceAddressPick, destAddressPick;
     CircularImageView circularImageView;
     Bitmap image;
 
@@ -64,18 +65,60 @@ public class AddShipment extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_shipment);
         shipment = new Shipment();
+        // row 1
         recipientsName=(EditText)findViewById(R.id.recipient);
+        // row 2
         sourceAddress=(EditText)findViewById(R.id.input_address);
+        sourceAddress.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplication(), EditMapActivity.class);
+                startActivity(i);
+            }
+        });
+        sourceAddressPick = (ImageButton) findViewById(R.id.choose_address);
+        sourceAddressPick.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplication(), EditMapActivity.class);
+                startActivity(i);
+            }
+        });
+        // row 3
         destAddress=(EditText)findViewById(R.id.input_pickup_address);
+        destAddressPick = (ImageButton) findViewById(R.id.choose_pickup_address);
+
+        // row 4
         packageDesc=(EditText)findViewById(R.id.item_desc);
         packageWeight=(EditText)findViewById(R.id.item_weight);
+        camera = (ImageButton)this.findViewById(R.id.shipment_img);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+        // row 5
         pickupTime=(EditText)findViewById(R.id.pickup_time);
-        pickupDate=(EditText)findViewById(R.id.pickup_date);
+        pickupTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePicker();
+            }
+        });
         timePicker = (ImageButton)this.findViewById(R.id.timePicker);
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showTimePicker();
+            }
+        });
+        // row 6
+        pickupDate=(EditText)findViewById(R.id.pickup_date);
+        pickupDate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
             }
         });
         datePicker = (ImageButton)this.findViewById(R.id.datePicker);
@@ -85,14 +128,8 @@ public class AddShipment extends Activity {
                 showDatePicker();
             }
         });
-        camera = (ImageButton)this.findViewById(R.id.shipment_img);
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage();
-            }
-        });
 
+        // button
         add_shipment_btn = (Button)this.findViewById(R.id.button_add_shipment);
         add_shipment_btn.setOnClickListener(new View.OnClickListener() {
             @Override

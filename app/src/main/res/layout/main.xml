@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+ 
+  <item android:id="@+id/action_search"
+          android:icon="@drawable/search"
+          android:title="@string/action_search"
+          android:showAsAction="ifRoom" />
+  
+  <item android:id="@+id/action_addloc"
+          android:icon="@drawable/addloc"
+          android:title="@string/action_search"
+          android:showAsAction="ifRoom" />
+    
+</menu>

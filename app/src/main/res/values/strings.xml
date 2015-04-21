@@ -55,11 +55,17 @@
     <!--facebook credential -->
     <string name="facebook_app_id">790241384392743</string>
 
+    <!--google credential-->
+    <string name="google_app_id">AIzaSyC40fKiMTt5y7z3DnrafISM9SeCYBDX7QA</string>
+    <string name="search_hint">Search Places</string>
+    <string name="search_settings">Search Places</string>
+    <string name="title_activity_on_map_transperent">OnMapTransperentActivity</string>
+    <string name="title_activity_onmaphelp">Onmaphelp</string>
     <!--add_shipment.xml -->
     <string name="add_shipment">Add shipment</string>
     <string name="recipient_name">Recipient\'s name</string>
     <string name="item_desc">Describe your package</string>
-    <string name="weight">How much your package weight</string>
+    <string name="weight">Package weight</string>
     <string name="address">Recipient\'s address</string>
     <string name="pickup_address">Where to pick up package</string>
     <string name="pickup_time">Pick up time</string>
@@ -94,6 +100,21 @@
         <item>@drawable/ic_pages</item>
         <item>@drawable/ic_whats_hot</item>
     </array>
+
+    <!--map-->
+    <!-- UI -->
+    <string name="profils">Profils</string>
+    <string name="geofence1">Geofence </string>
+    <string name="geofence2">Geofence </string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="menu_item_clear_geofence1">Clear geofence</string>
+    <string name="menu_item_clear_geofence2">Clear geofence</string>
+    <string name="menu_item_clear_all_geofences">Clear all geofences</string>
+    <string name="menu_item_clear_geofence_history">Clear stored geofences</string>
+    <string name="radius">Radius</string>
+    <string name="action_search">Search</string>
+    <string name="gotit"> GOT IT </string>
 
 
 </resources>

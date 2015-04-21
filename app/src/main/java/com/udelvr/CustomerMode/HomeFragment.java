@@ -13,11 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.melnykov.fab.FloatingActionButton;
-import com.udelvr.DriverMode.DriverMainActivity;
-import com.udelvr.R;
 import com.udelvr.CustomerMode.Shipment.AddShipment;
 import com.udelvr.CustomerMode.Shipment.PackageListAdapter;
 import com.udelvr.CustomerMode.Shipment.PackageManager;
+import com.udelvr.R;
 
 public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
@@ -42,9 +41,9 @@ public class HomeFragment extends Fragment {
         fab_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), DriverMainActivity.class);
+                Intent i = new Intent(getActivity(), ApplyToBeDriver.class);
                 startActivity(i);
-                getActivity().finish();
+
             }
         });
 

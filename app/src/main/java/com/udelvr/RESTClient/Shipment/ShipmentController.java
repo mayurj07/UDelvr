@@ -1,14 +1,11 @@
 package com.udelvr.RESTClient.Shipment;
 
-import com.udelvr.ApplicationContextProvider;
-import com.udelvr.AuthStore;
 import com.udelvr.RESTClient.RestClient;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.MultipartTypedOutput;
-import retrofit.mime.TypedFile;
 import retrofit.mime.TypedString;
 
 /**
@@ -39,7 +36,6 @@ public class ShipmentController {
            public void success(ShipmentResponse shipmentResponse, Response response) {
 
            }
-
            @Override
            public void failure(RetrofitError error) {
 

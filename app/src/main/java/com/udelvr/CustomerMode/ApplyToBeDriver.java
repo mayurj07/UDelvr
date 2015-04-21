@@ -3,7 +3,7 @@ package com.udelvr.CustomerMode;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,17 +13,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.udelvr.CustomerMode.Shipment.Package;
-import com.udelvr.CustomerMode.Shipment.PackageManager;
+import com.udelvr.DriverMode.DriverMainActivity;
 import com.udelvr.R;
 
 import java.io.File;
@@ -38,43 +36,59 @@ import java.util.Calendar;
  */
 public class ApplyToBeDriver extends Activity {
 
+    Context mContext;
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
     ImageView circularImageView;
     Bitmap image;
     private static final String TAG = "driver application activity";
     // Widget GUI
-    Button datePicker, camera, apply;
-    private TextView driver_license, date_expire;
+    private ImageButton datePicker, camera,close;
+    private Button apply;
+    private TextView date_expire;
+    private EditText driver_license;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mContext=this;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.be_a_driver);
-//        driver_license=(TextView)findViewById(R.id.driver_license);
-//        date_expire=(TextView)findViewById(R.id.date_expire);
-//        datePicker = (Button)this.findViewById(R.id.datePicker);
-//        datePicker.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDatePicker();
-//            }
-//        });
-//        camera = (Button)this.findViewById(R.id.camera);
-//        camera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                selectImage();
-//            }
-//        });
-//        apply = (Button)this.findViewById(R.id.apply_btn);
-//        apply.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        setContentView(R.layout.new_driver_details_popup);
+        driver_license=(EditText)findViewById(R.id.edittext_driver_licence);
+        date_expire=(TextView)findViewById(R.id.edittext_expire_date);
+        close=(ImageButton)findViewById(R.id.popoup_close);
+        apply = (Button)findViewById(R.id.apply_btn);
+        camera = (ImageButton)findViewById(R.id.camera_driver_licence);
+
+        datePicker = (ImageButton)this.findViewById(R.id.datePicker);
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(mContext, DriverMainActivity.class);
+                startActivity(i);
+                finish();
+
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -103,27 +117,7 @@ public class ApplyToBeDriver extends Activity {
         dpd.show();
     }
 
-    private void showTimePicker(){
-        // Process to get Current Time
-        final Calendar c = Calendar.getInstance();
-        mHour = c.get(Calendar.HOUR_OF_DAY);
-        mMinute = c.get(Calendar.MINUTE);
 
-        // Launch Time Picker Dialog
-        TimePickerDialog tpd = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay,
-                                          int minute) {
-                        // Display Selected time in textbox
-//                        txtTime.setText(hourOfDay + ":" + minute);
-                        Log.e(TAG,"Time set: " + mHour + "," + mMinute + ",");
-                    }
-                }, mHour, mMinute, false);
-
-        tpd.show();
-    }
 
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",

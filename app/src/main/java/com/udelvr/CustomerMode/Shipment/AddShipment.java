@@ -13,13 +13,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.EditText;
 import android.widget.DatePicker;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -28,7 +26,6 @@ import com.udelvr.ApplicationContextProvider;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.Map.EditMapActivity;
 import com.udelvr.R;
-import com.udelvr.RESTClient.User.UserController;
 import com.udelvr.RESTClient.Shipment.Shipment;
 import com.udelvr.RESTClient.Shipment.ShipmentController;
 

@@ -1,6 +1,8 @@
 package com.udelvr.RESTClient;
 
 import com.squareup.okhttp.OkHttpClient;
+import com.udelvr.ApplicationContextProvider;
+import com.udelvr.AuthStore;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -30,7 +32,7 @@ public class RestClient {
 
     private static void setupRestClient()
     {
-        //final AuthStore authStore = new AuthStore(ApplicationContextProvider.getContext());
+        final AuthStore authStore = new AuthStore(ApplicationContextProvider.getContext());
         Builder builder = new Builder()
                 .setEndpoint(ROOT)
                 .setClient(new OkClient(new OkHttpClient()));
@@ -39,13 +41,13 @@ public class RestClient {
         builder.setRequestInterceptor(new RequestInterceptor() {
             @Override
             public void intercept(RequestInterceptor.RequestFacade request) {
-               //  request.addHeader("Content-type", "multipart/form-data");
+                 request.addHeader("Content-type", "multipart/form-data");
 //                if (authStore.getAuthTocken()!=null) {//isUserLoggedIn()
-////                    request.addHeader("Authorization",authStore.getAuthTocken());
-////                    request.addHeader("email",authStore.getUsername());
+//                    //request.addHeader("Authorization",authStore.getAuthTocken());
+////                    request.addHeader("email",authStore.getEmail());
 ////                    request.addHeader("password",authStore.getPassword());
 ////                    request.addHeader("deviceid",authStore.getDeviceid());
-//                }
+////                }
             }
         });
 

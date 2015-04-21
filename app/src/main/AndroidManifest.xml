@@ -131,10 +131,7 @@
         <activity
             android:name="com.prasad.helpactivities.Onmaphelp"
             android:label="@string/title_activity_onmaphelp"
-            android:theme="@style/Theme.Transparent"
-            >
-
-
+            android:theme="@style/Theme.Transparent">
         </activity>
 
     </application>

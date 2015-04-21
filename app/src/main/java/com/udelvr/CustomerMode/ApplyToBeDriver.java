@@ -21,8 +21,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.udelvr.ApplicationContextProvider;
+import com.udelvr.AuthStore;
 import com.udelvr.DriverMode.DriverMainActivity;
 import com.udelvr.R;
+import com.udelvr.RESTClient.Driver.DriverDetails;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,36 +34,44 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
+import static com.udelvr.RESTClient.Driver.DriverController.addDriverDetails;
+
 /**
  * Created by sophiango on 4/14/15.
  */
 public class ApplyToBeDriver extends Activity {
 
-    Context mContext;
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
+    private static final String TAG = "driver application activity";
+    Context mContext;
     ImageView circularImageView;
     Bitmap image;
-    private static final String TAG = "driver application activity";
     // Widget GUI
-    private ImageButton datePicker, camera,close;
+    private ImageButton datePicker, camera, close;
     private Button apply;
     private TextView date_expire;
     private EditText driver_license;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private AuthStore auth;
+
+    private DriverDetails driverDetails;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mContext=this;
+        mContext = this;
         super.onCreate(savedInstanceState);
+        driverDetails = new DriverDetails();
+        auth = new AuthStore(ApplicationContextProvider.getContext());
         setContentView(R.layout.new_driver_details_popup);
-        driver_license=(EditText)findViewById(R.id.edittext_driver_licence);
-        date_expire=(TextView)findViewById(R.id.edittext_expire_date);
-        close=(ImageButton)findViewById(R.id.popoup_close);
-        apply = (Button)findViewById(R.id.apply_btn);
-        camera = (ImageButton)findViewById(R.id.camera_driver_licence);
+        driver_license = (EditText) findViewById(R.id.edittext_driver_licence);
+        date_expire = (TextView) findViewById(R.id.edittext_expire_date);
+        close = (ImageButton) findViewById(R.id.popoup_close);
+        apply = (Button) findViewById(R.id.apply_btn);
+        camera = (ImageButton) findViewById(R.id.camera_driver_licence);
+        File licencePhoto;
 
-        datePicker = (ImageButton)this.findViewById(R.id.datePicker);
+        datePicker = (ImageButton) this.findViewById(R.id.datePicker);
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,9 +88,17 @@ public class ApplyToBeDriver extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(mContext, DriverMainActivity.class);
-                startActivity(i);
-                finish();
+                driverDetails.setdriverLicenseNo(driver_license.getText().toString());
+                driverDetails.setlicenseExpiry(date_expire.getText().toString());
+                if (addDriverDetails(mContext, auth.getUserId(), driverDetails)) {
+                    Intent i = new Intent(mContext, DriverMainActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    finish();
+
+                }
+
 
             }
         });
@@ -92,12 +111,12 @@ public class ApplyToBeDriver extends Activity {
     }
 
 
-
-    private void showDatePicker(){
+    private void showDatePicker() {
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
+
 
         // Launch Date Picker Dialog
         DatePickerDialog dpd = new DatePickerDialog(this,
@@ -106,22 +125,18 @@ public class ApplyToBeDriver extends Activity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        // Display Selected date in textbox
-//                        txtDate.setText(dayOfMonth + "-"
-//                                + (monthOfYear + 1) + "-" + year);
-//                        Log.e(TAG,"Date set: " + mYear + "," + mMonth + "," + mDay);
-                        date_expire.setText(mMonth + "/" + mDay + "/" + mYear, TextView.BufferType.EDITABLE);
+                        date_expire.setText((monthOfYear + 1) + "/"
+                                + dayOfMonth + "/" + year);
+
                     }
                 }, mYear, mMonth, mDay);
-
         dpd.show();
     }
 
 
-
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Photo!");
@@ -150,6 +165,7 @@ public class ApplyToBeDriver extends Activity {
         });
         builder.show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -169,7 +185,7 @@ public class ApplyToBeDriver extends Activity {
 
                     bm = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             btmapOptions);
-                    image=bm;
+                    image = bm;
                     // bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
 
                     String path = Environment
@@ -199,16 +215,18 @@ public class ApplyToBeDriver extends Activity {
                 Uri selectedImageUri = data.getData();
 
                 String tempPath = getPath(selectedImageUri, this);
+                driverDetails.setLicencePhoto(new File(getPath(selectedImageUri, this)));
                 Bitmap bm;
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
-                image=bm;
+                image = bm;
             }
 
         }
     }
+
     public String getPath(Uri uri, Activity activity) {
-        String[] projection = { MediaStore.MediaColumns.DATA };
+        String[] projection = {MediaStore.MediaColumns.DATA};
         Cursor cursor = activity
                 .managedQuery(uri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);

@@ -44,12 +44,14 @@
                 android:inputType="textPostalAddress"
                 android:hint="@string/address"
                 android:ems="10"
+                android:focusableInTouchMode="false"
                 android:id="@+id/input_address"
                 android:textColor="@color/black_overlay"
                 android:textColorHint="@color/udelvr_hint_white"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/choose_address"
                 android:src="@drawable/default_profile"
                 android:layout_centerHorizontal="true" />
         </LinearLayout>
@@ -71,12 +73,14 @@
                 android:inputType="textPostalAddress"
                 android:hint="@string/address"
                 android:ems="10"
+                android:focusableInTouchMode="false"
                 android:id="@+id/input_pickup_address"
                 android:textColor="@color/black_overlay"
                 android:textColorHint="@color/udelvr_hint_white"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/choose_pickup_address"
                 android:src="@drawable/default_profile"
                 android:layout_centerHorizontal="true" />
         </LinearLayout>
@@ -150,6 +154,7 @@
                 android:inputType="number"
                 android:hint="@string/pickup_time"
                 android:ems="10"
+                android:focusableInTouchMode="false"
                 android:id="@+id/pickup_time"
                 android:textColor="@color/black_overlay"
                 android:textColorHint="@color/udelvr_hint_white"
@@ -179,6 +184,7 @@
                 android:inputType="number"
                 android:hint="@string/pickup_date"
                 android:ems="10"
+                android:focusableInTouchMode="false"
                 android:id="@+id/pickup_date"
                 android:textColor="@color/black_overlay"
                 android:textColorHint="@color/udelvr_hint_white"

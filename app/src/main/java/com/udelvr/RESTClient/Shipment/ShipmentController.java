@@ -29,7 +29,7 @@ public class ShipmentController {
        multipartTypedOutput.addPart("packageWeight", new TypedString(shipment.getPackageWeight()));
        multipartTypedOutput.addPart("pickupTime", new TypedString(shipment.getPickupTime()));
        multipartTypedOutput.addPart("pickupDate", new TypedString(shipment.getPickupDate()));
-//       multipartTypedOutput.addPart("shipmentPhoto", new TypedFile("shipmentPhoto", shipment.getShipmentImage()));
+       multipartTypedOutput.addPart("shipmentPhoto", new TypedFile("shipmentPhoto", shipment.getShipmentImage()));
 
        RestClient.get().addNewShipment(multipartTypedOutput, new Callback<ShipmentResponse>() {
            @Override

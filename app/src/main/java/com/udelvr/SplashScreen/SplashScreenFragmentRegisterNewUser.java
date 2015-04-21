@@ -50,7 +50,6 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         getActionBar().hide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
         user = new User();
 
         editTextFullName = (EditText)findViewById(R.id.editText_fullname);

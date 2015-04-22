@@ -1,5 +1,16 @@
 package com.udelvr.Map;
 
+import android.app.SearchManager;
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.net.Uri;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,20 +22,9 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.SearchManager;
-import android.content.ContentProvider;
-import android.content.ContentValues;
-import android.content.UriMatcher;
-import android.database.Cursor;
-import android.database.MatrixCursor;
-import android.net.Uri;
-
 public class PlaceProvider extends ContentProvider {
 
-    public static final String AUTHORITY = "com.prasad.profilsworld.PlaceProvider";
+    public static final String AUTHORITY = "com.udelvr.Map.PlaceProvider";
 
     public static final Uri SEARCH_URI = Uri.parse("content://"+AUTHORITY+"/search");
 
@@ -34,7 +34,7 @@ public class PlaceProvider extends ContentProvider {
     private static final int SUGGESTIONS = 2;
     private static final int DETAILS = 3;
 
-    // Obtain browser key from https://code.google.com/apis/console
+    // Obtain browser key from htstps://code.google.com/apis/console
     String mKey = "key=AIzaSyCNhH8j1gw6nAbLDDhZqeLtacNOGrzTZMw";
 
     // Defines a set of uris allowed with this content provider

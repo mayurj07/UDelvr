@@ -17,6 +17,7 @@ import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.DriverMode.Shipment.DriverPackageManager;
 import com.udelvr.DriverMode.Shipment.PackageListAdapter;
 import com.udelvr.R;
+import com.udelvr.RESTClient.Shipment.ShipmentController;
 
 public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
@@ -25,11 +26,13 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private FloatingActionButton fab_driver;
+    private ShipmentController shipmentController;
+    private HomeFragment homeFragment;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        shipmentController=new ShipmentController();
         swipeRefreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.swipeRefreshLayout);
         fab_driver=(FloatingActionButton)getActivity().findViewById(R.id.fab_driver);
         mRecyclerView = (RecyclerView)getActivity().findViewById(R.id.list);
@@ -38,6 +41,7 @@ public class HomeFragment extends Fragment {
         mAdapter = new PackageListAdapter(DriverPackageManager.getInstance().getDriverPackages(), R.layout.row_driver_package, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
+        homeFragment=this;
         fab_driver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,22 +55,27 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+//                DriverPackage d = new DriverPackage();
+//                d.destinationAddress="Mountain View,SJ";
+//                d.destinationLocationLatitude="37.386052";
+//                d.destinationLocationLongitude="-122.083851";
+//                d.pickupDate="20th April 2015 2:30 PM";
+//                d.customerID="45";
+//
+//                DriverPackageManager.getInstance().add(d);
 
-              mAdapter.notifyDataSetChanged();
-              onLoadComplete();
+                shipmentController.getAllShipments(homeFragment);
+
             }
         });
 
     }
 
-    private void onLoadComplete() {
-        new Runnable() {
-            @Override
-            public void run() {
-              //  swipeRefreshLayout.setRefreshing(false);
-            }
+    public void onLoadComplete() {
 
-        };
+                mAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+
     }
 
 
@@ -89,8 +98,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        shipmentController.getAllShipments(homeFragment);
 
-        mAdapter.notifyDataSetChanged();
     }
 
 }

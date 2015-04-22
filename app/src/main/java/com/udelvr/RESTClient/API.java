@@ -2,8 +2,11 @@ package com.udelvr.RESTClient;
 
 
 import com.udelvr.RESTClient.Driver.DriverDO;
+import com.udelvr.RESTClient.Shipment.ShipmentDO;
 import com.udelvr.RESTClient.Shipment.ShipmentResponse;
 import com.udelvr.RESTClient.User.UserResponse;
+
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -29,8 +32,8 @@ public interface API {
     void addDriverDetails(@Path("user_id")String userId,@Body MultipartTypedOutput multipartTypedOutput,
                           Callback<DriverDO> callback);
 
-    @GET("/driverShipment")
-    void groupList(Callback<ShipmentResponse> callback);
+    @GET("/driver/shipments")
+    void getAllShipments(Callback<List<ShipmentDO>> callback);
 
     @POST("/shipment")
     void addNewShipment(@Body MultipartTypedOutput multipartTypedOutput,

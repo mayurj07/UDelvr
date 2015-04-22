@@ -1,6 +1,10 @@
 package com.udelvr.RESTClient.Shipment;
 
+import com.udelvr.DriverMode.HomeFragment;
+import com.udelvr.DriverMode.Shipment.DriverPackageManager;
 import com.udelvr.RESTClient.RestClient;
+
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -43,5 +47,22 @@ public class ShipmentController {
            }
        });
             return true;
+    }
+
+    public static boolean getAllShipments(final HomeFragment homeFragment) {
+
+
+        RestClient.get().getAllShipments( new Callback<List<ShipmentDO>>() {
+            @Override
+            public void success(List<ShipmentDO> shipmentResponse, Response response) {
+                DriverPackageManager.getInstance().addAll(shipmentResponse);
+                homeFragment.onLoadComplete();
+            }
+            @Override
+            public void failure(RetrofitError error) {
+                homeFragment.onLoadComplete();
+            }
+        });
+        return true;
     }
 }

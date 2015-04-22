@@ -72,12 +72,8 @@ public class AuthStore
     }
     public String getUserId() {
 
-        String id=mPrefs.getString("userid",null);
-        if(id == null){
-            return Settings.Secure.getString(ApplicationContextProvider.getContext().getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-        }
-        return id;
+        return mPrefs.getString("userid",null);
+
     }
     public void setUserid(String userid)
     {
@@ -88,17 +84,25 @@ public class AuthStore
 
     public String getProfilePicUrl() {
 
-        String id=mPrefs.getString("profilepicurl",null);
-        if(id == null){
-            return Settings.Secure.getString(ApplicationContextProvider.getContext().getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-        }
-        return id;
+        return mPrefs.getString("profilepicurl",null);
+
     }
     public void setProfilePicUrl(String profilePicUrl)
     {
         Editor editor = mPrefs.edit();
         editor.putString("profilepicurl",profilePicUrl);
+        editor.commit();
+    }
+
+    public String getDriverLicenceNo() {
+
+        return mPrefs.getString("driverLicenceNo",null);
+
+    }
+    public void setDriverLicenceNo(String driverLicenceNo)
+    {
+        Editor editor = mPrefs.edit();
+        editor.putString("driverLicenceNo",driverLicenceNo);
         editor.commit();
     }
 }

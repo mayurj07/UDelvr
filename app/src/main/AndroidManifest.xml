@@ -115,6 +115,13 @@
             android:screenOrientation="portrait" >
         </activity>
 
+        <activity
+            android:name="com.udelvr.CustomerMode.ApplyToBeDriver"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+
         <provider
             android:name="com.udelvr.Map.PlaceProvider"
             android:authorities="com.prasad.profilsworld.PlaceProvider"
@@ -128,11 +135,11 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_app_id" />
 
-        <activity
-            android:name="com.prasad.helpactivities.Onmaphelp"
-            android:label="@string/title_activity_onmaphelp"
-            android:theme="@style/Theme.Transparent">
-        </activity>
+        <!--<activity-->
+            <!--android:name="com.prasad.helpactivities.Onmaphelp"-->
+            <!--android:label="@string/title_activity_onmaphelp"-->
+            <!--android:theme="@style/Theme.Transparent">-->
+        <!--</activity>-->
 
     </application>
 

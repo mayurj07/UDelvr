@@ -58,6 +58,8 @@ public class AddShipment extends Activity {
     private int mYear, mMonth, mDay, mHour, mMinute;
     private EditText recipientsName, sourceAddress, destAddress, packageDesc, packageWeight, pickupTime, pickupDate ;
     private Shipment shipment;
+    private String static_src_address = "1 Washington Sq, San Jose, CA 95192";
+    private String static_dest_address = "4900 Marie P. DeBartolo Way, Santa Clara, CA";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,8 @@ public class AddShipment extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplication(), EditMapActivity.class);
                 startActivity(i);
+                sourceAddress.setText(static_src_address);
+                shipment.setSourceAddress(static_src_address);
             }
         });
         sourceAddressPick = (ImageButton) findViewById(R.id.choose_address);
@@ -81,11 +85,31 @@ public class AddShipment extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplication(), EditMapActivity.class);
                 startActivity(i);
+                sourceAddress.setText(static_src_address);
+                shipment.setSourceAddress(static_src_address);
             }
         });
         // row 3
         destAddress=(EditText)findViewById(R.id.input_pickup_address);
+        destAddress.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplication(), EditMapActivity.class);
+                startActivity(i);
+                destAddress.setText(static_dest_address);
+                shipment.setDestinationAddress(static_dest_address);
+            }
+        });
         destAddressPick = (ImageButton) findViewById(R.id.choose_pickup_address);
+        destAddressPick.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplication(), EditMapActivity.class);
+                startActivity(i);
+                destAddress.setText(static_dest_address);
+                shipment.setDestinationAddress(static_dest_address);
+            }
+        });
 
         // row 4
         packageDesc=(EditText)findViewById(R.id.item_desc);
@@ -150,8 +174,8 @@ public class AddShipment extends Activity {
                 shipment.setSourceLong("-121.8810720");
                 shipment.setDestinationLat("37.3351870");
                 shipment.setDestinationLong("-121.8810720");
-                shipment.setSourceAddress("1 Washington Sq, San Jose, CA 95192");
-                shipment.setDestinationAddress("1 Washington Sq, San Jose, CA 95192");
+//                shipment.setSourceAddress("1 Washington Sq, San Jose, CA 95192");
+//                shipment.setDestinationAddress("4900 Marie P. DeBartolo Way, Santa Clara, CA");
 
                 if(ShipmentController.addNewShipment(shipment)){
 //                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());

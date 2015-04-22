@@ -17,7 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.util.Log;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
@@ -36,6 +36,7 @@ import java.util.Locale;
 
 public class SplashScreenFragmentRegisterNewUser extends Activity {
 
+    private static String TAG = "register activity";
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
     ViewGroup root;
@@ -60,6 +61,10 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         editTextPassword = (EditText) findViewById(R.id.editText_password);
         editTextMobile = (EditText) findViewById(R.id.editText_mobile);
 
+        Bundle b = getIntent().getExtras();
+        Log.e(TAG,"bundle: " + b);
+        editTextFullName.setText(b.getString("name"));
+        editTextEmail.setText(b.getString("email"));
         circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
         //circularImageView.setBorderColor(getResources().getColor());
         circularImageView.setBorderWidth(5);
@@ -164,11 +169,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                         bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
                         fOut.flush();
                         fOut.close();
-
-
                         user.setprofilePhoto(file);
-
-
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

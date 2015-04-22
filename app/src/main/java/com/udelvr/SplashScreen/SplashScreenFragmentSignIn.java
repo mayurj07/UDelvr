@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -21,8 +23,6 @@ import com.facebook.widget.LoginButton;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
-
-import java.util.Arrays;
 
 import static com.udelvr.RESTClient.User.UserController.signinUser;
 
@@ -36,6 +36,8 @@ public class SplashScreenFragmentSignIn extends Fragment {
     ViewGroup root;
     User user;
     SplashScreenFragmentSignIn splashScreenFragmentSignIn;
+    private View otherView;
+
 
 	public static Fragment newInstance(Context context) {
         SplashScreenFragmentSignIn f = new SplashScreenFragmentSignIn();
@@ -44,16 +46,28 @@ public class SplashScreenFragmentSignIn extends Fragment {
 	}
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // To maintain FB Login session
+        uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
+        uiHelper.onCreate(savedInstanceState);
+    }
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		 root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen_signup, container,false);
         user= new User();
-        email=(EditText)root.findViewById(R.id.editText_email);
-        password=(EditText)root.findViewById(R.id.editText_password);
         splashScreenFragmentSignIn=this;
+        View view = inflater.inflate(R.layout.activity_spash_screen_signup, container, false);
+//        otherView = view.findViewById(R.layout.activity_register_details);
+//        otherView.setVisibility(View.GONE);
+        user = new User();
+        email = (EditText) view.findViewById(R.id.editText_email);
+        password = (EditText) view.findViewById(R.id.editText_password);
 
-        btn_register = (Button) root.findViewById(R.id.button_signup);
-        btn_signin = (Button)root.findViewById(R.id.button_signin);
-        btn_signin.setOnClickListener( new View.OnClickListener() {
+        btn_register = (Button) view.findViewById(R.id.button_signup);
+        btn_signin = (Button) view.findViewById(R.id.button_signin);
+        btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -73,37 +87,80 @@ public class SplashScreenFragmentSignIn extends Fragment {
         });
 
 
-        authButton = (LoginButton) root.findViewById(R.id.authButton);
-        authButton.setReadPermissions(Arrays.asList("email", "user_location", "user_birthday"));
-        authButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
-            @Override
-            public void onUserInfoFetched(GraphUser user) {
-                if (user != null) {
-                    Log.d(TAG,"user: " + user + user.getName());
+        authButton = (LoginButton) view.findViewById(R.id.authButton);
+        authButton.setFragment(this);
+        return view;
+    }
+//        authButton.setReadPermissions(Arrays.asList("email", "user_location", "user_birthday"));
+//        authButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
+//            @Override
+//            public void onUserInfoFetched(GraphUser user) {
+//                if (user != null) {
+//                    String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
+//                    Intent i = new Intent(getActivity(), SplashScreenFragmentRegisterNewUser.class);
+//                    Bundle b = new Bundle();
+//                    b.putString("name", user.getName());
+//                    b.putString("email", user.asMap().get("email").toString());
+//                    b.putString("image", imageURL);
+//                    i.putExtras(b);
+//                    startActivity(i);
+//
+//                    Log.d(TAG,"user: " + user + user.getName());
 //                    username.setText("Username: " + user.getName());
 //                    birthday.setText("birthday: " + user.asMap().get("birthday").toString());
 //                    gender.setText("gender: " + user.asMap().get("gender").toString());
 //                    email.setText("email: " + user.asMap().get("email").toString());
                     //Log.e(TAG,"userid: " +user.getId());
 //                            Log.e(TAG,"email: " + user.asMap());
-                    String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
-                    Log.d(TAG,"image: " + imageURL);
-                    //new LoadProfileImage(profile_pic).execute(imageURL);
-                } else {
-                    Log.e(TAG,"You are not log in");
-                }
-            }
-        });
-    return root;
-	}
+//                    Log.d(TAG,"image: " + imageURL);
+//                    //new LoadProfileImage(profile_pic).execute(imageURL);
+//                } else {
+//                    Log.e(TAG,"You are not log in ");
+//                }
+//            }
+//        });
+//    return root;
+//	}
     private Session.StatusCallback statusCallback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state,
                          Exception exception) {
             if (state.isOpened()) {
-                Log.d("MainActivity", "Facebook session opened.");
+                Request.newMeRequest(session, new Request.GraphUserCallback() {
+
+                    // callback after Graph API response with user
+                    // object
+                    @Override
+                    public void onCompleted(GraphUser user, Response response) {
+                        if (user != null) {
+                            // Set view visibility to true
+//                            otherView.setVisibility(View.VISIBLE);
+
+                            String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
+//                            Log.i(TAG, user + " " + user.getName() + " " + user.asMap().get("email").toString() + " " + imageURL);
+                            Intent i = new Intent(getActivity(), SplashScreenFragmentRegisterNewUser.class);
+                            Bundle b = new Bundle();
+                            b.putString("name", user.getName());
+                            b.putString("email", user.asMap().get("email").toString());
+                            b.putString("image", imageURL);
+                            i.putExtras(b);
+                            startActivity(i);
+                            // Set User name
+//                            name.setText("Hello " + user.getName());
+//                            // Set Gender
+//                            gender.setText("Your Gender: "
+//                                    + user.getProperty("gender").toString());
+//                            location.setText("Your Current Location: "
+//                                    + user.getLocation().getProperty("name")
+//                                    .toString());
+                        }
+                    }
+                }).executeAsync();
             } else if (state.isClosed()) {
-                Log.d("MainActivity", "Facebook session closed.");
+                Intent i = new Intent(getActivity(), SplashScreenFragmentSignIn.class);
+                startActivity(i);
+                Log.i(TAG, "Logged out...");
+//                otherView.setVisibility(View.GONE);
             }
         }
     };
@@ -119,4 +176,35 @@ public class SplashScreenFragmentSignIn extends Fragment {
         Toast.makeText(getActivity(), "Invalid credencials!", Toast.LENGTH_LONG).show();
 
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "OnActivityResult...");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        uiHelper.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        uiHelper.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        uiHelper.onSaveInstanceState(outState);
+    }
+
 }

@@ -5,6 +5,14 @@ android {
   //  buildToolsVersion "19.1.0"
     buildToolsVersion "21.0.2"
 
+    signingConfigs{
+        config {
+            keyAlias 'udelvr'
+            keyPassword 'android'
+            storeFile file('/Users/sophiango/Desktop')
+            storePassword 'android'
+        }
+    }
 
     defaultConfig {
         applicationId "com.udelvr"

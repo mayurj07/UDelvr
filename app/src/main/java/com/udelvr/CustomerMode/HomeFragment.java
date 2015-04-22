@@ -13,9 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.udelvr.ApplicationContextProvider;
+import com.udelvr.AuthStore;
 import com.udelvr.CustomerMode.Shipment.AddShipment;
 import com.udelvr.CustomerMode.Shipment.PackageListAdapter;
 import com.udelvr.CustomerMode.Shipment.PackageManager;
+import com.udelvr.DriverMode.DriverMainActivity;
 import com.udelvr.R;
 
 public class HomeFragment extends Fragment {
@@ -24,11 +27,14 @@ public class HomeFragment extends Fragment {
     private PackageListAdapter mAdapter;
 
     FloatingActionButton fab_customer;
+    AuthStore authStore;
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        authStore=new AuthStore(ApplicationContextProvider.getContext());
 
         fab_customer = (FloatingActionButton)getActivity().findViewById(R.id.fab_customer);
 
@@ -41,8 +47,16 @@ public class HomeFragment extends Fragment {
         fab_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ApplyToBeDriver.class);
-                startActivity(i);
+
+                if(authStore.getDriverLicenceNo()==null) {
+                    Intent i = new Intent(getActivity(), ApplyToBeDriver.class);
+                    startActivity(i);
+                }
+                else
+                {
+                    Intent i = new Intent(getActivity(), DriverMainActivity.class);
+                    startActivity(i);
+                }
 
             }
         });

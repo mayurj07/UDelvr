@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.udelvr.R;
+import com.udelvr.RESTClient.Shipment.ShipmentDO;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ import java.util.List;
  */
 public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.ViewHolder>{
 
-    private static List<DriverPackage> driverPackages;
+    private static List<ShipmentDO> driverPackages;
     private int rowLayout;
     private Context mContext;
 
-    public PackageListAdapter(List<DriverPackage> driverPackages, int rowLayout, Context context) {
+    public PackageListAdapter(List<ShipmentDO> driverPackages, int rowLayout, Context context) {
         this.driverPackages = driverPackages;
         this.rowLayout = rowLayout;
         this.mContext = context;
@@ -40,12 +41,12 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        DriverPackage aDriverPackage = driverPackages.get(i);
-        viewHolder.destination.setText(aDriverPackage.destination );
-        viewHolder.amount.setText("$"+aDriverPackage.amount);
-        viewHolder.dateTime.setText(aDriverPackage.dateTime);
+        ShipmentDO aDriverPackage = driverPackages.get(i);
+        viewHolder.destination.setText(aDriverPackage.getDestinationAddress() );
+        viewHolder.amount.setText("$"+aDriverPackage.getCustomerID());
+        viewHolder.dateTime.setText(aDriverPackage.getPickupDate());
         Picasso.with(mContext).setIndicatorsEnabled(true);
-        String url = "http://maps.google.com/maps/api/staticmap?center="+aDriverPackage.destinationLatitude+ "," +aDriverPackage.destinationLongitude+ "&markers="+aDriverPackage.destinationLatitude+ "," +aDriverPackage.destinationLongitude+"&zoom=15&size=500x300&sensor=true";
+        String url = "http://maps.google.com/maps/api/staticmap?center="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+ "&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+"&zoom=15&size=500x300&sensor=true";
         Picasso.with(mContext).load(url).fit().centerCrop().into(viewHolder.packageMap, new Callback() {
             @Override
             public void onSuccess() {
@@ -65,6 +66,8 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
         return driverPackages == null ? 0 : driverPackages.size();
     }
 
+
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView destination;
         public TextView amount;
@@ -79,14 +82,17 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
             amount=(TextView)itemView.findViewById(R.id.amountText);
             dateTime=(TextView)itemView.findViewById(R.id.dateTimeText);
 
-
         }
 
     }
 
-    public void add(DriverPackage apackage)
+    public void add(ShipmentDO apackage)
     {
         driverPackages.add(apackage);
+    }
+
+    public void addAll(List<ShipmentDO> shipmentResponse) {
+            driverPackages.addAll(shipmentResponse);
     }
 
     public void notifyDataSetChanges()

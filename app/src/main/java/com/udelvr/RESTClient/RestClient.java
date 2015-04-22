@@ -16,7 +16,7 @@ import static retrofit.RestAdapter.Builder;
 public class RestClient {
 
     private static API REST_CLIENT;
-    private static String ROOT = "http://52.8.19.255:8080";
+    private static String ROOT = "http://52.8.19.255:8080";//52.8.19.255
 
     static {
         setupRestClient();
@@ -41,7 +41,7 @@ public class RestClient {
         builder.setRequestInterceptor(new RequestInterceptor() {
             @Override
             public void intercept(RequestInterceptor.RequestFacade request) {
-                 request.addHeader("Content-type", "multipart/form-data");
+                 //request.addHeader("Content-type", "multipart/form-data");
 //                if (authStore.getAuthTocken()!=null) {//isUserLoggedIn()
 //                    //request.addHeader("Authorization",authStore.getAuthTocken());
 ////                    request.addHeader("email",authStore.getEmail());

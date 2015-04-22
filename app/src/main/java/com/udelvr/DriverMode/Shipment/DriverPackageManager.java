@@ -1,5 +1,7 @@
 package com.udelvr.DriverMode.Shipment;
 
+import com.udelvr.RESTClient.Shipment.ShipmentDO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class DriverPackageManager
 {
 
     private static DriverPackageManager mInstance;
-    private List<DriverPackage> driverPackages;
+    private List<ShipmentDO> driverPackages;
 
     public static DriverPackageManager getInstance() {
         if (mInstance == null) {
@@ -19,14 +21,23 @@ public class DriverPackageManager
         return mInstance;
     }
 
-    public List<DriverPackage> getDriverPackages() {
+    public List<ShipmentDO> getDriverPackages() {
         if(driverPackages ==null)
-            driverPackages =new ArrayList<DriverPackage>();
+            driverPackages =new ArrayList<ShipmentDO>();
         return driverPackages;
     }
-    public void add(DriverPackage apackage)
+    public void add(ShipmentDO apackage)
     {
         driverPackages.add(apackage);
 
     }
+    public void addAll(List<ShipmentDO> shipmentResponse) {
+
+        driverPackages.clear();
+        for(ShipmentDO shipment:shipmentResponse) {
+            if(!driverPackages.contains(shipment))
+                driverPackages.addAll(shipmentResponse);
+        }
+    }
+
 }

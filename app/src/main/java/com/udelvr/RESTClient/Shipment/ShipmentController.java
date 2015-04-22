@@ -22,7 +22,13 @@ public class ShipmentController {
 
    public static boolean addNewShipment(Shipment shipment) {
 
-       final Boolean[] success = new Boolean[1];
+//       final ProgressDialog mProgressDialog = new ProgressDialog(splashScreenFragmentRegisterNewUser);
+//       mProgressDialog.setIndeterminate(true);
+//       mProgressDialog.setProgressNumberFormat(null);
+//       mProgressDialog.setProgressPercentFormat(null);
+//       mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//       mProgressDialog.show();
+
 
        MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
        multipartTypedOutput.addPart("recipientName", new TypedString(shipment.getRecipientName()));
@@ -50,7 +56,7 @@ public class ShipmentController {
        });
             return true;
     }
-    public static boolean getUserShipments(String user_id,final CustomerHomeFragment homeFragment) {
+    public static void getUserShipments(String user_id,final CustomerHomeFragment homeFragment) {
 
 
         RestClient.get().getUserShipments(user_id,new Callback<List<ShipmentDO>>() {
@@ -61,12 +67,11 @@ public class ShipmentController {
             }
             @Override
             public void failure(RetrofitError error) {
-               // homeFragment.onSignInFailed();
+                homeFragment.onLoadComplete();
             }
         });
-        return true;
     }
-    public static boolean getAllShipments(final HomeFragment homeFragment) {
+    public static void getAllShipments(final HomeFragment homeFragment) {
 
 
         RestClient.get().getAllShipments( new Callback<List<ShipmentDO>>() {
@@ -80,7 +85,6 @@ public class ShipmentController {
                 homeFragment.onLoadComplete();
             }
         });
-        return true;
     }
 
 

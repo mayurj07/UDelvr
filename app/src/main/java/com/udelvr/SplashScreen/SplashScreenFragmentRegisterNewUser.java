@@ -17,15 +17,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
-import android.util.Log;
+
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
 import com.udelvr.RESTClient.User.UserController;
-import java.net.URL;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -70,8 +69,11 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         editTextMobile = (EditText) findViewById(R.id.editText_mobile);
 
         Bundle b = getIntent().getExtras();
-        editTextFullName.setText(b.getString("name"));
-        editTextEmail.setText(b.getString("email"));
+        if(b!=null) {
+            editTextFullName.setText(b.getString("name"));
+            editTextEmail.setText(b.getString("email"));
+            new LoadProfileImage(circularImageView).execute(b.getString("image"));
+        }
         circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
         //circularImageView.setBorderColor(getResources().getColor());
         circularImageView.setBorderWidth(5);
@@ -84,6 +86,8 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         URL url = new URL(b.getString("image"));
         file = new URL(url).toURI();
         user.setprofilePhoto(file);
+
+//        circularImageView.setImageBitmap(bm);
         circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +180,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
 //                    File file = new File(path, String.valueOf(System
 //                            .currentTimeMillis()) + ".jpg");
 
-                   File file=getOutputFromCamera();
+                    File file = getOutputFromCamera();
                     circularImageView.setImageBitmap(bm);
 
                     try {
@@ -208,6 +212,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
             }
         }
     }
+
     private File getOutputFromCamera() {
 
         File storageDir = new File(
@@ -270,4 +275,8 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         public void onRegistrationfailed(String error) {
             Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
         }
+}
+             Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
+        }
+
 }

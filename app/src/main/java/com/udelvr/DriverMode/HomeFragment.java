@@ -55,14 +55,6 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                DriverPackage d = new DriverPackage();
-//                d.destinationAddress="Mountain View,SJ";
-//                d.destinationLocationLatitude="37.386052";
-//                d.destinationLocationLongitude="-122.083851";
-//                d.pickupDate="20th April 2015 2:30 PM";
-//                d.customerID="45";
-//
-//                DriverPackageManager.getInstance().add(d);
 
                 shipmentController.getAllShipments(homeFragment);
 

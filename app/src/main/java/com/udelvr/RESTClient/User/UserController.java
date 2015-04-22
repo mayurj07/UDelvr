@@ -1,5 +1,7 @@
 package com.udelvr.RESTClient.User;
 
+import android.app.ProgressDialog;
+
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
 import com.udelvr.RESTClient.RestClient;
@@ -19,6 +21,13 @@ import retrofit.mime.TypedString;
 public class UserController {
 
    public static void registerNewUser(User user,final SplashScreenFragmentRegisterNewUser splashScreenFragmentRegisterNewUser) {
+       final ProgressDialog mProgressDialog = new ProgressDialog(splashScreenFragmentRegisterNewUser);
+       mProgressDialog.setIndeterminate(true);
+       mProgressDialog.setProgressNumberFormat(null);
+       mProgressDialog.setProgressPercentFormat(null);
+       mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+       mProgressDialog.show();
+
 
 
        MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
@@ -39,12 +48,16 @@ public class UserController {
                auth.setUserid(userResponse.getUserId());
                auth.setDeviceid(userResponse.getDeviceId());
                auth.setPassword(userResponse.getPassword());
+               if (mProgressDialog.isShowing())
+                   mProgressDialog.dismiss();
                splashScreenFragmentRegisterNewUser.startCustomerMainActivity();
 
            }
 
            @Override
            public void failure(RetrofitError error) {
+               if (mProgressDialog.isShowing())
+                   mProgressDialog.dismiss();
                splashScreenFragmentRegisterNewUser.onRegistrationfailed(error.getMessage());
            }
        });
@@ -53,6 +66,13 @@ public class UserController {
     public static void signinUser(User user,final SplashScreenFragmentSignIn splashScreenFragmentSignIn) {
 
         final Boolean[] success = new Boolean[1];
+        final ProgressDialog mProgressDialog = new ProgressDialog(splashScreenFragmentSignIn.getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setProgressNumberFormat(null);
+        mProgressDialog.setProgressPercentFormat(null);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
+
 
         MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
         multipartTypedOutput.addPart("email", new TypedString(user.getEmail()));
@@ -69,11 +89,16 @@ public class UserController {
                 auth.setDeviceid(userResponse.getDeviceId());
                 auth.setPassword(userResponse.getPassword());
                 auth.setDriverLicenceNo(userResponse.getDriverLicenseNo());
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
                 splashScreenFragmentSignIn.startCustomerMainActivity();
+
             }
 
             @Override
             public void failure(RetrofitError error) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
                 splashScreenFragmentSignIn.OnsignInfailed();
             }
         });

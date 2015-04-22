@@ -20,13 +20,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Allows the Google Maps Android API V2 to use WiFi or mobile cell data (or both) to determine the device's location -->
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!--
     Allows the Google Maps Android API V2 to use the Global Positioning System (GPS)
     to determine the device's location to within a very small area
     -->
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
 
@@ -114,7 +114,7 @@
 
         <provider
             android:name="com.udelvr.Map.PlaceProvider"
-            android:authorities="com.prasad.profilsworld.PlaceProvider"
+            android:authorities="com.udelvr.Map.PlaceProvider"
             android:exported="false" />
 
          Specifies the Android API Key, which is obtained from Google API Console

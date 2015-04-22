@@ -1,10 +1,10 @@
 package com.udelvr.RESTClient.Driver;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
+import com.udelvr.CustomerMode.ApplyToBeDriver;
 import com.udelvr.RESTClient.RestClient;
 
 import retrofit.Callback;
@@ -20,11 +20,15 @@ import retrofit.mime.TypedString;
 public class DriverController {
 
 
-    public static boolean addDriverDetails(Context mContext,String userId,DriverDetails driverDetails) {
-        final ProgressDialog mProgressDialog = new ProgressDialog(mContext);
+    public static void addDriverDetails(final ApplyToBeDriver applyToBeDriver,String userId,DriverDetails driverDetails) {
+        final ProgressDialog mProgressDialog = new ProgressDialog(applyToBeDriver);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setProgressNumberFormat(null);
+        mProgressDialog.setProgressPercentFormat(null);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
+
         final AuthStore authStore= new AuthStore(ApplicationContextProvider.getContext());
-        final Boolean[] success = new Boolean[1];
-        success[0] = true;
         MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
         multipartTypedOutput.addPart("driverLicenseNo", new TypedString(driverDetails.getdriverLicenseNo()));
         multipartTypedOutput.addPart("licenseExpiry", new TypedString(driverDetails.getlicenseExpiry()));
@@ -33,16 +37,18 @@ public class DriverController {
         RestClient.get().addDriverDetails(userId, multipartTypedOutput, new Callback<DriverDO>() {
             @Override
             public void success(DriverDO driverDO, Response response) {
-
             authStore.setDriverLicenceNo(driverDO.getDriverLicenseNo());
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+                applyToBeDriver.startDriverHomeActivity();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                success[0] = false;
-
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+                applyToBeDriver.OnFailedResponse(error);;
             }
         });
-        return success[0];
     }
 }

@@ -32,17 +32,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-<<<<<<< HEAD
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.io.IOException;
 import java.io.*;
-=======
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
->>>>>>> 3ab20667295ddbb42b79e52fb9014ae92c6f8901
 
 
 public class SplashScreenFragmentRegisterNewUser extends Activity {
@@ -80,8 +77,13 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         circularImageView.setBorderWidth(5);
         circularImageView.addShadow();
 //        Log.e(TAG, "image: " + b.getString("image"));
-        new LoadProfileImage(circularImageView).execute(b.getString("image"));
-//        circularImageView.setImageBitmap(bm);
+//        new LoadProfileImage(circularImageView).execute(b.getString("image"));
+        Bitmap bm = new LoadProfileImage(circularImageView).doInBackground(b.getString("image"));
+        circularImageView.setImageBitmap(bm);
+        File file = null;
+        URL url = new URL(b.getString("image"));
+        file = new URL(url).toURI();
+        user.setprofilePhoto(file);
         circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,6 +241,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
     public static class LoadProfileImage extends
             AsyncTask<String, Void, Bitmap> {
         CircularImageView profileImg;
+
         public LoadProfileImage() {
         }
 
@@ -262,9 +265,9 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         protected void onPostExecute(Bitmap result) {
             profileImg.setImageBitmap(result);
         }
-
-
-    public void onRegistrationfailed(String error) {
-        Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
     }
+
+        public void onRegistrationfailed(String error) {
+            Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
+        }
 }

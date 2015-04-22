@@ -45,12 +45,10 @@ public class UserController {
 
            @Override
            public void failure(RetrofitError error) {
-
-
                splashScreenFragmentRegisterNewUser.onRegistrationfailed(error.getMessage());
            }
        });
-    }
+   }
 
     public static void signinUser(User user,final SplashScreenFragmentSignIn splashScreenFragmentSignIn) {
 

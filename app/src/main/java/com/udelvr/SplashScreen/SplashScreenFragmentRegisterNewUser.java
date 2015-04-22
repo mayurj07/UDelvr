@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.CustomerMode.CustomerMainActivity;
@@ -67,25 +68,26 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         editTextEmail = (EditText) findViewById(R.id.editText_email);
         editTextPassword = (EditText) findViewById(R.id.editText_password);
         editTextMobile = (EditText) findViewById(R.id.editText_mobile);
-
-        Bundle b = getIntent().getExtras();
-        if(b!=null) {
-            editTextFullName.setText(b.getString("name"));
-            editTextEmail.setText(b.getString("email"));
-            new LoadProfileImage(circularImageView).execute(b.getString("image"));
-        }
         circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
         //circularImageView.setBorderColor(getResources().getColor());
         circularImageView.setBorderWidth(5);
         circularImageView.addShadow();
+        Bundle b = getIntent().getExtras();
+        if(b!=null) {
+            editTextFullName.setText(b.getString("name"));
+            editTextEmail.setText(b.getString("email"));
+            Log.e(TAG, "image: " + b.getString("image"));
+            new LoadProfileImage(circularImageView).execute(b.getString("image"));
+        }
+
 //        Log.e(TAG, "image: " + b.getString("image"));
 //        new LoadProfileImage(circularImageView).execute(b.getString("image"));
-        Bitmap bm = new LoadProfileImage(circularImageView).doInBackground(b.getString("image"));
-        circularImageView.setImageBitmap(bm);
-        File file = null;
-        URL url = new URL(b.getString("image"));
-        file = new URL(url).toURI();
-        user.setprofilePhoto(file);
+//        Bitmap bm = new LoadProfileImage(circularImageView).doInBackground(b.getString("image"));
+//        circularImageView.setImageBitmap(bm);
+//        File file = null;
+//        URL url = new URL(b.getString("image"));
+//        file = new URL(url).toURI();
+//        user.setprofilePhoto(file);
 
 //        circularImageView.setImageBitmap(bm);
         circularImageView.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +263,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 mIcon11 = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
-//                Log.e("something", e.getMessage());
+                Log.e("something", e.getMessage());
 //                e.printStackTrace();
             }
             return mIcon11;
@@ -274,9 +276,6 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
 
         public void onRegistrationfailed(String error) {
             Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
-        }
-}
-             Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
         }
 
 }

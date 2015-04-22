@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!--map-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- Protect the map component of the application using application signature -->
     <permission
         android:name="com.prasad.profilsworld.permission.MAPS_RECEIVE"

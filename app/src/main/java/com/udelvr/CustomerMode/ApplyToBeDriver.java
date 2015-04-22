@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
@@ -33,6 +34,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
+
+import retrofit.RetrofitError;
 
 import static com.udelvr.RESTClient.Driver.DriverController.addDriverDetails;
 
@@ -54,12 +57,14 @@ public class ApplyToBeDriver extends Activity {
     private EditText driver_license;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private AuthStore auth;
+    ApplyToBeDriver applyToBeDriver;
 
     private DriverDetails driverDetails;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mContext = this;
+        applyToBeDriver=this;
         super.onCreate(savedInstanceState);
         driverDetails = new DriverDetails();
         auth = new AuthStore(ApplicationContextProvider.getContext());
@@ -90,15 +95,7 @@ public class ApplyToBeDriver extends Activity {
 
                 driverDetails.setdriverLicenseNo(driver_license.getText().toString());
                 driverDetails.setlicenseExpiry(date_expire.getText().toString());
-                if (addDriverDetails(mContext, auth.getUserId(), driverDetails)) {
-                    Intent i = new Intent(mContext, DriverMainActivity.class);
-                    startActivity(i);
-                    finish();
-                } else {
-                    finish();
-
-                }
-
+               addDriverDetails(applyToBeDriver, auth.getUserId(), driverDetails);
 
             }
         });
@@ -109,8 +106,18 @@ public class ApplyToBeDriver extends Activity {
             }
         });
     }
+public void startDriverHomeActivity()
+{
+    Intent i = new Intent(mContext, DriverMainActivity.class);
+    startActivity(i);
+    finish();
+}
 
-
+    public void OnFailedResponse(RetrofitError error)
+    {
+        Toast.makeText(this,"There was some problem"+error.getMessage(),Toast.LENGTH_LONG).show();
+        finish();
+    }
     private void showDatePicker() {
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);

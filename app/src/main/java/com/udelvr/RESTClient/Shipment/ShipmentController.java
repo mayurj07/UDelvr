@@ -22,7 +22,13 @@ public class ShipmentController {
 
    public static boolean addNewShipment(Shipment shipment) {
 
-       final Boolean[] success = new Boolean[1];
+//       final ProgressDialog mProgressDialog = new ProgressDialog(splashScreenFragmentRegisterNewUser);
+//       mProgressDialog.setIndeterminate(true);
+//       mProgressDialog.setProgressNumberFormat(null);
+//       mProgressDialog.setProgressPercentFormat(null);
+//       mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//       mProgressDialog.show();
+
 
        MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
        multipartTypedOutput.addPart("recipientName", new TypedString(shipment.getRecipientName()));

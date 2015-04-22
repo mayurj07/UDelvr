@@ -46,7 +46,9 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
         viewHolder.amount.setText("$"+aDriverPackage.getCustomerID());
         viewHolder.dateTime.setText(aDriverPackage.getPickupDate());
         Picasso.with(mContext).setIndicatorsEnabled(true);
-        String url = "http://maps.google.com/maps/api/staticmap?center="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+ "&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+"&zoom=15&size=500x300&sensor=true";
+      // String url = "http://maps.google.com/maps/api/staticmap?center="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+ "&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+"&zoom=15&size=500x300&sensor=false";
+       // String url = "http://maps.googleapis.com/maps/api/staticmap?size=400x300&sensor=false&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude();
+        String url = "http://maps.googleapis.com/maps/api/staticmap?"+"&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+"&zoom=15&size=400x300&sensor=false";
         Picasso.with(mContext).load(url).fit().centerCrop().into(viewHolder.packageMap, new Callback() {
             @Override
             public void onSuccess() {

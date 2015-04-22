@@ -17,32 +17,23 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
-import android.util.Log;
+
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
 import com.udelvr.RESTClient.User.UserController;
-import java.net.URL;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-<<<<<<< HEAD
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.io.IOException;
-import java.io.*;
-=======
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
->>>>>>> 3ab20667295ddbb42b79e52fb9014ae92c6f8901
 
 
 public class SplashScreenFragmentRegisterNewUser extends Activity {
@@ -73,14 +64,17 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         editTextMobile = (EditText) findViewById(R.id.editText_mobile);
 
         Bundle b = getIntent().getExtras();
-        editTextFullName.setText(b.getString("name"));
-        editTextEmail.setText(b.getString("email"));
+        if(b!=null) {
+            editTextFullName.setText(b.getString("name"));
+            editTextEmail.setText(b.getString("email"));
+            new LoadProfileImage(circularImageView).execute(b.getString("image"));
+        }
         circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
         //circularImageView.setBorderColor(getResources().getColor());
         circularImageView.setBorderWidth(5);
         circularImageView.addShadow();
 //        Log.e(TAG, "image: " + b.getString("image"));
-        new LoadProfileImage(circularImageView).execute(b.getString("image"));
+
 //        circularImageView.setImageBitmap(bm);
         circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +168,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
 //                    File file = new File(path, String.valueOf(System
 //                            .currentTimeMillis()) + ".jpg");
 
-                   File file=getOutputFromCamera();
+                    File file = getOutputFromCamera();
                     circularImageView.setImageBitmap(bm);
 
                     try {
@@ -206,6 +200,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
             }
         }
     }
+
     private File getOutputFromCamera() {
 
         File storageDir = new File(
@@ -239,6 +234,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
     public static class LoadProfileImage extends
             AsyncTask<String, Void, Bitmap> {
         CircularImageView profileImg;
+
         public LoadProfileImage() {
         }
 
@@ -262,9 +258,10 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         protected void onPostExecute(Bitmap result) {
             profileImg.setImageBitmap(result);
         }
-
-
-    public void onRegistrationfailed(String error) {
-        Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
     }
+
+        public void onRegistrationfailed(String error) {
+             Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
+        }
+
 }

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.util.Log;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -25,12 +27,18 @@ import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
 import com.udelvr.RESTClient.User.UserController;
-
+import java.net.URL;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.MalformedURLException;
+import java.io.IOException;
+import java.io.*;
 
 
 public class SplashScreenFragmentRegisterNewUser extends Activity {
@@ -57,13 +65,15 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         editTextPassword = (EditText)findViewById(R.id.editText_password);
         editTextMobile = (EditText)findViewById(R.id.editText_mobile);
         Bundle b = getIntent().getExtras();
-        Log.e(TAG,"bundle: " + b);
         editTextFullName.setText(b.getString("name"));
         editTextEmail.setText(b.getString("email"));
         circularImageView = (CircularImageView) this.findViewById(R.id.profilepic);
         //circularImageView.setBorderColor(getResources().getColor());
         circularImageView.setBorderWidth(5);
         circularImageView.addShadow();
+//        Log.e(TAG, "image: " + b.getString("image"));
+        new LoadProfileImage(circularImageView).execute(b.getString("image"));
+//        circularImageView.setImageBitmap(bm);
         circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,5 +207,32 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+    public static class LoadProfileImage extends
+            AsyncTask<String, Void, Bitmap> {
+        CircularImageView profileImg;
+        public LoadProfileImage() {
+        }
+
+        public LoadProfileImage(CircularImageView userImg) {
+            this.profileImg = userImg;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+//                Log.e("something", e.getMessage());
+//                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            profileImg.setImageBitmap(result);
+        }
     }
 }

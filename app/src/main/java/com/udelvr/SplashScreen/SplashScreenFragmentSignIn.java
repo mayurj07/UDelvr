@@ -157,8 +157,6 @@ public class SplashScreenFragmentSignIn extends Fragment {
                     }
                 }).executeAsync();
             } else if (state.isClosed()) {
-                Intent i = new Intent(getActivity(), SplashScreenFragmentSignIn.class);
-                startActivity(i);
                 Log.i(TAG, "Logged out...");
 //                otherView.setVisibility(View.GONE);
             }

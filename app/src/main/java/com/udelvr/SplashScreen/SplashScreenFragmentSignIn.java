@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -34,6 +35,7 @@ public class SplashScreenFragmentSignIn extends Fragment {
     Button btn_register,btn_signin;
     ViewGroup root;
     User user;
+    SplashScreenFragmentSignIn splashScreenFragmentSignIn;
 
 	public static Fragment newInstance(Context context) {
         SplashScreenFragmentSignIn f = new SplashScreenFragmentSignIn();
@@ -47,19 +49,18 @@ public class SplashScreenFragmentSignIn extends Fragment {
         user= new User();
         email=(EditText)root.findViewById(R.id.editText_email);
         password=(EditText)root.findViewById(R.id.editText_password);
+        splashScreenFragmentSignIn=this;
 
         btn_register = (Button) root.findViewById(R.id.button_signup);
         btn_signin = (Button)root.findViewById(R.id.button_signin);
-        btn_signin.setOnClickListener(new View.OnClickListener() {
+        btn_signin.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 user.setEmail(email.getText().toString());
                 user.setPassword(password.getText().toString());
-                signinUser(user);
-                Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                signinUser(user,splashScreenFragmentSignIn);
+
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -106,4 +107,16 @@ public class SplashScreenFragmentSignIn extends Fragment {
             }
         }
     };
+
+    public void startCustomerMainActivity()
+    {
+        Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    public void OnsignInfailed() {
+        Toast.makeText(getActivity(), "Invalid credencials!", Toast.LENGTH_LONG).show();
+
+    }
 }

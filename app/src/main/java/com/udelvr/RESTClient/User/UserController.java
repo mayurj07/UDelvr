@@ -3,6 +3,8 @@ package com.udelvr.RESTClient.User;
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
 import com.udelvr.RESTClient.RestClient;
+import com.udelvr.SplashScreen.SplashScreenFragmentRegisterNewUser;
+import com.udelvr.SplashScreen.SplashScreenFragmentSignIn;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -16,9 +18,8 @@ import retrofit.mime.TypedString;
  */
 public class UserController {
 
-   public static boolean registerNewUser(User user) {
+   public static void registerNewUser(User user,final SplashScreenFragmentRegisterNewUser splashScreenFragmentRegisterNewUser) {
 
-       final Boolean[] success = new Boolean[1];
 
        MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
        multipartTypedOutput.addPart("fullName", new TypedString(user.getFullName()));
@@ -27,7 +28,6 @@ public class UserController {
        multipartTypedOutput.addPart("password", new TypedString(user.getPassword()));
        multipartTypedOutput.addPart("deviceId", new TypedString(new AuthStore(ApplicationContextProvider.getContext()).getDeviceid()));
        multipartTypedOutput.addPart("profilePhoto", new TypedFile("profilephoto", user.getprofilePhoto()));
-       success[0]=false;
 
        RestClient.get().createUser(multipartTypedOutput, new Callback<UserResponse>() {
            @Override
@@ -39,27 +39,26 @@ public class UserController {
                auth.setUserid(userResponse.getUserId());
                auth.setDeviceid(userResponse.getDeviceId());
                auth.setPassword(userResponse.getPassword());
-               success[0]=true;
+               splashScreenFragmentRegisterNewUser.startCustomerMainActivity();
 
            }
 
            @Override
            public void failure(RetrofitError error) {
-               success[0]=false;
 
+
+               splashScreenFragmentRegisterNewUser.onRegistrationfailed(error.getMessage());
            }
        });
-            return success[0];
     }
 
-    public static boolean signinUser(User user) {
+    public static void signinUser(User user,final SplashScreenFragmentSignIn splashScreenFragmentSignIn) {
 
         final Boolean[] success = new Boolean[1];
 
         MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
         multipartTypedOutput.addPart("email", new TypedString(user.getEmail()));
         multipartTypedOutput.addPart("password", new TypedString(user.getPassword()));
-          success[0]=false;
 
         RestClient.get().signinUser(multipartTypedOutput, new Callback<UserResponse>() {
             @Override
@@ -71,16 +70,14 @@ public class UserController {
                 auth.setUserid(userResponse.getUserId());
                 auth.setDeviceid(userResponse.getDeviceId());
                 auth.setPassword(userResponse.getPassword());
-                success[0]=true;
-
+                auth.setDriverLicenceNo(userResponse.getDriverLicenseNo());
+                splashScreenFragmentSignIn.startCustomerMainActivity();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                success[0]=false;
-
+                splashScreenFragmentSignIn.OnsignInfailed();
             }
         });
-        return success[0];
     }
 }

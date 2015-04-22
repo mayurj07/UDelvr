@@ -12,7 +12,7 @@ public class User
     private String mobileNo;
     private String email;
     private String password;
-    private String deviceID;
+    private String deviceId;
     private String createdAt;
     private File profilePhoto;
 
@@ -57,11 +57,11 @@ public class User
     }
 
     public String getDeviceID() {
-        return deviceID;
+        return deviceId;
     }
 
     public void setDeviceID(String deviceID) {
-        this.deviceID = deviceID;
+        this.deviceId = deviceID;
     }
 
     public String getCreatedAt() {

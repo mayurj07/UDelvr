@@ -26,6 +26,11 @@ public class RestClient {
 
     }
 
+    public static String getRoot()
+    {
+        return ROOT;
+    }
+
     public static API get() {
         return REST_CLIENT;
     }

@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -20,11 +23,6 @@ import com.facebook.widget.LoginButton;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
-
-import java.util.Arrays;
 
 import static com.udelvr.RESTClient.User.UserController.signinUser;
 
@@ -37,6 +35,7 @@ public class SplashScreenFragmentSignIn extends Fragment {
     Button btn_register,btn_signin;
     ViewGroup root;
     User user;
+    SplashScreenFragmentSignIn splashScreenFragmentSignIn;
     private View otherView;
 
 
@@ -56,6 +55,9 @@ public class SplashScreenFragmentSignIn extends Fragment {
 
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+		 root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen_signup, container,false);
+        user= new User();
+        splashScreenFragmentSignIn=this;
         View view = inflater.inflate(R.layout.activity_spash_screen_signup, container, false);
 //        otherView = view.findViewById(R.layout.activity_register_details);
 //        otherView.setVisibility(View.GONE);
@@ -71,10 +73,8 @@ public class SplashScreenFragmentSignIn extends Fragment {
 
                 user.setEmail(email.getText().toString());
                 user.setPassword(password.getText().toString());
-                signinUser(user);
-                Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                signinUser(user,splashScreenFragmentSignIn);
+
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +163,17 @@ public class SplashScreenFragmentSignIn extends Fragment {
         }
     };
 
+    public void startCustomerMainActivity()
+    {
+        Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    public void OnsignInfailed() {
+        Toast.makeText(getActivity(), "Invalid credencials!", Toast.LENGTH_LONG).show();
+
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

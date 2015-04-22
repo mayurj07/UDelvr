@@ -1,4 +1,4 @@
-package com.udelvr.DriverMode.Shipment;
+package com.udelvr.CustomerMode.Shipment;
 
 import com.udelvr.RESTClient.Shipment.ShipmentDO;
 
@@ -8,20 +8,20 @@ import java.util.List;
 /**
  * Created by prasadshirsath on 4/17/15.
  */
-public class DriverPackageManager
+public class CustomerPackageManager
 {
 
-    private static DriverPackageManager mInstance;
+    private static CustomerPackageManager mInstance;
     private static List<ShipmentDO> driverPackages;
 
-    public static DriverPackageManager getInstance() {
+    public static CustomerPackageManager getInstance() {
         if (mInstance == null) {
-            mInstance = new DriverPackageManager();
+            mInstance = new CustomerPackageManager();
         }
         return mInstance;
     }
 
-    public List<ShipmentDO> getDriverPackages() {
+    public List<ShipmentDO> getCustomerPackages() {
         if(driverPackages ==null)
             driverPackages =new ArrayList<ShipmentDO>();
         return driverPackages;

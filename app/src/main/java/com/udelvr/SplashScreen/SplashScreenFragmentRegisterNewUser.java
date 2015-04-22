@@ -1,4 +1,3 @@
-
 package com.udelvr.SplashScreen;
 
 import android.app.Activity;
@@ -22,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.util.Log;
 import com.mikhaellopez.circularimageview.CircularImageView;
-import com.udelvr.ApplicationContextProvider;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
@@ -34,11 +32,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+<<<<<<< HEAD
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.io.IOException;
 import java.io.*;
+=======
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+>>>>>>> 3ab20667295ddbb42b79e52fb9014ae92c6f8901
 
 
 public class SplashScreenFragmentRegisterNewUser extends Activity {
@@ -49,8 +53,9 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
     ViewGroup root;
     Button btn_register;
     CircularImageView circularImageView;
-    EditText editTextFullName,editTextEmail,editTextPassword,editTextMobile;
+    EditText editTextFullName, editTextEmail, editTextPassword, editTextMobile;
     User user;
+    SplashScreenFragmentRegisterNewUser splashScreenFragmentRegisterNewUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +65,13 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         user = new User();
-        editTextFullName = (EditText)findViewById(R.id.editText_fullname);
-        editTextEmail = (EditText)findViewById(R.id.editText_email);
-        editTextPassword = (EditText)findViewById(R.id.editText_password);
-        editTextMobile = (EditText)findViewById(R.id.editText_mobile);
+        splashScreenFragmentRegisterNewUser = this;
+
+        editTextFullName = (EditText) findViewById(R.id.editText_fullname);
+        editTextEmail = (EditText) findViewById(R.id.editText_email);
+        editTextPassword = (EditText) findViewById(R.id.editText_password);
+        editTextMobile = (EditText) findViewById(R.id.editText_mobile);
+
         Bundle b = getIntent().getExtras();
         editTextFullName.setText(b.getString("name"));
         editTextEmail.setText(b.getString("email"));
@@ -90,23 +98,21 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                 user.setPassword(editTextPassword.getText().toString());
                 user.setMobileNo(editTextMobile.getText().toString());
 
-                if(UserController.registerNewUser(user)){
-                    Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                }else{
-                    Toast.makeText(ApplicationContextProvider.getContext(),"Registation Failed!",Toast.LENGTH_LONG).show();
-                }
+                UserController.registerNewUser(user, splashScreenFragmentRegisterNewUser);
 
             }
         });
     }
 
+    public void startCustomerMainActivity() {
+        Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Photo!");
@@ -163,13 +169,13 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                             .getExternalStorageDirectory()
                             + File.separator
                             + "Phoenix" + File.separator + "default";
-                    f.delete();
+                    // f.delete();
                     OutputStream fOut = null;
-                    File file = new File(path, String.valueOf(System
-                            .currentTimeMillis()) + ".jpg");
+//                    File file = new File(path, String.valueOf(System
+//                            .currentTimeMillis()) + ".jpg");
 
+                   File file=getOutputFromCamera();
                     circularImageView.setImageBitmap(bm);
-
 
                     try {
                         fOut = new FileOutputStream(file);
@@ -200,14 +206,36 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
             }
         }
     }
+    private File getOutputFromCamera() {
+
+        File storageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "Prasad");
+        if (!storageDir.exists()) {
+            if (!storageDir.mkdirs()) {
+
+
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        File imageFile = new File(storageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".png");
+
+        return imageFile;
+    }
+
     public String getPath(Uri uri, Activity activity) {
-        String[] projection = { MediaStore.MediaColumns.DATA };
+        String[] projection = {MediaStore.MediaColumns.DATA};
         Cursor cursor = activity
                 .managedQuery(uri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+
     public static class LoadProfileImage extends
             AsyncTask<String, Void, Bitmap> {
         CircularImageView profileImg;
@@ -234,5 +262,9 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         protected void onPostExecute(Bitmap result) {
             profileImg.setImageBitmap(result);
         }
+
+
+    public void onRegistrationfailed(String error) {
+        Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
     }
 }

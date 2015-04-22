@@ -72,10 +72,9 @@ public class HomeFragment extends Fragment {
     }
 
     public void onLoadComplete() {
-
                 mAdapter.notifyDataSetChanged();
+        if(swipeRefreshLayout.isRefreshing())
                 swipeRefreshLayout.setRefreshing(false);
-
     }
 
 

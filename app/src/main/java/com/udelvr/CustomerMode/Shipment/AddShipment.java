@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.ApplicationContextProvider;
-import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.Map.EditMapActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.Shipment.Shipment;
@@ -34,7 +33,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Authored by sophiango and prasadshirsath
@@ -292,9 +294,10 @@ public class AddShipment extends Activity {
                             + "Phoenix" + File.separator + "default";
                     f.delete();
                     OutputStream fOut = null;
-                    File file = new File(path, String.valueOf(System
-                            .currentTimeMillis()) + ".jpg");
-                    System.out.println("bitmap: " + bm);
+//                    File file = new File(path, String.valueOf(System
+//                            .currentTimeMillis()) + ".jpg");
+//                    System.out.println("bitmap: " + bm);
+                    File file=getOutputFromCamera();
                     camera.setImageBitmap(bm);
                     try {
                         fOut = new FileOutputStream(file);
@@ -323,6 +326,26 @@ public class AddShipment extends Activity {
             }
         }
     }
+    private File getOutputFromCamera() {
+
+        File storageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "Prasad");
+        if (!storageDir.exists()) {
+            if (!storageDir.mkdirs()) {
+
+
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        File imageFile = new File(storageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".png");
+
+        return imageFile;
+    }
     public String getPath(Uri uri, Activity activity) {
         String[] projection = { MediaStore.MediaColumns.DATA };
         Cursor cursor = activity
@@ -334,15 +357,15 @@ public class AddShipment extends Activity {
 
     void addShipment()
     {
-        Package p = new Package();
-        p.recipientName=recipientsName.getText().toString();
-//        p.dateTime=""+mMonth+"/"+mDay+"/"+mYear+" "+mHour+":"+mMinute;
-        p.dateTime=shipment.getPickupTime() + " " + shipment.getPickupDate();
-        BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
-        Bitmap bmp = BitmapFactory.decodeFile(shipment.getShipmentImage().getAbsolutePath(),btmapOptions);
-        p.image= bmp;
-        p.status=shipment.getStatus();
-        PackageManager.getInstance().add(p);
+//        ShipmentDO p = new ShipmentDO();
+//        p.recipientName=recipientsName.getText().toString();
+////        p.dateTime=""+mMonth+"/"+mDay+"/"+mYear+" "+mHour+":"+mMinute;
+//        p.dateTime=shipment.getPickupTime() + " " + shipment.getPickupDate();
+//        BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
+//        Bitmap bmp = BitmapFactory.decodeFile(shipment.getShipmentImage().getAbsolutePath(),btmapOptions);
+//        p.image= bmp;
+//        p.status=shipment.getStatus();
+//        CustomerPackageManager.getInstance().add(p);
         finish();
     }
 }

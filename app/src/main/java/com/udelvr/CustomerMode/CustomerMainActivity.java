@@ -166,7 +166,7 @@ public class CustomerMainActivity extends Activity {
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			fragment = new HomeFragment();
+			fragment = new CustomerHomeFragment();
 			break;
 		case 1:
 			fragment = new FindPeopleFragment();
@@ -226,7 +226,7 @@ public class CustomerMainActivity extends Activity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		// Pass any configuration change to the drawer toggls
-		mDrawerToggle.onConfigurationChanged(newConfig);
+		//mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
 }

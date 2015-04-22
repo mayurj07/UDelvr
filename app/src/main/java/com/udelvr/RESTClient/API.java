@@ -32,6 +32,9 @@ public interface API {
     void addDriverDetails(@Path("user_id")String userId,@Body MultipartTypedOutput multipartTypedOutput,
                           Callback<DriverDO> callback);
 
+    @GET("/user/{user_id}/shipments")
+    void getUserShipments(@Path("user_id")String userId,Callback<List<ShipmentDO>> callback);
+
     @GET("/driver/shipments")
     void getAllShipments(Callback<List<ShipmentDO>> callback);
 

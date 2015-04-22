@@ -14,6 +14,7 @@ public class UserResponse {
     private String licenseExpiry;
     private Integer driverRating;
     private String profileURL;
+    private String licensePhotoURL;
 
     public UserResponse() {
     }
@@ -111,7 +112,13 @@ public class UserResponse {
         this.profileURL = profileURL;
     }
 
+    public String getLicensePhotoURL() {
+        return licensePhotoURL;
+    }
 
+    public void setLicensePhotoURL(String licensePhotoURL) {
+        this.licensePhotoURL = licensePhotoURL;
+    }
 
 
 

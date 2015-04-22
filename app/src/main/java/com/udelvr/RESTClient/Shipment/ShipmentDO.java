@@ -42,6 +42,10 @@ public class ShipmentDO {
      
     private String status;
 
+
+
+    private String amount;
+
     
     private String driverID;
 
@@ -52,7 +56,7 @@ public class ShipmentDO {
                            String sourceAddress, String sourceLocationLatitude, String sourceLocationLongitude,
                            String destinationAddress, String destinationLocationLatitude, String destinationLocationLongitude,
                            String packageDescription, String packageWeight, String pickupTime, String pickupDate, String shipmentImage,
-                           String customerID, String status, String driverID)
+                           String customerID, String status, String driverID, String amount)
     {
         this.shipmentID = ShipmentID;
         this.recipientName = recipientName;
@@ -72,6 +76,7 @@ public class ShipmentDO {
         this.driverID = driverID;
         this.customerID = customerID;
         this.status = status;
+        this.amount = amount;
     }
 
 
@@ -217,5 +222,13 @@ public class ShipmentDO {
 
     public void setDriverID(String driverID) {
         this.driverID = driverID;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

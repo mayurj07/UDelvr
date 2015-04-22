@@ -1,5 +1,7 @@
 package com.udelvr.RESTClient.Shipment;
 
+import com.udelvr.CustomerMode.CustomerHomeFragment;
+import com.udelvr.CustomerMode.Shipment.CustomerPackageManager;
 import com.udelvr.DriverMode.HomeFragment;
 import com.udelvr.DriverMode.Shipment.DriverPackageManager;
 import com.udelvr.RESTClient.RestClient;
@@ -48,7 +50,22 @@ public class ShipmentController {
        });
             return true;
     }
+    public static boolean getUserShipments(String user_id,final CustomerHomeFragment homeFragment) {
 
+
+        RestClient.get().getUserShipments(user_id,new Callback<List<ShipmentDO>>() {
+            @Override
+            public void success(List<ShipmentDO> shipmentResponse, Response response) {
+                CustomerPackageManager.getInstance().addAll(shipmentResponse);
+                homeFragment.onLoadComplete();
+            }
+            @Override
+            public void failure(RetrofitError error) {
+               // homeFragment.onSignInFailed();
+            }
+        });
+        return true;
+    }
     public static boolean getAllShipments(final HomeFragment homeFragment) {
 
 
@@ -65,4 +82,6 @@ public class ShipmentController {
         });
         return true;
     }
+
+
 }

@@ -33,7 +33,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit.RetrofitError;
 
@@ -192,22 +195,25 @@ public void startDriverHomeActivity()
 
                     bm = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             btmapOptions);
-                    image = bm;
-                    // bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
 
-                    String path = Environment
+                    // bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
+                    String path = android.os.Environment
                             .getExternalStorageDirectory()
                             + File.separator
                             + "Phoenix" + File.separator + "default";
                     f.delete();
                     OutputStream fOut = null;
-                    File file = new File(path, String.valueOf(System
-                            .currentTimeMillis()) + ".jpg");
+//                    File file = new File(path, String.valueOf(System
+//                            .currentTimeMillis()) + ".jpg");
+//                    System.out.println("bitmap: " + bm);
+                    File file=getOutputFromCamera();
+                    camera.setImageBitmap(bm);
                     try {
                         fOut = new FileOutputStream(file);
                         bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
                         fOut.flush();
                         fOut.close();
+                        driverDetails.setLicencePhoto(file);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -230,6 +236,26 @@ public void startDriverHomeActivity()
             }
 
         }
+    }
+    private File getOutputFromCamera() {
+
+        File storageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "Prasad");
+        if (!storageDir.exists()) {
+            if (!storageDir.mkdirs()) {
+
+
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        File imageFile = new File(storageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".png");
+
+        return imageFile;
     }
 
     public String getPath(Uri uri, Activity activity) {

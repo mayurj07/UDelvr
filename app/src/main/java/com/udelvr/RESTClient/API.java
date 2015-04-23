@@ -38,8 +38,8 @@ public interface API {
     @GET("/driver/shipments")
     void getAllShipments(Callback<List<ShipmentDO>> callback);
 
-    @POST("/shipment")
-    void addNewShipment(@Body MultipartTypedOutput multipartTypedOutput,
+    @POST("/user/{user_id}/shipment")
+    void addNewShipment(@Path("user_id")String userId,@Body MultipartTypedOutput multipartTypedOutput,
                     Callback<ShipmentResponse> callback);
 //    @POST("/user/login")
 //    void postLoginUser(@Body LoginData credentials,

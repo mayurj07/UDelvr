@@ -149,6 +149,8 @@ public class SplashScreenFragmentSignIn extends Fragment {
 //                            }
                             //b.putString("email", user.asMap().get("email").toString());
                             b.putString("image", imageURL);
+                            //b.putString("email", user.asMap().get("email").toString());
+                           // b.putString("image", imageURL);
                             i.putExtras(b);
                             startActivity(i);
                             // Set User name
@@ -177,7 +179,7 @@ public class SplashScreenFragmentSignIn extends Fragment {
     }
 
     public void OnsignInfailed() {
-        Toast.makeText(getActivity(), "Invalid credencials!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Invalid credentials!", Toast.LENGTH_LONG).show();
 
     }
     @Override

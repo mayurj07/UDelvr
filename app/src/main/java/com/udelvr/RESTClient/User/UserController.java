@@ -48,6 +48,7 @@ public class UserController {
                auth.setUserid(userResponse.getUserId());
                auth.setDeviceid(userResponse.getDeviceId());
                auth.setPassword(userResponse.getPassword());
+               auth.setDriverLicenceNo(userResponse.getDriverLicenseNo());
                if (mProgressDialog.isShowing())
                    mProgressDialog.dismiss();
                splashScreenFragmentRegisterNewUser.startCustomerMainActivity();

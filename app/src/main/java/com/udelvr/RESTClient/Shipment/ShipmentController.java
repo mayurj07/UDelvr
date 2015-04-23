@@ -1,6 +1,9 @@
 package com.udelvr.RESTClient.Shipment;
 
+import android.app.ProgressDialog;
+
 import com.udelvr.CustomerMode.CustomerHomeFragment;
+import com.udelvr.CustomerMode.Shipment.AddShipment;
 import com.udelvr.CustomerMode.Shipment.CustomerPackageManager;
 import com.udelvr.DriverMode.HomeFragment;
 import com.udelvr.DriverMode.Shipment.DriverPackageManager;
@@ -20,14 +23,14 @@ import retrofit.mime.TypedString;
  */
 public class ShipmentController {
 
-   public static boolean addNewShipment(Shipment shipment) {
+   public static boolean addNewShipment(final AddShipment addShipment,String user_id,Shipment shipment) {
 
-//       final ProgressDialog mProgressDialog = new ProgressDialog(splashScreenFragmentRegisterNewUser);
-//       mProgressDialog.setIndeterminate(true);
-//       mProgressDialog.setProgressNumberFormat(null);
-//       mProgressDialog.setProgressPercentFormat(null);
-//       mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//       mProgressDialog.show();
+       final ProgressDialog mProgressDialog = new ProgressDialog(addShipment);
+       mProgressDialog.setIndeterminate(true);
+       mProgressDialog.setProgressNumberFormat(null);
+       mProgressDialog.setProgressPercentFormat(null);
+       mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+       mProgressDialog.show();
 
 
        MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
@@ -44,13 +47,18 @@ public class ShipmentController {
        multipartTypedOutput.addPart("pickupDate", new TypedString(shipment.getPickupDate()));
        multipartTypedOutput.addPart("shipmentPhoto", new TypedFile("shipmentPhoto", shipment.getShipmentImage()));
 
-       RestClient.get().addNewShipment(multipartTypedOutput, new Callback<ShipmentResponse>() {
+       RestClient.get().addNewShipment(user_id,multipartTypedOutput, new Callback<ShipmentResponse>() {
            @Override
            public void success(ShipmentResponse shipmentResponse, Response response) {
-
+               if (mProgressDialog.isShowing())
+                   mProgressDialog.dismiss();
+               addShipment.addedShipmentSuccess();
            }
            @Override
            public void failure(RetrofitError error) {
+               if (mProgressDialog.isShowing())
+                   mProgressDialog.dismiss();
+               addShipment.OnFailedResponse();
 
            }
        });

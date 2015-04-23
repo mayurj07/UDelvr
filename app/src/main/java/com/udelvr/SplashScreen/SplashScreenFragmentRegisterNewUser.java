@@ -12,13 +12,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.CustomerMode.CustomerMainActivity;
@@ -32,11 +32,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.io.IOException;
-import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -75,9 +70,9 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         Bundle b = getIntent().getExtras();
         if(b!=null) {
             editTextFullName.setText(b.getString("name"));
-            editTextEmail.setText(b.getString("email"));
-            Log.e(TAG, "image: " + b.getString("image"));
-            new LoadProfileImage(circularImageView).execute(b.getString("image"));
+            //editTextEmail.setText(b.getString("email"));
+            //Log.e(TAG, "image: " + b.getString("image"));
+            //new LoadProfileImage(circularImageView).execute(b.getString("image"));
         }
 
 //        Log.e(TAG, "image: " + b.getString("image"));

@@ -95,15 +95,19 @@ public class AuthStore
     }
 
     public String getDriverLicenceNo() {
-
         return mPrefs.getString("driverLicenceNo",null);
 
     }
     public void setDriverLicenceNo(String driverLicenceNo)
     {
-        if(driverLicenceNo!=null) {
+        if(driverLicenceNo!=null && driverLicenceNo.trim()!="") {
             Editor editor = mPrefs.edit();
             editor.putString("driverLicenceNo", driverLicenceNo);
+            editor.commit();
+        }
+        else{
+            Editor editor = mPrefs.edit();
+            editor.putString("driverLicenceNo", null);
             editor.commit();
         }
     }

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.ApplicationContextProvider;
+import com.udelvr.AuthStore;
 import com.udelvr.Map.EditMapActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.Shipment.Shipment;
@@ -49,6 +50,9 @@ public class AddShipment extends Activity {
     ImageButton timePicker, datePicker, camera, sourceAddressPick, destAddressPick;
     CircularImageView circularImageView;
     Bitmap image;
+    AuthStore authStore;
+    AddShipment mContext;
+
 
     private static final String TAG = "Date picker";
     // Widget GUI
@@ -65,6 +69,8 @@ public class AddShipment extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_shipment);
+        authStore=new AuthStore(ApplicationContextProvider.getContext());
+        mContext=this;
         shipment = new Shipment();
         // row 1
         recipientsName=(EditText)findViewById(R.id.recipient);
@@ -172,21 +178,17 @@ public class AddShipment extends Activity {
 //                shipment.setShipmentImage("https://s3-us-west-1.amazonaws.com/project.bucket1/5");
                 shipment.setSourceLat("37.3351870");
                 shipment.setSourceLong("-121.8810720");
-                shipment.setDestinationLat("37.3351870");
-                shipment.setDestinationLong("-121.8810720");
+                shipment.setDestinationLat("37.7749290");
+                shipment.setDestinationLong("-122.4194160");
 //                shipment.setSourceAddress("1 Washington Sq, San Jose, CA 95192");
 //                shipment.setDestinationAddress("4900 Marie P. DeBartolo Way, Santa Clara, CA");
 
-                if(ShipmentController.addNewShipment(shipment)){
+                ShipmentController.addNewShipment(mContext,authStore.getUserId(),shipment);
 //                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
 //                    Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
 //                    startActivity(intent);
-                    Toast.makeText(ApplicationContextProvider.getContext(), "Add new shipment successfully!", Toast.LENGTH_LONG).show();
-                    addShipment();
 
-                }else{
-                    Toast.makeText(ApplicationContextProvider.getContext(), "Registation Failed!", Toast.LENGTH_LONG).show();
-                }
+
 
             }
         });
@@ -355,17 +357,13 @@ public class AddShipment extends Activity {
         return cursor.getString(column_index);
     }
 
-    void addShipment()
+    public void addedShipmentSuccess()
     {
-//        ShipmentDO p = new ShipmentDO();
-//        p.recipientName=recipientsName.getText().toString();
-////        p.dateTime=""+mMonth+"/"+mDay+"/"+mYear+" "+mHour+":"+mMinute;
-//        p.dateTime=shipment.getPickupTime() + " " + shipment.getPickupDate();
-//        BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
-//        Bitmap bmp = BitmapFactory.decodeFile(shipment.getShipmentImage().getAbsolutePath(),btmapOptions);
-//        p.image= bmp;
-//        p.status=shipment.getStatus();
-//        CustomerPackageManager.getInstance().add(p);
+        Toast.makeText(ApplicationContextProvider.getContext(), "Add new shipment successfully!", Toast.LENGTH_LONG).show();
         finish();
     }
-}
+
+    public void OnFailedResponse() {
+        Toast.makeText(ApplicationContextProvider.getContext(), "Registation Failed!", Toast.LENGTH_LONG).show();
+    }
+        }

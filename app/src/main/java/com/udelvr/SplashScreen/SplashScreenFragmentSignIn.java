@@ -138,10 +138,16 @@ public class SplashScreenFragmentSignIn extends Fragment {
 
                             String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
 //                            Log.i(TAG, user + " " + user.getName() + " " + user.asMap().get("email").toString() + " " + imageURL);
+                            Log.e(TAG,"user: " + user);
+//                            Log.e(TAG,"email: " + user.asMap().get("email").toString());
+                            Log.e(TAG,"image: " + imageURL);
                             Intent i = new Intent(getActivity(), SplashScreenFragmentRegisterNewUser.class);
                             Bundle b = new Bundle();
                             b.putString("name", user.getName());
-                            b.putString("email", user.asMap().get("email").toString());
+//                            if (user.asMap().get("email").toString()!=null){
+//                                b.putString("email", user.asMap().get("email").toString());
+//                            }
+                            //b.putString("email", user.asMap().get("email").toString());
                             b.putString("image", imageURL);
                             i.putExtras(b);
                             startActivity(i);

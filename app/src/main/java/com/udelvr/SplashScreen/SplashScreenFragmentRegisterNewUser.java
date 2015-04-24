@@ -94,8 +94,12 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
             editTextFullName.setText(b.getString("name"));
             //editTextEmail.setText(b.getString("email"));
             //Log.e(TAG, "image: " + b.getString("image"));
-            //new LoadProfileImage(circularImageView).execute(b.getString("image"));
+           new LoadProfileImage(circularImageView).execute(b.getString("image"));
+
         }
+//        if(b.getString("email")!=null){
+//            editTextEmail.setText(b.getString("email"));
+//        }
 
 //        Log.e(TAG, "image: " + b.getString("image"));
 //        new LoadProfileImage(circularImageView).execute(b.getString("image"));

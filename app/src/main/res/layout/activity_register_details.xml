@@ -23,6 +23,7 @@
         app:border_color="#EEEEEE"
         app:border_width="4dp"
         app:shadow="true"
+        android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />

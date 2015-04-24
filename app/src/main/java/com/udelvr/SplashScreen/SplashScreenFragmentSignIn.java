@@ -20,16 +20,27 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
 
+import java.util.List;
+
 import static com.udelvr.RESTClient.User.UserController.signinUser;
 
-public class SplashScreenFragmentSignIn extends Fragment {
+public class SplashScreenFragmentSignIn extends Fragment implements Validator.ValidationListener {
 
     private LoginButton authButton;
-    EditText email,password;
+
+    @NotEmpty
+    @Email(message = "You must enter your email.")
+    EditText email;
+    @NotEmpty(message = "You must enter your password.")
+    EditText password;
     private UiLifecycleHelper uiHelper;
     private static final String TAG = "REGISTER SPLASH";
     Button btn_register,btn_signin;
@@ -37,6 +48,7 @@ public class SplashScreenFragmentSignIn extends Fragment {
     User user;
     SplashScreenFragmentSignIn splashScreenFragmentSignIn;
     private View otherView;
+    Validator validator;
 
 
 	public static Fragment newInstance(Context context) {
@@ -51,6 +63,8 @@ public class SplashScreenFragmentSignIn extends Fragment {
         // To maintain FB Login session
         uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
         uiHelper.onCreate(savedInstanceState);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
     }
 
     @Override
@@ -71,9 +85,8 @@ public class SplashScreenFragmentSignIn extends Fragment {
             @Override
             public void onClick(View v) {
 
-                user.setEmail(email.getText().toString());
-                user.setPassword(password.getText().toString());
-                signinUser(user,splashScreenFragmentSignIn);
+                validator.validate();
+
 
             }
         });
@@ -205,4 +218,25 @@ public class SplashScreenFragmentSignIn extends Fragment {
         uiHelper.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onValidationSucceeded() {
+        user.setEmail(email.getText().toString());
+        user.setPassword(password.getText().toString());
+        signinUser(user,splashScreenFragmentSignIn);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }

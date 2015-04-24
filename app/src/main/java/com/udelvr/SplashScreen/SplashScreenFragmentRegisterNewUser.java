@@ -21,6 +21,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
+import com.udelvr.ApplicationContextProvider;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
@@ -34,20 +40,34 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
-public class SplashScreenFragmentRegisterNewUser extends Activity {
+public class SplashScreenFragmentRegisterNewUser extends Activity implements Validator.ValidationListener {
 
     private static String TAG = "register activity";
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
     ViewGroup root;
     Button btn_register;
+
     CircularImageView circularImageView;
-    EditText editTextFullName, editTextEmail, editTextPassword, editTextMobile;
+    @NotEmpty(message = "You must enter your full name.")
+    EditText editTextFullName;
+    @NotEmpty
+    @Email(message = "You must enter your email.")
+    EditText editTextEmail;
+    @NotEmpty
+    @Password(message = "You must enter password.")
+    EditText editTextPassword;
+    @NotEmpty(message = "You must enter your mobile no.")
+    EditText editTextMobile;
     User user;
     SplashScreenFragmentRegisterNewUser splashScreenFragmentRegisterNewUser;
+
+    Validator validator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +78,8 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         user = new User();
         splashScreenFragmentRegisterNewUser = this;
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         editTextFullName = (EditText) findViewById(R.id.editText_fullname);
         editTextEmail = (EditText) findViewById(R.id.editText_email);
@@ -96,13 +118,13 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.setFullName(editTextFullName.getText().toString());
-                user.setEmail(editTextEmail.getText().toString());
-                user.setPassword(editTextPassword.getText().toString());
-                user.setMobileNo(editTextMobile.getText().toString());
-
-                UserController.registerNewUser(user, splashScreenFragmentRegisterNewUser);
-
+                if(user.getprofilePhoto()==null)
+                {
+                    Toast.makeText(ApplicationContextProvider.getContext(),"Please add your profile picture.",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    validator.validate();
+                }
             }
         });
     }
@@ -238,6 +260,33 @@ public class SplashScreenFragmentRegisterNewUser extends Activity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+        user.setFullName(editTextFullName.getText().toString());
+        user.setEmail(editTextEmail.getText().toString());
+        user.setPassword(editTextPassword.getText().toString());
+        user.setMobileNo(editTextMobile.getText().toString());
+
+        UserController.registerNewUser(user, splashScreenFragmentRegisterNewUser);
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     public static class LoadProfileImage extends

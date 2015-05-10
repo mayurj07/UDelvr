@@ -62,4 +62,5 @@ dependencies {
     compile 'com.google.http-client:google-http-client-jackson2:1.18.0-rc'
     //saripar for validation
     compile 'com.mobsandgeeks:android-saripaar:2.0-SNAPSHOT'
+
 }

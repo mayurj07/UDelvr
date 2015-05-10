@@ -2,6 +2,8 @@ package com.udelvr.CustomerMode.Shipment;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
+
+import com.udelvr.Map.CurrentLocationActivity;
 import com.udelvr.Map.PlaceAutocompleteAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -46,7 +48,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
-import com.udelvr.Map.EditMapActivity;
+import com.udelvr.Map.CurrentLocationActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.Shipment.Shipment;
 import com.udelvr.RESTClient.Shipment.ShipmentController;
@@ -110,60 +112,38 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         recipientsName=(EditText)findViewById(R.id.recipient);
         // row 2
         sourceAddress=(AutoCompleteTextView)findViewById(R.id.input_address);
-        if (shipment.getSourceAddress() != null){
-            // if shipment already has some value, reset
-            shipment.setSourceAddress(null);
-        }
+//        if (shipment.getSourceAddress() != null){
+//            // if shipment already has some value, reset
+//            shipment.setSourceAddress(null);
+//        }
         sourceAddress.setOnItemClickListener(mAutocompleteClickListener);
         mAdapter = new PlaceAutocompleteAdapter(this, android.R.layout.simple_list_item_1,
                 mGoogleApiClient, BOUND_US, null);
         sourceAddress.setAdapter(mAdapter);
-//        sourceAddress.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplication(), EditMapActivity.class);
-//                startActivity(i);
-//                sourceAddress.setText(static_src_address);
-//                shipment.setSourceAddress(static_src_address);
-//            }
-//        });
         sourceAddressPick = (ImageButton) findViewById(R.id.choose_address);
-//        sourceAddressPick.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplication(), EditMapActivity.class);
-//                startActivity(i);
-//                sourceAddress.setText(static_src_address);
-//                shipment.setSourceAddress(static_src_address);
-//            }
-//        });
+        sourceAddressPick.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
+                startActivity(i);
+            }
+        });
         // row 3
         destAddress=(AutoCompleteTextView)findViewById(R.id.input_pickup_address);
-        if (shipment.getDestinationAddress() != null){
-            // if shipment already has some value, reset
-            shipment.setDestinationAddress(null);
-        }
+//        if (shipment.getDestinationAddress() != null){
+//            // if shipment already has some value, reset
+//            shipment.setDestinationAddress(null);
+//        }
         destAddress.setOnItemClickListener(mAutocompleteClickListener);
         destAddress.setAdapter(mAdapter);
-//        destAddress.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplication(), EditMapActivity.class);
-//                startActivity(i);
-//                destAddress.setText(static_dest_address);
-//                shipment.setDestinationAddress(static_dest_address);
-//            }
-//        });
         destAddressPick = (ImageButton) findViewById(R.id.choose_pickup_address);
-//        destAddressPick.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplication(), EditMapActivity.class);
-//                startActivity(i);
-//                destAddress.setText(static_dest_address);
-//                shipment.setDestinationAddress(static_dest_address);
-//            }
-//        });
+        destAddressPick.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
+                startActivity(i);
+            }
+        });
 
         // row 4
         packageDesc=(EditText)findViewById(R.id.item_desc);

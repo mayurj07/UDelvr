@@ -56,7 +56,8 @@ dependencies {
     //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
     // google play service
-    compile 'com.google.android.gms:play-services:6.5.87'
+    compile 'com.google.android.gms:play-services:7.0.0'
+    compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.google.api-client:google-api-client:1.18.0-rc'
     compile 'com.google.http-client:google-http-client-jackson2:1.18.0-rc'
     //saripar for validation

@@ -37,17 +37,29 @@
             android:layout_below="@+id/recipient"
             android:orientation="horizontal"
             android:layout_alignEnd="@+id/pickup_address">
-            <EditText
+
+            <AutoCompleteTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textPostalAddress"
                 android:hint="@string/address"
                 android:ems="10"
-                android:focusableInTouchMode="false"
                 android:id="@+id/input_address"
                 android:textColor="@color/black_overlay"
-                android:textColorHint="@color/udelvr_hint_white"/>
+                android:textColorHint="@color/udelvr_hint_white"
+            />
+
+            <!--<EditText-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:inputType="textPostalAddress"-->
+                <!--android:hint="@string/address"-->
+                <!--android:ems="10"-->
+                <!--android:focusableInTouchMode="false"-->
+                <!--android:id="@+id/input_address"-->
+                <!--android:textColor="@color/black_overlay"-->
+                <!--android:textColorHint="@color/udelvr_hint_white"/>-->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,17 +78,18 @@
             android:orientation="horizontal"
             android:layout_below="@+id/address"
             android:layout_alignEnd="@+id/pickup_address">
-            <EditText
+            <AutoCompleteTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textPostalAddress"
                 android:hint="@string/address"
                 android:ems="10"
-                android:focusableInTouchMode="false"
                 android:id="@+id/input_pickup_address"
                 android:textColor="@color/black_overlay"
-                android:textColorHint="@color/udelvr_hint_white"/>
+                android:textColorHint="@color/udelvr_hint_white"
+            />
+
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

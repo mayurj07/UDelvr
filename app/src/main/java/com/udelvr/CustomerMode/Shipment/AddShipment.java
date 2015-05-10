@@ -90,7 +90,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
     protected GoogleApiClient mGoogleApiClient;
     private PlaceAutocompleteAdapter mAdapter;
     private static final LatLngBounds BOUND_US = new LatLngBounds(
-            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
+            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090)); // Mountain view bound
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,8 +135,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         // row 3
         destAddress=(AutoCompleteTextView)findViewById(R.id.input_pickup_address);
         destAddress.setOnItemClickListener(mAutocompleteClickListener);
-        mAdapter = new PlaceAutocompleteAdapter(this, android.R.layout.simple_list_item_1,
-                mGoogleApiClient, BOUND_US, null);
+        destAddress.setAdapter(mAdapter);
         //shipment.setDestinationAddress(destAddress);
 //        destAddress.setOnClickListener(new View.OnClickListener(){
 //            @Override

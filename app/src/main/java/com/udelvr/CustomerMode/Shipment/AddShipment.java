@@ -92,6 +92,8 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
     private static final LatLngBounds BOUND_US = new LatLngBounds(
             new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090)); // Mountain view bound
 
+    private static String cur_address = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,11 +110,14 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         recipientsName=(EditText)findViewById(R.id.recipient);
         // row 2
         sourceAddress=(AutoCompleteTextView)findViewById(R.id.input_address);
+        if (shipment.getSourceAddress() != null){
+            // if shipment already has some value, reset
+            shipment.setSourceAddress(null);
+        }
         sourceAddress.setOnItemClickListener(mAutocompleteClickListener);
         mAdapter = new PlaceAutocompleteAdapter(this, android.R.layout.simple_list_item_1,
                 mGoogleApiClient, BOUND_US, null);
         sourceAddress.setAdapter(mAdapter);
-        //shipment.setSourceAddress(sourceAddress.getText());
 //        sourceAddress.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View v) {
@@ -134,9 +139,12 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 //        });
         // row 3
         destAddress=(AutoCompleteTextView)findViewById(R.id.input_pickup_address);
+        if (shipment.getDestinationAddress() != null){
+            // if shipment already has some value, reset
+            shipment.setDestinationAddress(null);
+        }
         destAddress.setOnItemClickListener(mAutocompleteClickListener);
         destAddress.setAdapter(mAdapter);
-        //shipment.setDestinationAddress(destAddress);
 //        destAddress.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View v) {
@@ -222,7 +230,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 //                shipment.setDestinationLong("-122.4194160");
 //                shipment.setSourceAddress("1 Washington Sq, San Jose, CA 95192");
 //                shipment.setDestinationAddress("4900 Marie P. DeBartolo Way, Santa Clara, CA");
-
+                Log.i(TAG,"Ready to ship: " + shipment.getSourceAddress() + " " + shipment.getDestinationAddress());
                 ShipmentController.addNewShipment(mContext,authStore.getUserId(),shipment);
 //                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
 //                    Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
@@ -233,8 +241,6 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
             }
         });
     }
-
-
 
     private void showDatePicker(){
         final Calendar c = Calendar.getInstance();
@@ -409,6 +415,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener
             = new AdapterView.OnItemClickListener() {
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             /*
@@ -416,8 +423,10 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
              The adapter stores each Place suggestion in a PlaceAutocomplete object from which we
              read the place ID.
               */
-            final PlaceAutocompleteAdapter.PlaceAutocomplete item = mAdapter.getItem(position);
-            final String placeId = String.valueOf(item.placeId);
+            final PlaceAutocompleteAdapter.PlaceAutocomplete item;
+            final String placeId;
+            item = mAdapter.getItem(position);
+            placeId = String.valueOf(item.placeId);
             Log.i(TAG, "Autocomplete item selected: " + item.description);
 
             /*
@@ -465,8 +474,17 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 //                mPlaceDetailsAttribution.setText(Html.fromHtml(thirdPartyAttribution.toString()));
 //            }
 
-            Log.i(TAG, "Place details received: " + place.getName());
-
+            Log.i(TAG, "Place details received: " + place);
+            if (shipment.getSourceAddress() == null){
+                shipment.setSourceAddress(place.getAddress().toString());
+                shipment.setSourceLat(Double.valueOf(place.getLatLng().latitude).toString());
+                shipment.setSourceLong(Double.valueOf(place.getLatLng().longitude).toString());
+            }
+            else{
+                shipment.setDestinationAddress(place.getAddress().toString());
+                shipment.setDestinationLat(Double.valueOf(place.getLatLng().latitude).toString());
+                shipment.setDestinationLong(Double.valueOf(place.getLatLng().longitude).toString());
+            }
             places.release();
         }
     };

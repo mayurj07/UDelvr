@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="debug"><source path="/Users/sophiango/UDelvr/circularImageView/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/Users/sophiango/UDelvr/circularImageView/src/androidTest/assets"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="debug"><source path="/Users/neerajakukday/Documents/Github/UDelvr/circularImageView/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/Users/neerajakukday/Documents/Github/UDelvr/circularImageView/src/androidTest/assets"/></dataSet></merger>
+>>>>>>> 0e321b689b5bca8137c8208e847112d729d99fd4

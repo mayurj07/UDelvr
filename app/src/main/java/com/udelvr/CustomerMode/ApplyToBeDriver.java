@@ -22,10 +22,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
 import com.udelvr.DriverMode.DriverMainActivity;
 import com.udelvr.R;
+import com.udelvr.RESTClient.Driver.DriverDetails;
 import com.udelvr.RESTClient.Driver.DriverDetails;
 
 import java.io.File;
@@ -36,6 +41,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit.RetrofitError;
@@ -45,7 +51,7 @@ import static com.udelvr.RESTClient.Driver.DriverController.addDriverDetails;
 /**
  * Created by sophiango on 4/14/15.
  */
-public class ApplyToBeDriver extends Activity {
+public class ApplyToBeDriver extends Activity implements Validator.ValidationListener {
 
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
@@ -56,20 +62,26 @@ public class ApplyToBeDriver extends Activity {
     // Widget GUI
     private ImageButton datePicker, camera, close;
     private Button apply;
+    @NotEmpty(message = "Enter expiry date.")
     private TextView date_expire;
+    @NotEmpty(message = "Enter driver licence no.")
     private EditText driver_license;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private AuthStore auth;
     ApplyToBeDriver applyToBeDriver;
+    Validator validator;
 
-    private DriverDetails driverDetails;
+
+    private DriverDetails driverDetail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mContext = this;
         applyToBeDriver=this;
         super.onCreate(savedInstanceState);
-        driverDetails = new DriverDetails();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+        driverDetail = new DriverDetails();
         auth = new AuthStore(ApplicationContextProvider.getContext());
         setContentView(R.layout.new_driver_details_popup);
         driver_license = (EditText) findViewById(R.id.edittext_driver_licence);
@@ -96,9 +108,8 @@ public class ApplyToBeDriver extends Activity {
             @Override
             public void onClick(View v) {
 
-                driverDetails.setdriverLicenseNo(driver_license.getText().toString());
-                driverDetails.setlicenseExpiry(date_expire.getText().toString());
-               addDriverDetails(applyToBeDriver, auth.getUserId(), driverDetails);
+                validator.validate();
+
 
             }
         });
@@ -207,13 +218,13 @@ public void startDriverHomeActivity()
 //                            .currentTimeMillis()) + ".jpg");
 //                    System.out.println("bitmap: " + bm);
                     File file=getOutputFromCamera();
-                    camera.setImageBitmap(bm);
+                  //  camera.setImageBitmap(bm);
                     try {
                         fOut = new FileOutputStream(file);
                         bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
                         fOut.flush();
                         fOut.close();
-                        driverDetails.setLicencePhoto(file);
+                        driverDetail.setLicencePhoto(file);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -228,7 +239,7 @@ public void startDriverHomeActivity()
                 Uri selectedImageUri = data.getData();
 
                 String tempPath = getPath(selectedImageUri, this);
-                driverDetails.setLicencePhoto(new File(getPath(selectedImageUri, this)));
+                driverDetail.setLicencePhoto(new File(getPath(selectedImageUri, this)));
                 Bitmap bm;
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
@@ -267,4 +278,25 @@ public void startDriverHomeActivity()
         return cursor.getString(column_index);
     }
 
+    @Override
+    public void onValidationSucceeded() {
+        driverDetail.setdriverLicenseNo(driver_license.getText().toString());
+        driverDetail.setlicenseExpiry(date_expire.getText().toString());
+        addDriverDetails(applyToBeDriver, auth.getUserId(), driverDetail);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }

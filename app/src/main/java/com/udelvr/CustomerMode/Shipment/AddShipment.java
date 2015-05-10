@@ -112,6 +112,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         mAdapter = new PlaceAutocompleteAdapter(this, android.R.layout.simple_list_item_1,
                 mGoogleApiClient, BOUND_US, null);
         sourceAddress.setAdapter(mAdapter);
+        //shipment.setSourceAddress(sourceAddress.getText());
 //        sourceAddress.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View v) {
@@ -133,6 +134,10 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 //        });
         // row 3
         destAddress=(AutoCompleteTextView)findViewById(R.id.input_pickup_address);
+        destAddress.setOnItemClickListener(mAutocompleteClickListener);
+        mAdapter = new PlaceAutocompleteAdapter(this, android.R.layout.simple_list_item_1,
+                mGoogleApiClient, BOUND_US, null);
+        //shipment.setDestinationAddress(destAddress);
 //        destAddress.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View v) {
@@ -212,10 +217,10 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 
                 // temp hardcode
 //                shipment.setShipmentImage("https://s3-us-west-1.amazonaws.com/project.bucket1/5");
-                shipment.setSourceLat("37.3351870");
-                shipment.setSourceLong("-121.8810720");
-                shipment.setDestinationLat("37.7749290");
-                shipment.setDestinationLong("-122.4194160");
+//                shipment.setSourceLat("37.3351870");
+//                shipment.setSourceLong("-121.8810720");
+//                shipment.setDestinationLat("37.7749290");
+//                shipment.setDestinationLong("-122.4194160");
 //                shipment.setSourceAddress("1 Washington Sq, San Jose, CA 95192");
 //                shipment.setDestinationAddress("4900 Marie P. DeBartolo Way, Santa Clara, CA");
 

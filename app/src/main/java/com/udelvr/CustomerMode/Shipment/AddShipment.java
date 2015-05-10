@@ -95,6 +95,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
             new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090)); // Mountain view bound
 
     private static String cur_address = null;
+    private double source_lat, source_long, dest_lat, dest_long;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         // row 1
         recipientsName=(EditText)findViewById(R.id.recipient);
         // row 2
-        sourceAddress=(AutoCompleteTextView)findViewById(R.id.input_address);
+        sourceAddress=(AutoCompleteTextView)findViewById(R.id.pickup_address);
 //        if (shipment.getSourceAddress() != null){
 //            // if shipment already has some value, reset
 //            shipment.setSourceAddress(null);
@@ -125,11 +126,16 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
+                Bundle source_bundle = new Bundle();
+                source_bundle.putDouble("lat",source_lat);
+                source_bundle.putDouble("long",source_long);
+                i.putExtras(source_bundle);
+               Log.i(TAG, "Put in bundle: " + source_lat + " " + source_long);
                 startActivity(i);
             }
         });
         // row 3
-        destAddress=(AutoCompleteTextView)findViewById(R.id.input_pickup_address);
+        destAddress=(AutoCompleteTextView)findViewById(R.id.drop_address);
 //        if (shipment.getDestinationAddress() != null){
 //            // if shipment already has some value, reset
 //            shipment.setDestinationAddress(null);
@@ -140,7 +146,14 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         destAddressPick.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+//                CurrentLocationActivity newClass = new CurrentLocationActivity(dest_lat,dest_long);
+//                Log.i("cur souce: " + Double.valueOf(dest_lat).toString());
                 Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
+                Bundle dest_bundle = new Bundle();
+                dest_bundle.putDouble("lat",dest_lat);
+                dest_bundle.putDouble("long",dest_long);
+                i.putExtras(dest_bundle);
+                Log.i(TAG, "Put in bundle: " + dest_lat + " " + dest_long);
                 startActivity(i);
             }
         });
@@ -403,6 +416,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
              The adapter stores each Place suggestion in a PlaceAutocomplete object from which we
              read the place ID.
               */
+
             final PlaceAutocompleteAdapter.PlaceAutocomplete item;
             final String placeId;
             item = mAdapter.getItem(position);
@@ -416,7 +430,6 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
             PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
                     .getPlaceById(mGoogleApiClient, placeId);
             placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
-
             Toast.makeText(getApplicationContext(), "Clicked: " + item.description,
                     Toast.LENGTH_SHORT).show();
             Log.i(TAG, "Called getPlaceById to get Place details for " + item.placeId);
@@ -459,11 +472,15 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
                 shipment.setSourceAddress(place.getAddress().toString());
                 shipment.setSourceLat(Double.valueOf(place.getLatLng().latitude).toString());
                 shipment.setSourceLong(Double.valueOf(place.getLatLng().longitude).toString());
+                source_lat = place.getLatLng().latitude;
+                source_long = place.getLatLng().longitude;
             }
             else{
                 shipment.setDestinationAddress(place.getAddress().toString());
                 shipment.setDestinationLat(Double.valueOf(place.getLatLng().latitude).toString());
                 shipment.setDestinationLong(Double.valueOf(place.getLatLng().longitude).toString());
+                dest_lat = place.getLatLng().latitude;
+                dest_long = place.getLatLng().longitude;
             }
             places.release();
         }

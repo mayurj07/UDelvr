@@ -4,20 +4,38 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
 import com.udelvr.R;
 
 public class CurrentLocationActivity extends Activity implements OnMapReadyCallback{
-    static double latitude = 37.335499;
-    static double longitude = -121.883486;
+//    static double latitude = 37.335499;
+//    static double longitude = -121.883486;
+    private String TAG = "current location activity";
+    private double latitude;
+    private double longitude;
     private GoogleMap googleMap;
+
+//    public CurrentLocationActivity(){};
+//
+//    public CurrentLocationActivity (double lat, double lon){
+//        this.latitude = lat;
+//        this.longitude = lon;
+//    }
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
+        Intent i = getIntent();
+        if (i != null){
+            this.latitude = i.getExtras().getDouble("lat");
+            this.longitude = i.getExtras().getDouble("long");
+            Log.i(TAG, "Bundle available " + this.latitude + " " + this.longitude);
+        }
 //        try {
 //            // Loading map
 //            initilizeMap();
@@ -31,11 +49,17 @@ public class CurrentLocationActivity extends Activity implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
     }
 
+    public void setLatLong (double lat, double lon){
+        this.latitude = lat;
+        this.longitude = lon;
+    }
+
     @Override
     public void onMapReady(GoogleMap map) {
         LatLng currentPosition = new LatLng(latitude, longitude);
+        Log.i(TAG,"lat: " + latitude + " long: " + longitude);
         map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 12));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 15));
         map.addMarker(new MarkerOptions()
                 .position(currentPosition)
                 .title("ME")

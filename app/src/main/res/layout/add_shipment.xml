@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:hint="@string/address"
                 android:ems="10"
-                android:id="@+id/input_address"
+                android:id="@+id/pickup_address"
                 android:textColor="@color/black_overlay"
                 android:textColorHint="@color/udelvr_hint_white"
             />
@@ -84,7 +84,7 @@
                 android:layout_weight="1"
                 android:hint="@string/address"
                 android:ems="10"
-                android:id="@+id/input_pickup_address"
+                android:id="@+id/drop_address"
                 android:textColor="@color/black_overlay"
                 android:textColorHint="@color/udelvr_hint_white"
             />

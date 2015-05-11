@@ -36,12 +36,14 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
 
 
     @Override
-    public PackageListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public PackageListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
 
         PackageListAdapter.ViewHolder vh = new ViewHolder(v, new PackageListAdapter.ViewHolder.IMyViewHolderClicks(){
             @Override
             public void onItem(View caller) {
+                ShipmentDO aDriverPackage = driverPackages.get(i);
+
                 Toast.makeText(ApplicationContextProvider.getContext(),"",Toast.LENGTH_LONG).show();
             }
         });
@@ -50,8 +52,8 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        ShipmentDO aDriverPackage = driverPackages.get(i);
+    public void onBindViewHolder(final ViewHolder viewHolder, int i) {
+        final ShipmentDO aDriverPackage = driverPackages.get(i);
         viewHolder.destination.setText(aDriverPackage.getDestinationAddress() );
         viewHolder.amount.setText("$"+aDriverPackage.getCustomerID());
         viewHolder.dateTime.setText(aDriverPackage.getPickupDate());
@@ -68,6 +70,12 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
             @Override
             public void onError() {
                 System.out.println("onSuccessFail");
+            }
+        });
+        viewHolder.packageMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ApplicationContextProvider.getContext(),""+aDriverPackage.getAmount() ,Toast.LENGTH_LONG).show();
             }
         });
       //  viewHolder.packageMap.setImageDrawable(new BitmapDrawable(mContext.getResources(), aDriverPackage.image));
@@ -100,6 +108,7 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
         public IMyViewHolderClicks mListener;
 
 
+
         public ViewHolder(View itemView,IMyViewHolderClicks listener) {
             super(itemView);
             mListener = listener;
@@ -109,6 +118,7 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
             dateTime=(TextView)itemView.findViewById(R.id.dateTimeText);
 
             itemView.setOnClickListener(this);
+            packageMap.setOnClickListener(this);
         }
 
 

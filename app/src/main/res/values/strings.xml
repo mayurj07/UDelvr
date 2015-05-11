@@ -63,6 +63,8 @@
     <string name="title_activity_onmaphelp">Onmaphelp</string>
     <!--add_shipment.xml -->
     <string name="add_shipment">Add shipment</string>
+    <string name="accept_shipment">Accept</string>
+
     <string name="recipient_name">Recipient\'s name</string>
     <string name="item_desc">Describe your package</string>
     <string name="weight">Package weight</string>

@@ -111,6 +111,12 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
 
                 bundle.putString("PickupTime",aDriverPackage.getPickupTime());
                 bundle.putString("PickupDate",aDriverPackage.getPickupDate());
+
+                bundle.putString("ShipmentImage",aDriverPackage.getShipmentImage());
+                bundle.putString("ShipmentID",aDriverPackage.getShipmentID());
+
+
+
                 Intent intent = new Intent(mContext,ShipmentDetailsActivity.class);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);

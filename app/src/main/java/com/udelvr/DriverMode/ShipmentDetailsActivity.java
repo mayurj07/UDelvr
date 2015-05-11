@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.udelvr.AuthStore;
 import com.udelvr.R;
 
@@ -24,9 +26,13 @@ public class ShipmentDetailsActivity extends Activity{
     private Button accept_shipment;
     private AuthStore authStore;
 
+    private Bundle shipment_bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+         shipment_bundle = getIntent().getExtras();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_shipment_details);
         recipientsName=(TextView)findViewById(R.id.recipient);
@@ -37,6 +43,7 @@ public class ShipmentDetailsActivity extends Activity{
         sourceAddress=(TextView)findViewById(R.id.pickup_address);
         destAddress=(TextView)findViewById(R.id.drop_address);
 
+
         packageDestImageView = (ImageView)this.findViewById(R.id.packageDestinationStaticMap);
         packageDestImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +51,20 @@ public class ShipmentDetailsActivity extends Activity{
 
             }
         });
+        Picasso.with(this).setIndicatorsEnabled(true);
+        String url = "http://maps.googleapis.com/maps/api/staticmap?" + "&markers=" + shipment_bundle.getString("DestinationLocationLatitude") + "," + shipment_bundle.getString("DestinationLocationLongitude") + "&zoom=15&size=400x300&sensor=false";
+        Picasso.with(this).load(url).fit().centerCrop().into(packageDestImageView, new Callback() {
+            @Override
+            public void onSuccess() {
+                System.out.println("onSuccess");
+            }
+
+            @Override
+            public void onError() {
+                System.out.println("onSuccessFail");
+            }
+        });
+
 
         timePicker = (ImageView)this.findViewById(R.id.imageView_timePicker);
         timePicker.setOnClickListener(new View.OnClickListener() {

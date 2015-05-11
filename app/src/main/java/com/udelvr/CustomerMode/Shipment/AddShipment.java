@@ -23,7 +23,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -119,16 +118,6 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         sourceAddressPick.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/maps?" + "saddr="+ source_lat + "," + source_long + "&daddr=" + dest_lat + "," + dest_long));
-                //Uri uri = Uri.parse("http://maps.google.com/maps?saddr=37.337889,-121.937870&daddr=37.402095,-121.999615");
-
-                // street view
-//                Uri uri = Uri.parse("google.navigation:q=37.337889,-121.937870");
-//                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-//                intent.setPackage("com.google.android.apps.maps");
-//                startActivity(intent);
-
-
                 Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
                 Bundle source_bundle = new Bundle();
                 source_bundle.putDouble("lat",source_lat);

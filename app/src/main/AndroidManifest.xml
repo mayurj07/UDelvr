@@ -83,6 +83,12 @@
             android:theme="@style/AppDriverTheme"></activity>
 
         <activity
+            android:name=".DriverMode.ShipmentDetailsActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppDriverTheme"></activity>
+
+
+        <activity
         android:name=".Map.CurrentLocationActivity"
         android:label="@string/app_name"
         android:theme="@style/AppDriverTheme"></activity>

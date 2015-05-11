@@ -1,6 +1,8 @@
 package com.udelvr.DriverMode.Shipment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.udelvr.ApplicationContextProvider;
+import com.udelvr.DriverMode.ShipmentDetailsActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.Shipment.ShipmentDO;
 
@@ -92,6 +95,28 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
             @Override
             public void onClick(View view) {
                 Toast.makeText(ApplicationContextProvider.getContext(),""+aDriverPackage.getAmount() ,Toast.LENGTH_LONG).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("PackageDescription",aDriverPackage.getPackageDescription());
+                bundle.putString("PackageWeight",aDriverPackage.getPackageWeight());
+                bundle.putString("Amount",aDriverPackage.getAmount());
+                bundle.putString("RecipientName",aDriverPackage.getRecipientName());
+
+                bundle.putString("SourceAddress",aDriverPackage.getSourceAddress());
+                bundle.putString("SourceLocationLatitude",aDriverPackage.getSourceLocationLatitude());
+                bundle.putString("SourceLocationLongitude",aDriverPackage.getSourceLocationLongitude());
+
+                bundle.putString("DestinationAddress",aDriverPackage.getDestinationAddress());
+                bundle.putString("DestinationLocationLatitude",aDriverPackage.getDestinationLocationLatitude());
+                bundle.putString("DestinationLocationLongitude",aDriverPackage.getDestinationLocationLongitude());
+
+                bundle.putString("PickupTime",aDriverPackage.getPickupTime());
+                bundle.putString("PickupDate",aDriverPackage.getPickupDate());
+                Intent intent = new Intent(mContext,ShipmentDetailsActivity.class);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+
+
+
             }
         });
       //  viewHolder.packageMap.setImageDrawable(new BitmapDrawable(mContext.getResources(), aDriverPackage.image));

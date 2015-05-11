@@ -3,6 +3,7 @@ package com.udelvr.DriverMode;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.udelvr.ApplicationContextProvider;
+import com.udelvr.AuthStore;
 import com.udelvr.DriverMode.adapter.NavDrawerListAdapter;
 import com.udelvr.DriverMode.model.NavDrawerItem;
 import com.udelvr.R;
@@ -40,11 +43,14 @@ public class DriverMainActivity extends Activity {
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 
+    private AuthStore authStore;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+        authStore = new AuthStore(ApplicationContextProvider.getContext());
 		mTitle = mDrawerTitle = getTitle();
 
 		// load slide menu items
@@ -181,7 +187,8 @@ public class DriverMainActivity extends Activity {
 			fragment = new PagesFragment();
 			break;
 		case 5:
-			fragment = new WhatsHotFragment();
+			//fragment = new WhatsHotFragment();
+            logOutUser();
 			break;
 
 		default:
@@ -204,7 +211,16 @@ public class DriverMainActivity extends Activity {
 		}
 	}
 
-	@Override
+    private void logOutUser() {
+        authStore.clearAllSharedPrefs();
+        Intent i = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage(getBaseContext().getPackageName());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+
+    @Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
 		getActionBar().setTitle(mTitle);

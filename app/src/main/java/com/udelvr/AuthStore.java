@@ -111,4 +111,10 @@ public class AuthStore
             editor.commit();
         }
     }
+    public void clearAllSharedPrefs()
+    {
+        Editor editor = mPrefs.edit();
+        editor.clear();
+        editor.commit();
+    }
 }

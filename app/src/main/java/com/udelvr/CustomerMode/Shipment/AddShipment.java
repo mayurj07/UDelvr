@@ -22,7 +22,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -64,7 +65,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
     Button add_shipment_btn;
-    ImageButton timePicker, datePicker, camera, sourceAddressPick, destAddressPick;
+    ImageView timePicker, datePicker, camera, sourceAddressPick, destAddressPick;
     CircularImageView circularImageView;
     Bitmap image;
     AuthStore authStore;
@@ -114,10 +115,20 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         mAdapter = new PlaceAutocompleteAdapter(this, android.R.layout.simple_list_item_1,
                 mGoogleApiClient, BOUND_US, null);
         sourceAddress.setAdapter(mAdapter);
-        sourceAddressPick = (ImageButton) findViewById(R.id.choose_address);
+        sourceAddressPick = (ImageView) findViewById(R.id.choose_address);
         sourceAddressPick.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/maps?" + "saddr="+ source_lat + "," + source_long + "&daddr=" + dest_lat + "," + dest_long));
+                //Uri uri = Uri.parse("http://maps.google.com/maps?saddr=37.337889,-121.937870&daddr=37.402095,-121.999615");
+
+                // street view
+//                Uri uri = Uri.parse("google.navigation:q=37.337889,-121.937870");
+//                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+//                intent.setPackage("com.google.android.apps.maps");
+//                startActivity(intent);
+
+
                 Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
                 Bundle source_bundle = new Bundle();
                 source_bundle.putDouble("lat",source_lat);
@@ -135,12 +146,18 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 //        }
         destAddress.setOnItemClickListener(mAutocompleteClickListener);
         destAddress.setAdapter(mAdapter);
-        destAddressPick = (ImageButton) findViewById(R.id.choose_pickup_address);
+        destAddressPick = (ImageView) findViewById(R.id.choose_pickup_address);
         destAddressPick.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 //                CurrentLocationActivity newClass = new CurrentLocationActivity(dest_lat,dest_long);
 //                Log.i("cur souce: " + Double.valueOf(dest_lat).toString());
+
+//                Uri streetUri = Uri.parse("google.streetview:cbll=37.337889,-121.937870");
+//                Intent intent = new Intent(Intent.ACTION_VIEW,streetUri);
+//                intent.setPackage("com.google.android.apps.maps");
+//                startActivity(intent);
+
                 Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
                 Bundle dest_bundle = new Bundle();
                 dest_bundle.putDouble("lat",dest_lat);
@@ -154,7 +171,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         // row 4
         packageDesc=(EditText)findViewById(R.id.item_desc);
         packageWeight=(EditText)findViewById(R.id.item_weight);
-        camera = (ImageButton)this.findViewById(R.id.shipment_img);
+        camera = (ImageView)this.findViewById(R.id.camera);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +186,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
                 showTimePicker();
             }
         });
-        timePicker = (ImageButton)this.findViewById(R.id.timePicker);
+        timePicker = (ImageView)this.findViewById(R.id.timePicker);
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,7 +201,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
                 showDatePicker();
             }
         });
-        datePicker = (ImageButton)this.findViewById(R.id.datePicker);
+        datePicker = (ImageView)this.findViewById(R.id.datePicker);
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

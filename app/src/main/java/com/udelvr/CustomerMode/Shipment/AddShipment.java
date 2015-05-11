@@ -123,19 +123,19 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
                 //Uri uri = Uri.parse("http://maps.google.com/maps?saddr=37.337889,-121.937870&daddr=37.402095,-121.999615");
 
                 // street view
-                Uri uri = Uri.parse("google.navigation:q=37.337889,-121.937870");
-                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                intent.setPackage("com.google.android.apps.maps");
-                startActivity(intent);
+//                Uri uri = Uri.parse("google.navigation:q=37.337889,-121.937870");
+//                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+//                intent.setPackage("com.google.android.apps.maps");
+//                startActivity(intent);
 
 
-//                Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
-//                Bundle source_bundle = new Bundle();
-//                source_bundle.putDouble("lat",source_lat);
-//                source_bundle.putDouble("long",source_long);
-//                i.putExtras(source_bundle);
-//               Log.i(TAG, "Put in bundle: " + source_lat + " " + source_long);
-//                startActivity(i);
+                Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
+                Bundle source_bundle = new Bundle();
+                source_bundle.putDouble("lat",source_lat);
+                source_bundle.putDouble("long",source_long);
+                i.putExtras(source_bundle);
+               Log.i(TAG, "Put in bundle: " + source_lat + " " + source_long);
+                startActivity(i);
             }
         });
         // row 3
@@ -153,18 +153,18 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 //                CurrentLocationActivity newClass = new CurrentLocationActivity(dest_lat,dest_long);
 //                Log.i("cur souce: " + Double.valueOf(dest_lat).toString());
 
-                Uri streetUri = Uri.parse("google.streetview:cbll=37.337889,-121.937870");
-                Intent intent = new Intent(Intent.ACTION_VIEW,streetUri);
-                intent.setPackage("com.google.android.apps.maps");
-                startActivity(intent);
+//                Uri streetUri = Uri.parse("google.streetview:cbll=37.337889,-121.937870");
+//                Intent intent = new Intent(Intent.ACTION_VIEW,streetUri);
+//                intent.setPackage("com.google.android.apps.maps");
+//                startActivity(intent);
 
-//                Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
-//                Bundle dest_bundle = new Bundle();
-//                dest_bundle.putDouble("lat",dest_lat);
-//                dest_bundle.putDouble("long",dest_long);
-//                i.putExtras(dest_bundle);
-//                Log.i(TAG, "Put in bundle: " + dest_lat + " " + dest_long);
-//                startActivity(i);
+                Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
+                Bundle dest_bundle = new Bundle();
+                dest_bundle.putDouble("lat",dest_lat);
+                dest_bundle.putDouble("long",dest_long);
+                i.putExtras(dest_bundle);
+                Log.i(TAG, "Put in bundle: " + dest_lat + " " + dest_long);
+                startActivity(i);
             }
         });
 

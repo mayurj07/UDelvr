@@ -40,6 +40,7 @@ public class DriverController {
             authStore.setDriverLicenceNo(driverDO.getDriverLicenseNo());
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
+                AuthStore authStore = new AuthStore(ApplicationContextProvider.getContext());
                 applyToBeDriver.startDriverHomeActivity();
             }
 

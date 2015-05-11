@@ -94,7 +94,6 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
         viewHolder.packageMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ApplicationContextProvider.getContext(),""+aDriverPackage.getAmount() ,Toast.LENGTH_LONG).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("PackageDescription",aDriverPackage.getPackageDescription());
                 bundle.putString("PackageWeight",aDriverPackage.getPackageWeight());
@@ -114,8 +113,6 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
 
                 bundle.putString("ShipmentImage",aDriverPackage.getShipmentImage());
                 bundle.putString("ShipmentID",aDriverPackage.getShipmentID());
-
-
 
                 Intent intent = new Intent(mContext,ShipmentDetailsActivity.class);
                 intent.putExtras(bundle);

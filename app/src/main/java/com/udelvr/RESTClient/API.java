@@ -12,6 +12,7 @@ import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Path;
 import retrofit.mime.MultipartTypedOutput;
 
@@ -40,6 +41,10 @@ public interface API {
     @POST("/user/{user_id}/shipment")
     void addNewShipment(@Path("user_id")String userId,@Body MultipartTypedOutput multipartTypedOutput,
                     Callback<ShipmentResponse> callback);
+
+    @PUT("/shipment/accept/{shipment_id}/{driver_id}")
+    void acceptShipmentforDelivery(@Path("shipment_id")String shipmentId,@Path("driver_id")String driverId,
+                        Callback<ShipmentResponse> callback);
 //    @POST("/user/login")
 //    void postLoginUser(@Body LoginData credentials,
 //                       Callback<LoginResponse> callback);

@@ -216,7 +216,7 @@
             android:layout_height="wrap_content"
             android:text="@string/accept_shipment"
             android:textColor="@color/udelvr_white"
-            android:id="@+id/button_add_shipment"
+            android:id="@+id/button_accept_shipment"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/datePicker_row"
             android:layout_alignParentBottom="true"

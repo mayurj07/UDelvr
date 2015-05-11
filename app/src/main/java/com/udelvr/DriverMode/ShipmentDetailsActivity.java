@@ -2,16 +2,22 @@ package com.udelvr.DriverMode;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
 import com.udelvr.R;
+import com.udelvr.RESTClient.Shipment.ShipmentController;
 
 // google place api
 
@@ -28,12 +34,16 @@ public class ShipmentDetailsActivity extends Activity{
 
     private Bundle shipment_bundle;
 
+    private Context mContext;
+    ShipmentDetailsActivity shipmentDetailsActivityl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-         shipment_bundle = getIntent().getExtras();
-
         super.onCreate(savedInstanceState);
+        authStore= new AuthStore(this);
+        shipment_bundle = getIntent().getExtras();
+        mContext=this;
+        shipmentDetailsActivityl=this;
         setContentView(R.layout.driver_shipment_details);
         recipientsName=(TextView)findViewById(R.id.recipient);
         packageDesc=(TextView)findViewById(R.id.item_desc);
@@ -109,6 +119,32 @@ public class ShipmentDetailsActivity extends Activity{
             }
         });
 
+        accept_shipment=(Button)findViewById(R.id.button_accept_shipment);
+
+        accept_shipment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                ShipmentController.acceptShipmentforDelivery(shipment_bundle.getString("ShipmentID"),authStore.getDriverLicenceNo(),shipmentDetailsActivityl);
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("Do you want to accept this order?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
 
 
 
@@ -120,5 +156,14 @@ public class ShipmentDetailsActivity extends Activity{
 
     }
 
+    public void acceptShipmentSuccess()
+    {
+        Toast.makeText(ApplicationContextProvider.getContext(), "Order booked!", Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    public void OnFailedResponse() {
+        Toast.makeText(ApplicationContextProvider.getContext(), "Problem oocured while accepting shipment. Try again!", Toast.LENGTH_LONG).show();
+    }
 
 }

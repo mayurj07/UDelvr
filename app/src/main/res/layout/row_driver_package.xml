@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_margin="5dp"
+            android:textColor="@color/common_signin_btn_default_background"
             android:id="@+id/destinationText"
             android:layout_alignBottom="@+id/packageDestinationStaticMap"
             android:layout_alignStart="@+id/packageDestinationStaticMap" />
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_margin="5dp"
+            android:textColor="@color/counter_text_bg"
             android:id="@+id/amountText"
             android:layout_below="@+id/packageDestinationStaticMap"
             android:layout_alignEnd="@+id/packageDestinationStaticMap" />
@@ -46,6 +48,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_margin="5dp"
+            android:textColor="@color/counter_text_bg"
             android:id="@+id/dateTimeText"
             android:layout_below="@+id/packageDestinationStaticMap"
             android:layout_alignStart="@+id/packageDestinationStaticMap" />

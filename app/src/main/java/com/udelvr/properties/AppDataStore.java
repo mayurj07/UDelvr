@@ -1,4 +1,4 @@
-package com.udelvr.geofence;
+package com.udelvr.properties;
 
 import android.content.Context;
 import android.content.SharedPreferences;

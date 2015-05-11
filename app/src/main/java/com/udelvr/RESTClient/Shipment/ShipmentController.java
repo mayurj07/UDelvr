@@ -7,6 +7,7 @@ import com.udelvr.CustomerMode.Shipment.AddShipment;
 import com.udelvr.CustomerMode.Shipment.CustomerPackageManager;
 import com.udelvr.DriverMode.HomeFragment;
 import com.udelvr.DriverMode.Shipment.DriverPackageManager;
+import com.udelvr.DriverMode.ShipmentDetailsActivity;
 import com.udelvr.RESTClient.RestClient;
 
 import java.util.List;
@@ -94,6 +95,31 @@ public class ShipmentController {
             }
         });
     }
+    public static void acceptShipmentforDelivery(String shipmentId,String driverId,final ShipmentDetailsActivity shipmentDetailsActivity) {
 
+        final ProgressDialog mProgressDialog = new ProgressDialog(shipmentDetailsActivity);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setProgressNumberFormat(null);
+        mProgressDialog.setProgressPercentFormat(null);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
+        RestClient.get().acceptShipmentforDelivery(shipmentId,driverId, new Callback<ShipmentResponse>() {
+            @Override
+            public void success(ShipmentResponse shipmentResponse, Response response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+               shipmentDetailsActivity.acceptShipmentSuccess();
+            }
+            @Override
+            public void failure(RetrofitError error) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+                shipmentDetailsActivity.OnFailedResponse();
+
+            }
+        });
+
+
+    }
 
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -19,11 +20,13 @@ import java.util.List;
  * Created by Trey Robinson on 8/3/14.
  * Copyright 2014 MindMine LLC.
  */
-public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.ViewHolder>{
+public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.ViewHolder> {
 
     private static List<ShipmentDO> driverPackages;
     private int rowLayout;
     private Context mContext;
+    private String TAG = "recycle ";
+    //final ViewHolder viewHolder = null;
 
     public PackageListAdapter(List<ShipmentDO> driverPackages, int rowLayout, Context context) {
         this.driverPackages = driverPackages;
@@ -32,23 +35,36 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
     }
 
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
-        return new ViewHolder(v);
+        return new ViewHolder(viewGroup);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         ShipmentDO aDriverPackage = driverPackages.get(i);
-        viewHolder.destination.setText(aDriverPackage.getDestinationAddress() );
-        viewHolder.amount.setText("$"+aDriverPackage.getCustomerID());
+        viewHolder.destination.setText(aDriverPackage.getDestinationAddress());
+        viewHolder.amount.setText("$" + aDriverPackage.getCustomerID());
         viewHolder.dateTime.setText(aDriverPackage.getPickupDate());
+//        viewHolder.setClickListener(new ViewHolder.ClickListener(){
+//            @Override
+//            public void onClick(View v, int position, boolean isLongClick) {
+//                if (isLongClick){
+//                    Log.i(TAG, "Perform long click " + v + " at " + position);
+//                    //Log.i(TAG, "Click detail" + viewHolder.destination.getText());
+//                }
+//                else {
+//                    Log.i(TAG, "Perform click " + v + " at " + position);
+//                    //Log.i(TAG, "Click detail" + viewHolder.destination.getText());
+//                }
+//            }
+//        });
+
         Picasso.with(mContext).setIndicatorsEnabled(true);
-      // String url = "http://maps.google.com/maps/api/staticmap?center="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+ "&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+"&zoom=15&size=500x300&sensor=false";
-       // String url = "http://maps.googleapis.com/maps/api/staticmap?size=400x300&sensor=false&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude();
-        String url = "http://maps.googleapis.com/maps/api/staticmap?"+"&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+"&zoom=15&size=400x300&sensor=false";
+        // String url = "http://maps.google.com/maps/api/staticmap?center="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+ "&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+"&zoom=15&size=500x300&sensor=false";
+        // String url = "http://maps.googleapis.com/maps/api/staticmap?size=400x300&sensor=false&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude();
+        String url = "http://maps.googleapis.com/maps/api/staticmap?" + "&markers=" + aDriverPackage.getDestinationLocationLatitude() + "," + aDriverPackage.getDestinationLocationLongitude() + "&zoom=15&size=400x300&sensor=false";
         Picasso.with(mContext).load(url).fit().centerCrop().into(viewHolder.packageMap, new Callback() {
             @Override
             public void onSuccess() {
@@ -60,7 +76,8 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
                 System.out.println("onSuccessFail");
             }
         });
-      //  viewHolder.packageMap.setImageDrawable(new BitmapDrawable(mContext.getResources(), aDriverPackage.image));
+
+        //  viewHolder.packageMap.setImageDrawable(new BitmapDrawable(mContext.getResources(), aDriverPackage.image));
     }
 
     @Override
@@ -69,22 +86,42 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
     }
 
 
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder  {
         public TextView destination;
         public TextView amount;
         public TextView dateTime;
         public ImageView packageMap;
-
+        //public ClickListener listener;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            //listener = clickListener;
             destination = (TextView) itemView.findViewById(R.id.destinationText);
-            packageMap = (ImageView)itemView.findViewById(R.id.packageDestinationStaticMap);
-            amount=(TextView)itemView.findViewById(R.id.amountText);
-            dateTime=(TextView)itemView.findViewById(R.id.dateTimeText);
-
+            packageMap = (ImageView) itemView.findViewById(R.id.packageDestinationStaticMap);
+            amount = (TextView) itemView.findViewById(R.id.amountText);
+            dateTime = (TextView) itemView.findViewById(R.id.dateTimeText);
+            //itemView.setOnClickListener(this);
+            //itemView.setOnLongClickListener(this);
         }
+
+//        public interface ClickListener {
+//            public void onClick(View v, int position, boolean isLongClick);
+//        }
+//
+//        public void setClickListener(ClickListener clickListener) {
+//            this.listener = clickListener;
+//        }
+//
+//        @Override
+//        public void onClick(View v) {
+//            listener.onClick(v, getPosition(), false);
+//        }
+//
+//        @Override
+//        public boolean onLongClick(View v) {
+//            listener.onClick(v, getPosition(), true);
+//            return true;
+//        }
 
     }
 
@@ -94,7 +131,7 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
     }
 
     public void addAll(List<ShipmentDO> shipmentResponse) {
-            driverPackages.addAll(shipmentResponse);
+        driverPackages.addAll(shipmentResponse);
     }
 
     public void notifyDataSetChanges()

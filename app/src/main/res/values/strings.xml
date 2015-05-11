@@ -56,7 +56,7 @@
     <string name="facebook_app_id">790241384392743</string>
 
     <!--google credential-->
-    <string name="google_app_id">AIzaSyC40fKiMTt5y7z3DnrafISM9SeCYBDX7QA</string>
+    <string name="google_app_id">AIzaSyA7lEkzf7_DDQa0omCPrMVeuCvXQCcv7vk</string>
     <string name="search_hint">Search Places</string>
     <string name="search_settings">Search Places</string>
     <string name="title_activity_on_map_transperent">OnMapTransperentActivity</string>
@@ -66,7 +66,9 @@
     <string name="recipient_name">Recipient\'s name</string>
     <string name="item_desc">Describe your package</string>
     <string name="weight">Package weight</string>
-    <string name="address">Recipient\'s address</string>
+    <string name="price">How much you pay</string>
+    <string name="pickup">Pick-up address</string>
+    <string name="dropoff">Drop-off address</string>
     <string name="pickup_address">Where to pick up package</string>
     <string name="pickup_time">Pick up time</string>
     <string name="pickup_date">Pick up date</string>

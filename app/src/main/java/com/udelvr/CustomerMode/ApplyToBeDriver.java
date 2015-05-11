@@ -24,13 +24,11 @@ import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
 import com.udelvr.DriverMode.DriverMainActivity;
 import com.udelvr.R;
-import com.udelvr.RESTClient.Driver.DriverDetails;
 import com.udelvr.RESTClient.Driver.DriverDetails;
 
 import java.io.File;

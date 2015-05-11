@@ -1,10 +1,6 @@
 package com.udelvr.CustomerMode.Shipment;
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 
-import com.udelvr.Map.CurrentLocationActivity;
-import com.udelvr.Map.PlaceAutocompleteAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -18,7 +14,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,15 +26,7 @@ import android.widget.ImageView;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
-import android.util.Log;
-// google place api
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -45,11 +36,11 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
 import com.udelvr.Map.CurrentLocationActivity;
+import com.udelvr.Map.PlaceAutocompleteAdapter;
 import com.udelvr.R;
 import com.udelvr.RESTClient.Shipment.Shipment;
 import com.udelvr.RESTClient.Shipment.ShipmentController;
@@ -63,6 +54,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+// google place api
 
 /**
  * Authored by sophiango and prasadshirsath

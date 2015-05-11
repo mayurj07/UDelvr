@@ -51,7 +51,8 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
     Validator validator;
 
 
-	public static Fragment newInstance(Context context) {
+
+    public static Fragment newInstance(Context context) {
         SplashScreenFragmentSignIn f = new SplashScreenFragmentSignIn();
 
 		return f;
@@ -60,15 +61,23 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         // To maintain FB Login session
         uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
         uiHelper.onCreate(savedInstanceState);
         validator = new Validator(this);
         validator.setValidationListener(this);
+
+
+
     }
 
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+
+
+
 		 root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen_signup, container,false);
         user= new User();
         splashScreenFragmentSignIn=this;

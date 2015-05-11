@@ -1,11 +1,14 @@
 package com.udelvr.SplashScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.udelvr.AuthStore;
+import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 
 
@@ -13,10 +16,18 @@ public class SpashScreen extends FragmentActivity {
     private ViewPager _mViewPager;
     private ViewPagerAdapter _adapter;
     private Button _btn1,_btn2,_btn3,_btn4;
+    private AuthStore authStore;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        authStore= new AuthStore(this);
+        if(!(authStore.getUserId()==null))
+        {
+            startCustomerMainActivity();
+        }
+
         setContentView(R.layout.activity_splash_screen_main);
         getActionBar().hide();
         setUpView();
@@ -99,5 +110,11 @@ public class SpashScreen extends FragmentActivity {
         btn.setHeight(h);
        // btn.setText("");
 
+    }
+    public void startCustomerMainActivity()
+    {
+        Intent intent = new Intent(this, CustomerMainActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 }

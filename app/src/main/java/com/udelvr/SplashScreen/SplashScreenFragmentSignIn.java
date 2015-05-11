@@ -24,6 +24,8 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.udelvr.ApplicationContextProvider;
+import com.udelvr.AuthStore;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
@@ -49,9 +51,11 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
     SplashScreenFragmentSignIn splashScreenFragmentSignIn;
     private View otherView;
     Validator validator;
+    AuthStore authStore;
 
 
-	public static Fragment newInstance(Context context) {
+
+    public static Fragment newInstance(Context context) {
         SplashScreenFragmentSignIn f = new SplashScreenFragmentSignIn();
 
 		return f;
@@ -60,15 +64,27 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         // To maintain FB Login session
         uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
         uiHelper.onCreate(savedInstanceState);
         validator = new Validator(this);
         validator.setValidationListener(this);
+
+        authStore=new AuthStore(ApplicationContextProvider.getContext());
+
+
     }
 
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+
+        if(!(authStore.getUserId()==null))
+        {
+            startCustomerMainActivity();
+        }
+
 		 root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen_signup, container,false);
         user= new User();
         splashScreenFragmentSignIn=this;

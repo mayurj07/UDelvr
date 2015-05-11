@@ -58,8 +58,9 @@ public class CustomerHomeFragment extends Fragment {
             public void onClick(View v) {
 
                 if(authStore.getDriverLicenceNo()==null) {
-                    Intent i = new Intent(getActivity(), ApplyToBeDriver.class);
-                    startActivity(i);
+                    Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
                 else
                 {

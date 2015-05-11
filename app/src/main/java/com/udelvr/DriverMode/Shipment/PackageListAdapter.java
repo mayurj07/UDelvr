@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.udelvr.ApplicationContextProvider;
 import com.udelvr.R;
 import com.udelvr.RESTClient.Shipment.ShipmentDO;
 
@@ -34,9 +36,17 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public PackageListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
-        return new ViewHolder(v);
+
+        PackageListAdapter.ViewHolder vh = new ViewHolder(v, new PackageListAdapter.ViewHolder.IMyViewHolderClicks(){
+            @Override
+            public void onItem(View caller) {
+                Toast.makeText(ApplicationContextProvider.getContext(),"",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        return vh;
     }
 
     @Override
@@ -68,37 +78,55 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
         return driverPackages == null ? 0 : driverPackages.size();
     }
 
-
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView destination;
-        public TextView amount;
-        public TextView dateTime;
-        public ImageView packageMap;
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            destination = (TextView) itemView.findViewById(R.id.destinationText);
-            packageMap = (ImageView)itemView.findViewById(R.id.packageDestinationStaticMap);
-            amount=(TextView)itemView.findViewById(R.id.amountText);
-            dateTime=(TextView)itemView.findViewById(R.id.dateTimeText);
-
-        }
-
-    }
-
     public void add(ShipmentDO apackage)
     {
         driverPackages.add(apackage);
     }
 
     public void addAll(List<ShipmentDO> shipmentResponse) {
-            driverPackages.addAll(shipmentResponse);
+        driverPackages.addAll(shipmentResponse);
     }
 
     public void notifyDataSetChanges()
     {
         this.notifyDataSetChanged();
     }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public TextView destination;
+        public TextView amount;
+        public TextView dateTime;
+        public ImageView packageMap;
+        public IMyViewHolderClicks mListener;
+
+
+        public ViewHolder(View itemView,IMyViewHolderClicks listener) {
+            super(itemView);
+            mListener = listener;
+            destination = (TextView) itemView.findViewById(R.id.destinationText);
+            packageMap = (ImageView)itemView.findViewById(R.id.packageDestinationStaticMap);
+            amount=(TextView)itemView.findViewById(R.id.amountText);
+            dateTime=(TextView)itemView.findViewById(R.id.dateTimeText);
+
+            itemView.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+//            if (v instanceof Imageview){
+//                mListener.onTomato((ImageView)v)
+//            } else {
+//                mListener.onPotato(v);
+//            }
+            mListener.onItem(v);
+        }
+        public static interface IMyViewHolderClicks {
+            public void onItem(View caller);
+            //public void onTomato(ImageView callerImage);
+        }
+    }
+
+
+
 }

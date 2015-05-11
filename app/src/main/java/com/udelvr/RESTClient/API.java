@@ -27,7 +27,6 @@ public interface API {
     void signinUser(@Body MultipartTypedOutput multipartTypedOutput,
                     Callback<UserResponse> callback);
 
-
     @POST("/user/{user_id}/driver")
     void addDriverDetails(@Path("user_id")String userId,@Body MultipartTypedOutput multipartTypedOutput,
                           Callback<DriverDO> callback);

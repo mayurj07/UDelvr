@@ -36,18 +36,30 @@
             android:layout_marginTop="15dp"
             android:layout_below="@+id/recipient"
             android:orientation="horizontal"
-            android:layout_alignEnd="@+id/pickup_address">
-            <EditText
+            android:layout_alignEnd="@+id/drop">
+
+            <AutoCompleteTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textPostalAddress"
                 android:hint="@string/address"
                 android:ems="10"
-                android:focusableInTouchMode="false"
-                android:id="@+id/input_address"
+                android:id="@+id/pickup_address"
                 android:textColor="@color/black_overlay"
-                android:textColorHint="@color/udelvr_hint_white"/>
+                android:textColorHint="@color/udelvr_hint_white"
+            />
+
+            <!--<EditText-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:inputType="textPostalAddress"-->
+                <!--android:hint="@string/address"-->
+                <!--android:ems="10"-->
+                <!--android:focusableInTouchMode="false"-->
+                <!--android:id="@+id/input_address"-->
+                <!--android:textColor="@color/black_overlay"-->
+                <!--android:textColorHint="@color/udelvr_hint_white"/>-->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +69,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/pickup_address"
+            android:id="@+id/drop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -65,18 +77,19 @@
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
             android:layout_below="@+id/address"
-            android:layout_alignEnd="@+id/pickup_address">
-            <EditText
+            android:layout_alignEnd="@+id/item">
+            <AutoCompleteTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textPostalAddress"
                 android:hint="@string/address"
                 android:ems="10"
-                android:focusableInTouchMode="false"
-                android:id="@+id/input_pickup_address"
+                android:id="@+id/drop_address"
                 android:textColor="@color/black_overlay"
-                android:textColorHint="@color/udelvr_hint_white"/>
+                android:textColorHint="@color/udelvr_hint_white"
+            />
+
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,7 +107,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
-            android:layout_below="@+id/pickup_address"
+            android:layout_below="@+id/drop"
             android:layout_alignEnd="@+id/timePicker_row"
             >
             <LinearLayout

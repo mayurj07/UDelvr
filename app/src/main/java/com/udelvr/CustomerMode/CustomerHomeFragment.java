@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,17 +58,15 @@ public class CustomerHomeFragment extends Fragment {
             public void onClick(View v) {
 
                 if(authStore.getDriverLicenceNo()==null) {
-                    Log.d("Prasad","driverDetails");
-
                     Intent intent = new Intent(getActivity(), ApplyToBeDriver.class);
                     startActivity(intent);
-                    getActivity().finish();
                 }
                 else
                 {
-                    Log.d("Prasad","driverMain");
                     Intent i = new Intent(getActivity(), DriverMainActivity.class);
                     startActivity(i);
+                    getActivity().finish();
+
                 }
 
             }

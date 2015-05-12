@@ -28,6 +28,11 @@ public interface API {
     void signinUser(@Body MultipartTypedOutput multipartTypedOutput,
                     Callback<UserResponse> callback);
 
+    @POST("/user/phone/{mobileNo}")
+    void sendSMSVerificationCode(@Path("mobileNo") String mobileNo,
+                    Callback<String> callback);
+
+
     @POST("/user/{user_id}/driver")
     void addDriverDetails(@Path("user_id")String userId,@Body MultipartTypedOutput multipartTypedOutput,
                           Callback<DriverDO> callback);
@@ -38,6 +43,9 @@ public interface API {
     @GET("/driver/shipments")
     void getAllShipments(Callback<List<ShipmentDO>> callback);
 
+    @GET("/driver/shipments")
+    void getDriverShipments(Callback<List<ShipmentDO>> callback);
+
     @POST("/user/{user_id}/shipment")
     void addNewShipment(@Path("user_id")String userId,@Body MultipartTypedOutput multipartTypedOutput,
                     Callback<ShipmentResponse> callback);
@@ -45,13 +53,14 @@ public interface API {
     @PUT("/shipment/accept/{shipment_id}/{driver_id}")
     void acceptShipmentforDelivery(@Path("shipment_id")String shipmentId,@Path("driver_id")String driverId,
                         Callback<ShipmentResponse> callback);
+
+
 //    @POST("/user/login")
 //    void postLoginUser(@Body LoginData credentials,
 //                       Callback<LoginResponse> callback);
 //
 //    @GET("/user/profile")
 //    void getProfile(Callback<ProfileResponse> callback);
-
 
 
 }

@@ -2,8 +2,10 @@ package com.udelvr.SplashScreen;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,6 +33,7 @@ import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.R;
 import com.udelvr.RESTClient.User.User;
 import com.udelvr.RESTClient.User.UserController;
+import com.udelvr.SMSverification.SMSBroadcastReceiver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,13 +45,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class SplashScreenFragmentRegisterNewUser extends Activity implements Validator.ValidationListener {
 
-    private static String TAG = "register activity";
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
+    private static String TAG = "register activity";
     ViewGroup root;
     Button btn_register;
 
@@ -67,7 +72,9 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
     SplashScreenFragmentRegisterNewUser splashScreenFragmentRegisterNewUser;
 
     Validator validator;
-
+    ProgressDialog mProgressDialog = null;
+    SMSBroadcastReceiver smsBroadcastReceiver = null;
+    WaitTime wait = new WaitTime();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +97,11 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         circularImageView.setBorderWidth(5);
         circularImageView.addShadow();
         Bundle b = getIntent().getExtras();
-        if(b!=null) {
+        if (b != null) {
             editTextFullName.setText(b.getString("name"));
             //editTextEmail.setText(b.getString("email"));
             //Log.e(TAG, "image: " + b.getString("image"));
-           new LoadProfileImage(circularImageView).execute(b.getString("image"));
+            new LoadProfileImage(circularImageView).execute(b.getString("image"));
 
         }
 //        if(b.getString("email")!=null){
@@ -122,11 +129,9 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(user.getprofilePhoto()==null)
-                {
-                    Toast.makeText(ApplicationContextProvider.getContext(),"Please add your profile picture.",Toast.LENGTH_LONG).show();
-                }
-                else{
+                if (user.getprofilePhoto() == null) {
+                    Toast.makeText(ApplicationContextProvider.getContext(), "Please add your profile picture.", Toast.LENGTH_LONG).show();
+                } else {
                     validator.validate();
                 }
             }
@@ -268,14 +273,48 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
 
     @Override
     public void onValidationSucceeded() {
+        registerSMSBroadcastReceiver();
+        UserController.sendSMSVerificationCode(editTextMobile.getText().toString().trim(), splashScreenFragmentRegisterNewUser);
+
+    }
+
+    void registerSMSBroadcastReceiver() {
+        smsBroadcastReceiver = new SMSBroadcastReceiver(this);
+        //smsBroadcastReceiver.setMainActivityHandler(this);
+        IntentFilter fltr_smsreceived = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        registerReceiver(smsBroadcastReceiver, fltr_smsreceived);
+    }
+
+    public void verifyMobileNo(String verificationCode) {
+        smsBroadcastReceiver.setVerificationCode(verificationCode);
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setProgressNumberFormat(null);
+        mProgressDialog.setProgressPercentFormat(null);
+        mProgressDialog.setMessage("Verifying mobile No...");
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        wait.execute();
+    }
+
+    public void onMobileNoVerificationSuccess() {
+        Toast.makeText(this, "Mobile no. verified successfully.", Toast.LENGTH_LONG).show();
+        mProgressDialog.setMessage("Mobile no verified!");
+        if (mProgressDialog.isShowing())
+            mProgressDialog.dismiss();
 
         user.setFullName(editTextFullName.getText().toString());
         user.setEmail(editTextEmail.getText().toString());
         user.setPassword(editTextPassword.getText().toString());
         user.setMobileNo(editTextMobile.getText().toString());
-
         UserController.registerNewUser(user, splashScreenFragmentRegisterNewUser);
+    }
 
+    void unregisterSMSBroadcastReceiver() {
+        try {
+            unregisterReceiver(smsBroadcastReceiver);
+        } catch (IllegalArgumentException exception) {
+
+        }
     }
 
     @Override
@@ -291,6 +330,14 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public void onSendSMSVerifiactionCodeFailure() {
+
+    }
+
+    public void onRegistrationfailed(String error) {
+        Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
     }
 
     public static class LoadProfileImage extends
@@ -322,8 +369,42 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         }
     }
 
-        public void onRegistrationfailed(String error) {
-            Toast.makeText(this, "Registration Failed.Try Again!" + error, Toast.LENGTH_LONG).show();
+    private class WaitTime extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog.show();
         }
+
+        protected void onPostExecute() {
+            if (mProgressDialog.isShowing())
+                mProgressDialog.dismiss();
+            unregisterSMSBroadcastReceiver();
+        }
+
+        @Override
+        protected void onCancelled() {
+            if (mProgressDialog.isShowing())
+                mProgressDialog.dismiss();
+            unregisterSMSBroadcastReceiver();
+            super.onCancelled();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            long delayInMillis = 30 * 1000;
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                    unregisterSMSBroadcastReceiver();
+                }
+            }, delayInMillis);
+            return null;
+        }
+    }
 
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -15,12 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
-import com.udelvr.R;
 import com.udelvr.CustomerMode.adapter.NavDrawerListAdapter;
 import com.udelvr.CustomerMode.model.NavDrawerItem;
+import com.udelvr.R;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ public class CustomerMainActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
+    private boolean doubleBackToExitPressedOnce=false;
 
 	// nav drawer title
 	private CharSequence mDrawerTitle;
@@ -49,6 +52,7 @@ public class CustomerMainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 
         authStore= new AuthStore(ApplicationContextProvider.getContext());
 		mTitle = mDrawerTitle = getTitle();
@@ -215,6 +219,7 @@ public class CustomerMainActivity extends Activity {
                 .getLaunchIntentForPackage(getBaseContext().getPackageName());
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
+        this.finish();
     }
 
 	@Override
@@ -241,5 +246,25 @@ public class CustomerMainActivity extends Activity {
 		// Pass any configuration change to the drawer toggls
 		//mDrawerToggle.onConfigurationChanged(newConfig);
 	}
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
+
 
 }

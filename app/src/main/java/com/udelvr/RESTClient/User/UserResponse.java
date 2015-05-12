@@ -16,6 +16,7 @@ public class UserResponse {
     private String profileURL;
     private String licensePhotoURL;
 
+
     public UserResponse() {
     }
 

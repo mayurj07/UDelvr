@@ -6,6 +6,7 @@ import com.udelvr.CustomerMode.CustomerHomeFragment;
 import com.udelvr.CustomerMode.Shipment.AddShipment;
 import com.udelvr.CustomerMode.Shipment.CustomerPackageManager;
 import com.udelvr.DriverMode.HomeFragment;
+import com.udelvr.DriverMode.MyOrdersFragment;
 import com.udelvr.DriverMode.Shipment.DriverPackageManager;
 import com.udelvr.DriverMode.ShipmentDetailsActivity;
 import com.udelvr.RESTClient.RestClient;
@@ -92,6 +93,22 @@ public class ShipmentController {
             @Override
             public void failure(RetrofitError error) {
                 homeFragment.onLoadComplete();
+            }
+        });
+    }
+    public static void getDriverShipments(final MyOrdersFragment myOrdersFragment) {
+
+
+        RestClient.get().getDriverShipments(new Callback<List<ShipmentDO>>() {
+            @Override
+            public void success(List<ShipmentDO> shipmentResponse, Response response) {
+                DriverPackageManager.getInstance().addAll(shipmentResponse);
+                myOrdersFragment.onLoadComplete();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                myOrdersFragment.onLoadComplete();
             }
         });
     }

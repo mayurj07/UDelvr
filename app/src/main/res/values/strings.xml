@@ -88,7 +88,7 @@
     <!-- Drivers Nav Drawer Menu Items -->
     <string-array name="driver_nav_drawer_items">
         <item >Driver Home</item>
-        <item >Find People</item>
+        <item >My Orders</item>
         <item >Photos</item>
         <item >Communities</item>
         <item >Pages</item>

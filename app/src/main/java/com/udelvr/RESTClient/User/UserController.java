@@ -19,7 +19,31 @@ import retrofit.mime.TypedString;
  * Created by prasadshirsath on 4/19/15.
  */
 public class UserController {
+    public static void sendSMSVerificationCode(String mobileNo,final SplashScreenFragmentRegisterNewUser splashScreenFragmentRegisterNewUser) {
 
+        final ProgressDialog mProgressDialog = new ProgressDialog(splashScreenFragmentRegisterNewUser);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setProgressNumberFormat(null);
+        mProgressDialog.setProgressPercentFormat(null);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
+
+        RestClient.get().sendSMSVerificationCode(mobileNo,new Callback<String>() {
+            @Override
+            public void success(String verifiacationCode, Response response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+               splashScreenFragmentRegisterNewUser.verifyMobileNo(verifiacationCode);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+               splashScreenFragmentRegisterNewUser.onSendSMSVerifiactionCodeFailure();
+            }
+        });
+    }
    public static void registerNewUser(User user,final SplashScreenFragmentRegisterNewUser splashScreenFragmentRegisterNewUser) {
        final ProgressDialog mProgressDialog = new ProgressDialog(splashScreenFragmentRegisterNewUser);
        mProgressDialog.setIndeterminate(true);

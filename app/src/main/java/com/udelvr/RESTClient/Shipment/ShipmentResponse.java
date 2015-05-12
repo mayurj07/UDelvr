@@ -1,6 +1,6 @@
 package com.udelvr.RESTClient.Shipment;
 /**
- * Created by sophiango on 4/19/15.
+ * Created by Prasad on 4/19/15.
  */
 public class ShipmentResponse {
     private String shipmentID;
@@ -15,35 +15,61 @@ public class ShipmentResponse {
     private String packageWeight;
     private String pickupTime;
     private String pickupDate;
-    private String shipmentImage;
+    private String imageUrl;
+    private String compressedImageUrl;
+    private String thumbnailUrl;
     private String customerID;
     private String status;
     private String driverID;
+
     public ShipmentResponse() {
     }
 
-    public ShipmentResponse(String ShipmentID ,String recipientName, String sourceAddress, String sourceLat, String sourceLong, String destinationAddress, String destinationLat, String destinationLong,
-                            String packageDescription, String packageWeight, String pickupTime, String pickupDate, String shipmentImage, String driverID, String customerID , String status )
-    {
-        this.shipmentID = ShipmentID;
+    public ShipmentResponse(String shipmentID, String recipientName, String sourceAddress, String sourceLat, String sourceLong, String destinationAddress, String destinationLat, String destinationLong, String packageDescription, String packageWeight, String pickupTime, String pickupDate, String imageUrl, String compressedImageUrl, String thumbnailUrl, String customerID, String status, String driverID) {
+        this.shipmentID = shipmentID;
         this.recipientName = recipientName;
         this.sourceAddress = sourceAddress;
         this.sourceLat = sourceLat;
         this.sourceLong = sourceLong;
-        this.destinationAddress =destinationAddress;
+        this.destinationAddress = destinationAddress;
         this.destinationLat = destinationLat;
         this.destinationLong = destinationLong;
-        this.packageDescription =packageDescription;
+        this.packageDescription = packageDescription;
         this.packageWeight = packageWeight;
-        this.pickupDate = pickupDate;
         this.pickupTime = pickupTime;
-        this.shipmentImage = shipmentImage;
-        this.driverID = driverID;
+        this.pickupDate = pickupDate;
+        this.imageUrl = imageUrl;
+        this.compressedImageUrl = compressedImageUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.customerID = customerID;
         this.status = status;
+        this.driverID = driverID;
     }
 
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getCompressedImageUrl() {
+        return compressedImageUrl;
+    }
+
+    public void setCompressedImageUrl(String compressedImageUrl) {
+        this.compressedImageUrl = compressedImageUrl;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
 
     public String getShipmentID() {
         return shipmentID;
@@ -141,13 +167,6 @@ public class ShipmentResponse {
         this.pickupDate = pickupDate;
     }
 
-    public String getShipmentImage() {
-        return shipmentImage;
-    }
-
-    public void setShipmentImage(String shipmentImage) {
-        this.shipmentImage = shipmentImage;
-    }
 
     public String getCustomerID() {
         return customerID;

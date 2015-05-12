@@ -34,8 +34,9 @@ public class ShipmentDO {
      
     private String pickupDate;
 
-    private String shipmentImage;
-
+    private String imageUrl;
+    private String compressedImageUrl;
+    private String thumbnailUrl;
     
     private String customerID;
 
@@ -52,33 +53,53 @@ public class ShipmentDO {
     public ShipmentDO() {
     }
 
-    public ShipmentDO(String ShipmentID, String recipientName, String currentLocationLatitude, String currentLocationLongitude,
-                           String sourceAddress, String sourceLocationLatitude, String sourceLocationLongitude,
-                           String destinationAddress, String destinationLocationLatitude, String destinationLocationLongitude,
-                           String packageDescription, String packageWeight, String pickupTime, String pickupDate, String shipmentImage,
-                           String customerID, String status, String driverID, String amount)
-    {
-        this.shipmentID = ShipmentID;
+    public ShipmentDO(String shipmentID, String recipientName, String currentLocationLatitude, String currentLocationLongitude, String sourceAddress, String sourceLocationLatitude, String sourceLocationLongitude, String destinationAddress, String destinationLocationLatitude, String destinationLocationLongitude, String packageDescription, String packageWeight, String pickupTime, String pickupDate, String imageUrl, String compressedImageUrl, String thumbnailUrl, String customerID, String status, String amount, String driverID) {
+        this.shipmentID = shipmentID;
         this.recipientName = recipientName;
         this.currentLocationLatitude = currentLocationLatitude;
-        this.currentLocationLongitude= currentLocationLongitude;
+        this.currentLocationLongitude = currentLocationLongitude;
         this.sourceAddress = sourceAddress;
         this.sourceLocationLatitude = sourceLocationLatitude;
         this.sourceLocationLongitude = sourceLocationLongitude;
-        this.destinationAddress=destinationAddress;
-        this.destinationLocationLatitude=destinationLocationLatitude;
-        this.destinationLocationLongitude=destinationLocationLongitude;
-        this.packageDescription=packageDescription;
+        this.destinationAddress = destinationAddress;
+        this.destinationLocationLatitude = destinationLocationLatitude;
+        this.destinationLocationLongitude = destinationLocationLongitude;
+        this.packageDescription = packageDescription;
         this.packageWeight = packageWeight;
-        this.pickupDate = pickupDate;
         this.pickupTime = pickupTime;
-        this.shipmentImage = shipmentImage;
-        this.driverID = driverID;
+        this.pickupDate = pickupDate;
+        this.imageUrl = imageUrl;
+        this.compressedImageUrl = compressedImageUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.customerID = customerID;
         this.status = status;
         this.amount = amount;
+        this.driverID = driverID;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getCompressedImageUrl() {
+        return compressedImageUrl;
+    }
+
+    public void setCompressedImageUrl(String compressedImageUrl) {
+        this.compressedImageUrl = compressedImageUrl;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
 
     public String getShipmentID() {
         return shipmentID;
@@ -190,14 +211,6 @@ public class ShipmentDO {
 
     public void setPickupDate(String pickupDate) {
         this.pickupDate = pickupDate;
-    }
-
-    public String getShipmentImage() {
-        return shipmentImage;
-    }
-
-    public void setShipmentImage(String shipmentImage) {
-        this.shipmentImage = shipmentImage;
     }
 
     public String getCustomerID() {

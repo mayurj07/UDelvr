@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,50 +26,44 @@ import com.udelvr.RESTClient.Shipment.ShipmentController;
 /**
  * Authored by sophiango and prasadshirsath
  */
-public class ShipmentDetailsActivity extends Activity{
+public class ShipmentDetailsActivity extends Activity {
+    ShipmentDetailsActivity shipmentDetailsActivityl;
     private ImageView timePicker, datePicker, packageDestImageView, sourceAddressPick, destAddressPick;
-
-    private TextView recipientsName, packageDesc, packageWeight,amount, pickupTime, pickupDate,sourceAddress, destAddress ;
-
+    private TextView recipientsName, packageDesc, packageWeight, amount, pickupTime, pickupDate, sourceAddress, destAddress;
     private Button accept_shipment;
     private AuthStore authStore;
-
     private Bundle shipment_bundle;
-
     private Context mContext;
-    ShipmentDetailsActivity shipmentDetailsActivityl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authStore= new AuthStore(this);
+        authStore = new AuthStore(this);
         shipment_bundle = getIntent().getExtras();
-        mContext=this;
-        shipmentDetailsActivityl=this;
+        mContext = this;
+        shipmentDetailsActivityl = this;
         setContentView(R.layout.driver_shipment_details);
-        recipientsName=(TextView)findViewById(R.id.recipient);
-        packageDesc=(TextView)findViewById(R.id.item_desc);
-        packageWeight=(TextView)findViewById(R.id.item_weight);
-        amount=(TextView)findViewById(R.id.item_price);
-        pickupTime=(TextView)findViewById(R.id.pickup_time);
-        pickupDate=(TextView)findViewById(R.id.pickup_date);
-        sourceAddress=(TextView)findViewById(R.id.pickup_address);
-        destAddress=(TextView)findViewById(R.id.drop_address);
+        recipientsName = (TextView) findViewById(R.id.recipient);
+        packageDesc = (TextView) findViewById(R.id.item_desc);
+        packageWeight = (TextView) findViewById(R.id.item_weight);
+        amount = (TextView) findViewById(R.id.item_price);
+        pickupTime = (TextView) findViewById(R.id.pickup_time);
+        pickupDate = (TextView) findViewById(R.id.pickup_date);
+        sourceAddress = (TextView) findViewById(R.id.pickup_address);
+        destAddress = (TextView) findViewById(R.id.drop_address);
 
 
         recipientsName.setText(shipment_bundle.getString("RecipientName"));
         packageDesc.setText(shipment_bundle.getString("PackageDescription"));
         packageWeight.setText(shipment_bundle.getString("PackageWeight"));
-        amount.setText("$"+shipment_bundle.getString("Amount"));
+        amount.setText("$" + shipment_bundle.getString("Amount"));
         pickupTime.setText(shipment_bundle.getString("PickupTime"));
         pickupDate.setText(shipment_bundle.getString("PickupDate"));
         sourceAddress.setText(shipment_bundle.getString("SourceAddress"));
         destAddress.setText(shipment_bundle.getString("DestinationAddress"));
 
 
-
-
-        packageDestImageView = (ImageView)this.findViewById(R.id.packageDestinationStaticMap);
+        packageDestImageView = (ImageView) this.findViewById(R.id.packageDestinationStaticMap);
         packageDestImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,14 +85,14 @@ public class ShipmentDetailsActivity extends Activity{
         });
 
 
-        timePicker = (ImageView)this.findViewById(R.id.imageView_timePicker);
+        timePicker = (ImageView) this.findViewById(R.id.imageView_timePicker);
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-        datePicker = (ImageView)this.findViewById(R.id.imageView_datePicker);
+        datePicker = (ImageView) this.findViewById(R.id.imageView_datePicker);
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,22 +100,33 @@ public class ShipmentDetailsActivity extends Activity{
             }
         });
 
-        sourceAddressPick = (ImageView)this.findViewById(R.id.imageView_pickup_address);
+        sourceAddressPick = (ImageView) this.findViewById(R.id.imageView_pickup_address);
         sourceAddressPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String sourceLat = shipment_bundle.getString("SourceLocationLatitude");
+                String sourceLong = shipment_bundle.getString("SourceLocationLongitude");
+                Uri streetUri = Uri.parse("google.streetview:cbll="+sourceLat+","+sourceLong);
+                Intent intent = new Intent(Intent.ACTION_VIEW, streetUri);
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
             }
         });
-        destAddressPick = (ImageView)this.findViewById(R.id.imageView_dropoff_address);
+        destAddressPick = (ImageView) this.findViewById(R.id.imageView_dropoff_address);
         destAddressPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String destinationLat = shipment_bundle.getString("DestinationLocationLatitude");
+                String destinationLong = shipment_bundle.getString("DestinationLocationLongitude");
 
+                Uri uri = Uri.parse("google.navigation:q="+destinationLat+","+destinationLong);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
             }
         });
 
-        accept_shipment=(Button)findViewById(R.id.button_accept_shipment);
+        accept_shipment = (Button) findViewById(R.id.button_accept_shipment);
 
         accept_shipment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,9 +134,9 @@ public class ShipmentDetailsActivity extends Activity{
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                ShipmentController.acceptShipmentforDelivery(shipment_bundle.getString("ShipmentID"),authStore.getDriverLicenceNo(),shipmentDetailsActivityl);
+                                ShipmentController.acceptShipmentforDelivery(shipment_bundle.getString("ShipmentID"), authStore.getDriverLicenceNo(), shipmentDetailsActivityl);
 
                                 break;
 
@@ -147,17 +154,15 @@ public class ShipmentDetailsActivity extends Activity{
         });
 
 
-
-
     }
+
     @Override
     protected void onResume() {
         super.onResume();
 
     }
 
-    public void acceptShipmentSuccess()
-    {
+    public void acceptShipmentSuccess() {
         Toast.makeText(ApplicationContextProvider.getContext(), "Order booked!", Toast.LENGTH_LONG).show();
         finish();
     }

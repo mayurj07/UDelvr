@@ -101,6 +101,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         Bundle b = getIntent().getExtras();
         if (b != null) {
             editTextFullName.setText(b.getString("name"));
+            Log.d(TAG,"email: " + b.getString("email"));
             if (b.getString("email")!=null) {
                 editTextEmail.setText(b.getString("email"));
             }

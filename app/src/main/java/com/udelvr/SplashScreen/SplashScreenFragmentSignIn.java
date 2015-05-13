@@ -175,7 +175,7 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
                             Intent i = new Intent(getActivity(), SplashScreenFragmentRegisterNewUser.class);
                             Bundle b = new Bundle();
                             b.putString("name", user.getName());
-                            if ( user.asMap()!=null && user.asMap().get("email")!=null &&user.asMap().get("email").toString().equals("")){
+                            if ( user.asMap()!=null && user.asMap().get("email")!=null){
                                 b.putString("email", user.asMap().get("email").toString());
                                 //email.setText(user.asMap().get("email").toString());
                             }

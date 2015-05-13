@@ -10,8 +10,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-                       android:layout_marginTop="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="155dp"
             android:layout_marginBottom="55dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -32,7 +32,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView2"
+                    android:id="@+id/license"
                     android:src="@drawable/license"
                     android:layout_above="@+id/textView2"
                     android:layout_centerHorizontal="true" />
@@ -112,7 +112,7 @@
                     android:textColor="@color/driver_detail_yellowtext"
                     android:id="@+id/textView2"
                     android:layout_above="@+id/driver_license"
-                    android:layout_alignStart="@+id/datePicker_row" />
+                    android:layout_centerHorizontal="true" />
 
 
             </RelativeLayout>

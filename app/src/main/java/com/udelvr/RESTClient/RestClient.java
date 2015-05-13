@@ -16,7 +16,7 @@ import static retrofit.RestAdapter.Builder;
 public class RestClient {
 
     private static API REST_CLIENT;
-    private static String ROOT = "http://52.8.139.252:8080";//52.8.19.255
+    private static String ROOT = "http://52.8.19.255:8080";//52.8.19.255
 
     static {
         setupRestClient();

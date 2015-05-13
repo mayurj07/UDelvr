@@ -62,19 +62,6 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
         viewHolder.amount.setText("$"+aDriverPackage.getAmount());
 
         viewHolder.dateTime.setText(aDriverPackage.getPickupDate());
-//        viewHolder.setClickListener(new ViewHolder.ClickListener(){
-//            @Override
-//            public void onClick(View v, int position, boolean isLongClick) {
-//                if (isLongClick){
-//                    Log.i(TAG, "Perform long click " + v + " at " + position);
-//                    //Log.i(TAG, "Click detail" + viewHolder.destination.getText());
-//                }
-//                else {
-//                    Log.i(TAG, "Perform click " + v + " at " + position);
-//                    //Log.i(TAG, "Click detail" + viewHolder.destination.getText());
-//                }
-//            }
-//        });
 
         Picasso.with(mContext).setIndicatorsEnabled(true);
         // String url = "http://maps.google.com/maps/api/staticmap?center="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+ "&markers="+aDriverPackage.getDestinationLocationLatitude()+ "," +aDriverPackage.getDestinationLocationLongitude()+"&zoom=15&size=500x300&sensor=false";

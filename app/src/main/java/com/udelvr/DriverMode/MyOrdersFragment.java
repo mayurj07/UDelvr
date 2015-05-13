@@ -95,7 +95,7 @@ public class MyOrdersFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        shipmentController.getDriverShipments(authStore.getDeviceid(),homeFragment);
+        shipmentController.getDriverShipments(authStore.getDriverLicenceNo(),homeFragment);
 
     }
 

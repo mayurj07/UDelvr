@@ -59,7 +59,7 @@ public class PackageListAdapter extends RecyclerView.Adapter<PackageListAdapter.
     public void onBindViewHolder(final ViewHolder viewHolder, int i) {
         final ShipmentDO aDriverPackage = driverPackages.get(i);
         viewHolder.destination.setText(aDriverPackage.getDestinationAddress() );
-        viewHolder.amount.setText("$"+aDriverPackage.getCustomerID());
+        viewHolder.amount.setText("$"+aDriverPackage.getAmount());
 
         viewHolder.dateTime.setText(aDriverPackage.getPickupDate());
 //        viewHolder.setClickListener(new ViewHolder.ClickListener(){

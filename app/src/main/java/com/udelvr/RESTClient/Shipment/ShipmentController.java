@@ -96,10 +96,10 @@ public class ShipmentController {
             }
         });
     }
-    public static void getDriverShipments(final MyOrdersFragment myOrdersFragment) {
+    public static void getDriverShipments(String driverId,final MyOrdersFragment myOrdersFragment) {
 
 
-        RestClient.get().getDriverShipments(new Callback<List<ShipmentDO>>() {
+        RestClient.get().getDriverShipments(driverId,new Callback<List<ShipmentDO>>() {
             @Override
             public void success(List<ShipmentDO> shipmentResponse, Response response) {
                 DriverPackageManager.getInstance().addAll(shipmentResponse);

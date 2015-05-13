@@ -43,8 +43,8 @@ public interface API {
     @GET("/driver/shipments")
     void getAllShipments(Callback<List<ShipmentDO>> callback);
 
-    @GET("/driver/shipments")
-    void getDriverShipments(Callback<List<ShipmentDO>> callback);
+    @GET("/driver/{driver_id}/shipments")
+    void getDriverShipments(@Path("driver_id")String driverId,Callback<List<ShipmentDO>> callback);
 
     @POST("/user/{user_id}/shipment")
     void addNewShipment(@Path("user_id")String userId,@Body MultipartTypedOutput multipartTypedOutput,

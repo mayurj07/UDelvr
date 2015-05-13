@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.udelvr.ApplicationContextProvider;
+import com.udelvr.AuthStore;
 import com.udelvr.CustomerMode.CustomerMainActivity;
 import com.udelvr.DriverMode.Shipment.DriverPackageManager;
 import com.udelvr.DriverMode.Shipment.PackageListAdapter;
@@ -29,9 +31,13 @@ public class MyOrdersFragment extends Fragment {
     private ShipmentController shipmentController;
     private MyOrdersFragment homeFragment;
 
+    private AuthStore authStore;
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        authStore = new AuthStore(ApplicationContextProvider.getContext());
         shipmentController=new ShipmentController();
         swipeRefreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.swipeRefreshLayout);
         fab_driver=(FloatingActionButton)getActivity().findViewById(R.id.fab_driver);
@@ -56,7 +62,7 @@ public class MyOrdersFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-                shipmentController.getDriverShipments(homeFragment);
+                shipmentController.getDriverShipments(authStore.getDeviceid(),homeFragment);
 
             }
         });
@@ -89,7 +95,7 @@ public class MyOrdersFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        shipmentController.getDriverShipments(homeFragment);
+        shipmentController.getDriverShipments(authStore.getDeviceid(),homeFragment);
 
     }
 

@@ -68,13 +68,15 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
     EditText editTextPassword;
     @NotEmpty(message = "You must enter your mobile no.")
     EditText editTextMobile;
-    User user;
+    static User user;
     SplashScreenFragmentRegisterNewUser splashScreenFragmentRegisterNewUser;
 
     Validator validator;
     ProgressDialog mProgressDialog = null;
     SMSBroadcastReceiver smsBroadcastReceiver = null;
     WaitTime wait = new WaitTime();
+//profile pic from fb
+    static File storagePath,fbImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +101,10 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         Bundle b = getIntent().getExtras();
         if (b != null) {
             editTextFullName.setText(b.getString("name"));
-            //editTextEmail.setText(b.getString("email"));
-            //Log.e(TAG, "image: " + b.getString("image"));
-            new LoadProfileImage(circularImageView).execute(b.getString("image"));
+            editTextEmail.setText(b.getString("email"));
+            //Log.e(TAG, "image: " + b.getString("image");
+            new LoadProfileImage(circularImageView).execute(b.getString("imageStr"));
+
 
         }
 //        if(b.getString("email")!=null){
@@ -139,6 +142,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
     }
 
     public void startCustomerMainActivity() {
+        Log.d("prasad","FB I'M HERE");
         Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
         startActivity(intent);
         finish();
@@ -306,6 +310,8 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         user.setEmail(editTextEmail.getText().toString());
         user.setPassword(editTextPassword.getText().toString());
         user.setMobileNo(editTextMobile.getText().toString());
+        Log.d("prasad", "In mobile success.....");
+
         UserController.registerNewUser(user, splashScreenFragmentRegisterNewUser);
     }
 
@@ -357,6 +363,27 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
             try {
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 mIcon11 = BitmapFactory.decodeStream(in);
+
+
+                try {
+                    //The sdcard directory e.g. '/sdcard' can be used directly, or
+                    //more safely abstracted with getExternalStorageDirectory()
+                    storagePath = Environment.getExternalStorageDirectory();
+                    fbImage= new File(storagePath,"myImage.png");
+                    fbImage.delete();
+                    OutputStream output = new FileOutputStream (fbImage);
+                    try {
+                        byte[] buffer = new byte[20];
+                        int bytesRead = 0;
+                        while ((bytesRead = in.read(buffer, 0, buffer.length)) >= 0) {
+                            output.write(buffer, 0, bytesRead);
+                        }
+                    } finally {
+                        output.close();
+                    }
+                } finally {
+                    in.close();
+                }
             } catch (Exception e) {
                 Log.e("something", e.getMessage());
 //                e.printStackTrace();
@@ -366,6 +393,10 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
 
         protected void onPostExecute(Bitmap result) {
             profileImg.setImageBitmap(result);
+            user.setprofilePhoto(fbImage);
+
+            Log.d("Prasad",""+fbImage.getPath());
+
         }
     }
 

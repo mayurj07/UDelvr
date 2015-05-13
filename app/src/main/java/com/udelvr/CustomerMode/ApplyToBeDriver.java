@@ -59,11 +59,13 @@ public class ApplyToBeDriver extends Activity implements Validator.ValidationLis
     Bitmap image;
     // Widget GUI
     private ImageView datePicker, camera;
+    @NotEmpty(message = "Your license photo is required")
+    private ImageView license;
     private ImageButton close;
     private Button apply;
-    @NotEmpty(message = "Enter expiry date.")
+    @NotEmpty(message = "Enter expiry date")
     private TextView date_expire;
-    @NotEmpty(message = "Enter driver licence no.")
+    @NotEmpty(message = "Enter driver licence no")
     private EditText driver_license;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private AuthStore auth;
@@ -85,6 +87,7 @@ public class ApplyToBeDriver extends Activity implements Validator.ValidationLis
         setContentView(R.layout.new_driver_details_popup);
         driver_license = (EditText) findViewById(R.id.edittext_driver_licence);
         date_expire = (TextView) findViewById(R.id.edittext_expire_date);
+        license = (ImageView) findViewById(R.id.license);
         close = (ImageButton) findViewById(R.id.popoup_close);
         apply = (Button) findViewById(R.id.apply_btn);
         camera = (ImageView) findViewById(R.id.camera_driver_licence);
@@ -112,10 +115,11 @@ public class ApplyToBeDriver extends Activity implements Validator.ValidationLis
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                validator.validate();
-
-
+                if ( driverDetail.getLicencePhoto() == null) {
+                    Toast.makeText(ApplicationContextProvider.getContext(), "Please add your license image", Toast.LENGTH_LONG).show();
+                } else {
+                    validator.validate();
+                }
             }
         });
         close.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +227,7 @@ public void startDriverHomeActivity()
 //                            .currentTimeMillis()) + ".jpg");
 //                    System.out.println("bitmap: " + bm);
                     File file=getOutputFromCamera();
-                  //  camera.setImageBitmap(bm);
+                    license.setImageBitmap(bm);
                     try {
                         fOut = new FileOutputStream(file);
                         bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
@@ -249,6 +253,8 @@ public void startDriverHomeActivity()
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
                 image = bm;
+                driverDetail.setLicencePhoto(new File(getPath(selectedImageUri, this)));
+                license.setImageBitmap(bm);
             }
 
         }

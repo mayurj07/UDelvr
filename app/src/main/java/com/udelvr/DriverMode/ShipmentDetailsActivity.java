@@ -53,14 +53,14 @@ public class ShipmentDetailsActivity extends Activity {
         destAddress = (TextView) findViewById(R.id.drop_address);
 
 
-        recipientsName.setText(shipment_bundle.getString("RecipientName"));
-        packageDesc.setText(shipment_bundle.getString("PackageDescription"));
-        packageWeight.setText(shipment_bundle.getString("PackageWeight"));
+        recipientsName.setText("To: "+shipment_bundle.getString("RecipientName"));
+        packageDesc.setText("Details: "+shipment_bundle.getString("PackageDescription"));
+        packageWeight.setText("Weight(lbs): "+shipment_bundle.getString("PackageWeight"));
         amount.setText("$" + shipment_bundle.getString("Amount"));
-        pickupTime.setText(shipment_bundle.getString("PickupTime"));
-        pickupDate.setText(shipment_bundle.getString("PickupDate"));
-        sourceAddress.setText(shipment_bundle.getString("SourceAddress"));
-        destAddress.setText(shipment_bundle.getString("DestinationAddress"));
+        pickupTime.setText("At: "+shipment_bundle.getString("PickupTime"));
+        pickupDate.setText("On: "+shipment_bundle.getString("PickupDate"));
+        sourceAddress.setText("From: "+shipment_bundle.getString("SourceAddress"));
+        destAddress.setText("To: "+shipment_bundle.getString("DestinationAddress"));
 
 
         packageDestImageView = (ImageView) this.findViewById(R.id.packageDestinationStaticMap);

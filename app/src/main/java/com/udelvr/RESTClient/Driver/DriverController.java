@@ -25,7 +25,7 @@ public class DriverController {
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setProgressNumberFormat(null);
         mProgressDialog.setProgressPercentFormat(null);
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.show();
 
         final AuthStore authStore= new AuthStore(ApplicationContextProvider.getContext());

@@ -31,7 +31,7 @@ public class ShipmentController {
        mProgressDialog.setIndeterminate(true);
        mProgressDialog.setProgressNumberFormat(null);
        mProgressDialog.setProgressPercentFormat(null);
-       mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+       mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
        mProgressDialog.show();
 
 
@@ -68,15 +68,25 @@ public class ShipmentController {
     }
     public static void getUserShipments(String user_id,final CustomerHomeFragment homeFragment) {
 
+        final ProgressDialog mProgressDialog = new ProgressDialog(homeFragment.getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setProgressNumberFormat(null);
+        mProgressDialog.setProgressPercentFormat(null);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mProgressDialog.show();
 
         RestClient.get().getUserShipments(user_id,new Callback<List<ShipmentDO>>() {
             @Override
             public void success(List<ShipmentDO> shipmentResponse, Response response) {
                 CustomerPackageManager.getInstance().addAll(shipmentResponse);
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
                 homeFragment.onLoadComplete();
             }
             @Override
             public void failure(RetrofitError error) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
                 homeFragment.onLoadComplete();
             }
         });

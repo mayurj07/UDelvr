@@ -46,7 +46,6 @@ import com.udelvr.Map.PlaceAutocompleteAdapter;
 import com.udelvr.R;
 import com.udelvr.RESTClient.Shipment.Shipment;
 import com.udelvr.RESTClient.Shipment.ShipmentController;
-import com.udelvr.RESTClient.User.UserController;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -149,24 +148,12 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         });
         // row 3
         destAddress=(AutoCompleteTextView)findViewById(R.id.drop_address);
-//        if (shipment.getDestinationAddress() != null){
-//            // if shipment already has some value, reset
-//            shipment.setDestinationAddress(null);
-//        }
         destAddress.setOnItemClickListener(mAutocompleteClickListener);
         destAddress.setAdapter(mAdapter);
         destAddressPick = (ImageView) findViewById(R.id.choose_pickup_address);
         destAddressPick.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                CurrentLocationActivity newClass = new CurrentLocationActivity(dest_lat,dest_long);
-//                Log.i("cur souce: " + Double.valueOf(dest_lat).toString());
-
-//                Uri streetUri = Uri.parse("google.streetview:cbll=37.337889,-121.937870");
-//                Intent intent = new Intent(Intent.ACTION_VIEW,streetUri);
-//                intent.setPackage("com.google.android.apps.maps");
-//                startActivity(intent);
-
                 Intent i = new Intent(getApplication(), CurrentLocationActivity.class);
                 Bundle dest_bundle = new Bundle();
                 dest_bundle.putDouble("lat",dest_lat);
@@ -230,17 +217,6 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
                     validator.validate();
                 }
 
-//                shipment.setRecipientName(recipientsName.getText().toString());
-//                shipment.setPackageDescription(packageDesc.getText().toString());
-//                shipment.setPackageWeight(packageWeight.getText().toString());
-//                shipment.setPickupTime(pickupTime.getText().toString());
-//                shipment.setPickupDate(pickupDate.getText().toString());
-//                shipment.setCustomerID(authStore.getUserId());
-//                Log.i(TAG,"Ready to ship: " + shipment.getSourceAddress() + " " + shipment.getDestinationAddress());
-                //ShipmentController.addNewShipment(mContext,authStore.getUserId(),shipment);
-//                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
-//                    Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
-//                    startActivity(intent);
 
             }
         });

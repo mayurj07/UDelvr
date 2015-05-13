@@ -363,27 +363,11 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
             try {
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 mIcon11 = BitmapFactory.decodeStream(in);
+                in.close();
 
-
-                try {
-                    //The sdcard directory e.g. '/sdcard' can be used directly, or
-                    //more safely abstracted with getExternalStorageDirectory()
-                    storagePath = Environment.getExternalStorageDirectory();
-                    fbImage= new File(storagePath,"myImage.png");
-                    fbImage.delete();
-                    OutputStream output = new FileOutputStream (fbImage);
-                    try {
-                        byte[] buffer = new byte[20];
-                        int bytesRead = 0;
-                        while ((bytesRead = in.read(buffer, 0, buffer.length)) >= 0) {
-                            output.write(buffer, 0, bytesRead);
-                        }
-                    } finally {
-                        output.close();
-                    }
-                } finally {
-                    in.close();
-                }
+                FileOutputStream fOut = new FileOutputStream(fbImage);
+                mIcon11.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+                fOut.close();
             } catch (Exception e) {
                 Log.e("something", e.getMessage());
 //                e.printStackTrace();
@@ -394,8 +378,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         protected void onPostExecute(Bitmap result) {
             profileImg.setImageBitmap(result);
             user.setprofilePhoto(fbImage);
-
-            Log.d("Prasad",""+fbImage.getPath());
+            Log.d("Prasad", "" + fbImage.getPath());
 
         }
     }

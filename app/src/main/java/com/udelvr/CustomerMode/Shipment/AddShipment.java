@@ -204,24 +204,11 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
             @Override
             public void onClick(View v) {
                 shipment.setRecipientName(recipientsName.getText().toString());
-//                shipment.setSourceAddress(editTextEmail.getText().toString());
-//                shipment.setDestinationAddress(editTextPassword.getText().toString());
                 shipment.setPackageDescription(packageDesc.getText().toString());
                 shipment.setPackageWeight(packageWeight.getText().toString());
                 shipment.setPickupTime(pickupTime.getText().toString());
                 shipment.setPickupDate(pickupDate.getText().toString());
-
-//                shipment.setCustomerId(editTextMobile.getText().toString());
-                shipment.setCustomerID("12345");
-
-                // temp hardcode
-//                shipment.setShipmentImage("https://s3-us-west-1.amazonaws.com/project.bucket1/5");
-//                shipment.setSourceLat("37.3351870");
-//                shipment.setSourceLong("-121.8810720");
-//                shipment.setDestinationLat("37.7749290");
-//                shipment.setDestinationLong("-122.4194160");
-//                shipment.setSourceAddress("1 Washington Sq, San Jose, CA 95192");
-//                shipment.setDestinationAddress("4900 Marie P. DeBartolo Way, Santa Clara, CA");
+                shipment.setCustomerID(authStore.getUserId());
                 Log.i(TAG,"Ready to ship: " + shipment.getSourceAddress() + " " + shipment.getDestinationAddress());
                 ShipmentController.addNewShipment(mContext,authStore.getUserId(),shipment);
 //                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());

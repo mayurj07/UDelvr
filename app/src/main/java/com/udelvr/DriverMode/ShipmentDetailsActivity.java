@@ -67,9 +67,11 @@ public class ShipmentDetailsActivity extends Activity {
         packageDestImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sourceLat = shipment_bundle.getString("DestinationLocationLatitude");
-                String sourceLong = shipment_bundle.getString("DestinationLocationLongitude");
-                Uri streetUri = Uri.parse("google.streetview:cbll=" + sourceLat + "," + sourceLong);
+                String sourceLat = shipment_bundle.getString("SourceLocationLatitude");
+                String sourceLong = shipment_bundle.getString("SourceLocationLongitude");
+                String destLat = shipment_bundle.getString("DestinationLocationLatitude");
+                String destLong = shipment_bundle.getString("DestinationLocationLongitude");
+                Uri streetUri = Uri.parse("http://maps.google.com/maps?" + "saddr="+ sourceLat + "," + sourceLong + "&daddr=" + destLat + "," + destLong);
                 Intent intent = new Intent(Intent.ACTION_VIEW, streetUri);
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);

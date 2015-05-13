@@ -28,7 +28,7 @@ import com.udelvr.RESTClient.Shipment.ShipmentController;
  */
 public class ShipmentDetailsActivity extends Activity {
     ShipmentDetailsActivity shipmentDetailsActivityl;
-    private ImageView timePicker, datePicker, packageDestImageView, sourceAddressPick, destAddressPick;
+    private ImageView timePicker, datePicker, packageDestImageView, sourceAddressPick, destAddressPick, streetAddressPick, streetAddressDrop;
     private TextView recipientsName, packageDesc, packageWeight, amount, pickupTime, pickupDate, sourceAddress, destAddress;
     private Button accept_shipment;
     private AuthStore authStore;
@@ -67,7 +67,12 @@ public class ShipmentDetailsActivity extends Activity {
         packageDestImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String sourceLat = shipment_bundle.getString("DestinationLocationLatitude");
+                String sourceLong = shipment_bundle.getString("DestinationLocationLongitude");
+                Uri streetUri = Uri.parse("google.streetview:cbll=" + sourceLat + "," + sourceLong);
+                Intent intent = new Intent(Intent.ACTION_VIEW, streetUri);
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
             }
         });
         Picasso.with(this).setIndicatorsEnabled(true);
@@ -100,8 +105,8 @@ public class ShipmentDetailsActivity extends Activity {
             }
         });
 
-        sourceAddressPick = (ImageView) this.findViewById(R.id.imageView_pickup_address);
-        sourceAddressPick.setOnClickListener(new View.OnClickListener() {
+        streetAddressPick = (ImageView) this.findViewById(R.id.streetview_pickup);
+        streetAddressPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String sourceLat = shipment_bundle.getString("SourceLocationLatitude");
@@ -112,6 +117,20 @@ public class ShipmentDetailsActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        sourceAddressPick = (ImageView) this.findViewById(R.id.imageView_pickup_address);
+        sourceAddressPick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String sourceLat = shipment_bundle.getString("SourceLocationLatitude");
+                String sourceLong = shipment_bundle.getString("SourceLocationLongitude");
+                Uri streetUri = Uri.parse("google.navigation:q="+sourceLat+","+sourceLong);
+                Intent intent = new Intent(Intent.ACTION_VIEW, streetUri);
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
+            }
+        });
+
         destAddressPick = (ImageView) this.findViewById(R.id.imageView_dropoff_address);
         destAddressPick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +144,19 @@ public class ShipmentDetailsActivity extends Activity {
                 startActivity(intent);
 
 
+            }
+        });
+
+        streetAddressDrop = (ImageView) this.findViewById(R.id.streetview_dropoff);
+        streetAddressDrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String destinationLat = shipment_bundle.getString("DestinationLocationLatitude");
+                String destinationLong = shipment_bundle.getString("DestinationLocationLongitude");
+                Uri streetUri = Uri.parse("google.streetview:cbll="+destinationLat+","+destinationLong);
+                Intent intent = new Intent(Intent.ACTION_VIEW, streetUri);
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
             }
         });
 

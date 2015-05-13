@@ -36,6 +36,9 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.udelvr.ApplicationContextProvider;
 import com.udelvr.AuthStore;
 import com.udelvr.Map.CurrentLocationActivity;
@@ -43,6 +46,7 @@ import com.udelvr.Map.PlaceAutocompleteAdapter;
 import com.udelvr.R;
 import com.udelvr.RESTClient.Shipment.Shipment;
 import com.udelvr.RESTClient.Shipment.ShipmentController;
+import com.udelvr.RESTClient.User.UserController;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,6 +56,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 // google place api
@@ -59,7 +64,7 @@ import java.util.Locale;
 /**
  * Authored by sophiango and prasadshirsath
  */
-public class AddShipment extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class AddShipment extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, Validator.ValidationListener {
 
     private static final int REQUEST_CAMERA = 100;
     private static final int SELECT_FILE = 101;
@@ -70,6 +75,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
     AuthStore authStore;
     AddShipment mContext;
     private static final int GOOGLE_API_CLIENT_ID = 0;
+    private Validator validator;
 
     private static final String TAG = "Date picker";
     // Widget GUI
@@ -77,8 +83,20 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 
     // Variable for storing current date and time
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private AutoCompleteTextView sourceAddress, destAddress;
-    private EditText recipientsName, packageDesc, packageWeight, pickupTime, pickupDate ;
+    @NotEmpty(message = "You must enter source address")
+    private AutoCompleteTextView sourceAddress;
+    @NotEmpty(message = "You must enter destination address")
+    private AutoCompleteTextView destAddress;
+    @NotEmpty(message = "You must enter recipient name")
+    private EditText recipientsName;
+    @NotEmpty(message = "You must enter package description")
+    private EditText packageDesc;
+    @NotEmpty(message = "You must enter package weight ")
+    private EditText packageWeight;
+    @NotEmpty(message = "You must enter pick up time")
+    private EditText pickupTime;
+    @NotEmpty(message = "You must enter pick up date")
+    private EditText pickupDate ;
     private Shipment shipment;
     //private String static_src_address = "1 Washington Sq, San Jose, CA 95192";
     //private String static_dest_address = "4900 Marie P. DeBartolo Way, Santa Clara, CA";
@@ -93,6 +111,8 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
         setContentView(R.layout.add_shipment);
         mGoogleApiClient = new GoogleApiClient.Builder(AddShipment.this)
                 .addApi(Places.GEO_DATA_API)
@@ -167,7 +187,7 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
                 selectImage();
             }
         });
-        // row 5
+        // row 5s
         pickupTime=(EditText)findViewById(R.id.pickup_time);
         pickupTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,22 +223,54 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
         add_shipment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shipment.setRecipientName(recipientsName.getText().toString());
-                shipment.setPackageDescription(packageDesc.getText().toString());
-                shipment.setPackageWeight(packageWeight.getText().toString());
-                shipment.setPickupTime(pickupTime.getText().toString());
-                shipment.setPickupDate(pickupDate.getText().toString());
-                shipment.setCustomerID(authStore.getUserId());
-                Log.i(TAG,"Ready to ship: " + shipment.getSourceAddress() + " " + shipment.getDestinationAddress());
-                ShipmentController.addNewShipment(mContext,authStore.getUserId(),shipment);
+
+                if ( shipment.getShipmentImage() == null) {
+                    Toast.makeText(ApplicationContextProvider.getContext(), "Please add shipment picture.", Toast.LENGTH_LONG).show();
+                } else {
+                    validator.validate();
+                }
+
+//                shipment.setRecipientName(recipientsName.getText().toString());
+//                shipment.setPackageDescription(packageDesc.getText().toString());
+//                shipment.setPackageWeight(packageWeight.getText().toString());
+//                shipment.setPickupTime(pickupTime.getText().toString());
+//                shipment.setPickupDate(pickupDate.getText().toString());
+//                shipment.setCustomerID(authStore.getUserId());
+//                Log.i(TAG,"Ready to ship: " + shipment.getSourceAddress() + " " + shipment.getDestinationAddress());
+                //ShipmentController.addNewShipment(mContext,authStore.getUserId(),shipment);
 //                    Log.d("Udelvr", user.getprofilePhoto().getAbsolutePath());
 //                    Intent intent = new Intent(getApplication(), CustomerMainActivity.class);
 //                    startActivity(intent);
 
-
-
             }
         });
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        shipment.setRecipientName(recipientsName.getText().toString());
+        shipment.setPackageDescription(packageDesc.getText().toString());
+        shipment.setPackageWeight(packageWeight.getText().toString());
+        shipment.setPickupTime(pickupTime.getText().toString());
+        shipment.setPickupDate(pickupDate.getText().toString());
+        shipment.setCustomerID(authStore.getUserId());
+        Log.i(TAG,"Ready to ship: " + shipment.getSourceAddress() + " " + shipment.getDestinationAddress());
+        ShipmentController.addNewShipment(mContext,authStore.getUserId(),shipment);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void showDatePicker(){

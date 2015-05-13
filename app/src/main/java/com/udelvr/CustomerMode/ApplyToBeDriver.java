@@ -90,6 +90,12 @@ public class ApplyToBeDriver extends Activity implements Validator.ValidationLis
         camera = (ImageView) findViewById(R.id.camera_driver_licence);
         File licencePhoto;
 
+        date_expire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
         datePicker = (ImageView) this.findViewById(R.id.datePicker);
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override

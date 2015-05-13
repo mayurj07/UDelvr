@@ -11,7 +11,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="155dp"
+            android:layout_marginTop="130dp"
             android:layout_marginBottom="55dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -34,7 +34,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/license"
                     android:src="@drawable/license"
-                    android:layout_above="@+id/textView2"
                     android:layout_centerHorizontal="true" />
 
                     <LinearLayout
@@ -77,7 +76,6 @@
                             android:layout_width="fill_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
                             android:hint="@string/date_expire"
                             android:ems="10"
                             android:id="@+id/edittext_expire_date"
@@ -97,12 +95,12 @@
                         android:layout_width="fill_parent"
                         android:layout_height="50dp"
                         android:text="@string/apply"
-                        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+                        android:textColor="@color/udelvr_white"
                         android:id="@+id/apply_btn"
-                        android:background="@drawable/roundedgraybutton"
-                        android:textColorHighlight="@color/udelvr_blue"
+                        android:background="@color/udelvr_blue"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        />
 
                 <TextView
                     android:layout_width="wrap_content"

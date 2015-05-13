@@ -23,6 +23,7 @@
 
     <!-- Allows the Google Maps Android API V2 to cache map tile data in the device's external storage area -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- Allows the Google Maps Android API V2 to use WiFi or mobile cell data (or both) to determine the device's location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -100,7 +101,8 @@
             android:name="com.udelvr.CustomerMode.ApplyToBeDriver"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent">
         </activity>
 
         <activity

@@ -49,7 +49,7 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
     SplashScreenFragmentSignIn splashScreenFragmentSignIn;
     private View otherView;
     Validator validator;
-
+    Fragment mContext;
 
 
     public static Fragment newInstance(Context context) {
@@ -61,7 +61,6 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         // To maintain FB Login session
         uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
@@ -76,6 +75,7 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
+        mContext=this;
 
 
 		 root = (ViewGroup) inflater.inflate(R.layout.activity_spash_screen_signup, container,false);
@@ -110,6 +110,15 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
 
 
         authButton = (LoginButton) view.findViewById(R.id.authButton);
+//        authButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                authButton.setFragment(mContext);
+                //statusCallback();
+                //Intent intent = new Intent(getActivity(), SplashScreenFragmentRegisterNewUser.class);
+                //startActivity(intent);
+//            }
+//        });
         authButton.setFragment(this);
         return view;
     }
@@ -159,20 +168,22 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
 //                            otherView.setVisibility(View.VISIBLE);
 
                             String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
-//                            Log.i(TAG, user + " " + user.getName() + " " + user.asMap().get("email").toString() + " " + imageURL);
+                            Log.i(TAG, user + " " + user.getName() + " " + user.asMap().get("email").toString() + " " + imageURL);
                             Log.e(TAG,"user: " + user);
 //                            Log.e(TAG,"email: " + user.asMap().get("email").toString());
                             Log.e(TAG,"image: " + imageURL);
                             Intent i = new Intent(getActivity(), SplashScreenFragmentRegisterNewUser.class);
                             Bundle b = new Bundle();
                             b.putString("name", user.getName());
-//                            if (user.asMap().get("email").toString()!=null){
-//                                b.putString("email", user.asMap().get("email").toString());
-//                            }
+                            if (user.asMap().get("email").toString()!=null || user.asMap()!=null || user.asMap().get("email")!=null){
+                                b.putString("email", user.asMap().get("email").toString());
+                                //email.setText(user.asMap().get("email").toString());
+                            }
                             //b.putString("email", user.asMap().get("email").toString());
-                            b.putString("image", imageURL);
+//                            File imageFile = new File(imageURL);
+//                            b.putString("imageFile", imageFile);
                             //b.putString("email", user.asMap().get("email").toString());
-                           // b.putString("image", imageURL);
+                            b.putString("imageStr", imageURL);
                             i.putExtras(b);
                             startActivity(i);
                             // Set User name

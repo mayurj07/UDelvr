@@ -58,7 +58,8 @@ public class ApplyToBeDriver extends Activity implements Validator.ValidationLis
     ImageView circularImageView;
     Bitmap image;
     // Widget GUI
-    private ImageButton datePicker, camera, close;
+    private ImageView datePicker, camera;
+    private ImageButton close;
     private Button apply;
     @NotEmpty(message = "Enter expiry date.")
     private TextView date_expire;
@@ -86,10 +87,10 @@ public class ApplyToBeDriver extends Activity implements Validator.ValidationLis
         date_expire = (TextView) findViewById(R.id.edittext_expire_date);
         close = (ImageButton) findViewById(R.id.popoup_close);
         apply = (Button) findViewById(R.id.apply_btn);
-        camera = (ImageButton) findViewById(R.id.camera_driver_licence);
+        camera = (ImageView) findViewById(R.id.camera_driver_licence);
         File licencePhoto;
 
-        datePicker = (ImageButton) this.findViewById(R.id.datePicker);
+        datePicker = (ImageView) this.findViewById(R.id.datePicker);
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

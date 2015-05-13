@@ -115,9 +115,17 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/imageView_pickup_address"
-                android:src="@drawable/map"
+                android:id="@+id/streetview_pickup"
+                android:src="@drawable/streetview"
                 android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/imageView_pickup_address"
+                android:src="@drawable/navigate"
+                android:layout_centerHorizontal="true" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -144,9 +152,17 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/imageView_dropoff_address"
-                android:src="@drawable/map"
+                android:id="@+id/streetview_dropoff"
+                android:src="@drawable/streetview"
                 android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/imageView_dropoff_address"
+                android:src="@drawable/navigate"
+                android:layout_centerHorizontal="true" />
+
         </LinearLayout>
 
         <LinearLayout

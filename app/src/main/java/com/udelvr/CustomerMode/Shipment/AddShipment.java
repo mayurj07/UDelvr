@@ -384,12 +384,12 @@ public class AddShipment extends FragmentActivity implements GoogleApiClient.OnC
 
     public void addedShipmentSuccess()
     {
-        Toast.makeText(ApplicationContextProvider.getContext(), "Add new shipment successfully!", Toast.LENGTH_LONG).show();
+        Toast.makeText(ApplicationContextProvider.getContext(), "Added shipment successfully!", Toast.LENGTH_LONG).show();
         finish();
     }
 
     public void OnFailedResponse() {
-        Toast.makeText(ApplicationContextProvider.getContext(), "Registation Failed!", Toast.LENGTH_LONG).show();
+        Toast.makeText(ApplicationContextProvider.getContext(), "Somthing went wrong!", Toast.LENGTH_LONG).show();
     }
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener

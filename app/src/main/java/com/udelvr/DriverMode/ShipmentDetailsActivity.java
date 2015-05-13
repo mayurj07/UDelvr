@@ -71,7 +71,7 @@ public class ShipmentDetailsActivity extends Activity {
                 String sourceLong = shipment_bundle.getString("SourceLocationLongitude");
                 String destLat = shipment_bundle.getString("DestinationLocationLatitude");
                 String destLong = shipment_bundle.getString("DestinationLocationLongitude");
-                Uri streetUri = Uri.parse("http://maps.google.com/maps?" + "saddr="+ sourceLat + "," + sourceLong + "&daddr=" + destLat + "," + destLong);
+                Uri streetUri = Uri.parse("http://maps.google.com/maps?" + "saddr=" + sourceLat + "," + sourceLong + "&daddr=" + destLat + "," + destLong);
                 Intent intent = new Intent(Intent.ACTION_VIEW, streetUri);
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);

@@ -101,7 +101,10 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         Bundle b = getIntent().getExtras();
         if (b != null) {
             editTextFullName.setText(b.getString("name"));
-            editTextEmail.setText(b.getString("email"));
+            Log.d(TAG,"email: " + b.getString("email"));
+            if (b.getString("email")!=null) {
+                editTextEmail.setText(b.getString("email"));
+            }
             //Log.e(TAG, "image: " + b.getString("image");
             new LoadProfileImage(circularImageView).execute(b.getString("imageStr"));
 
@@ -365,9 +368,18 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
                 mIcon11 = BitmapFactory.decodeStream(in);
                 in.close();
 
-                FileOutputStream fOut = new FileOutputStream(fbImage);
-                mIcon11.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
-                fOut.close();
+
+
+                try {
+                    storagePath = Environment.getExternalStorageDirectory();
+                    fbImage= new File(storagePath,"myImage.jpg");
+
+                    FileOutputStream fOut = new FileOutputStream(fbImage);
+                    mIcon11.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+                    fOut.close();
+
+                } finally {
+                }
             } catch (Exception e) {
                 Log.e("something", e.getMessage());
 //                e.printStackTrace();
@@ -378,7 +390,7 @@ public class SplashScreenFragmentRegisterNewUser extends Activity implements Val
         protected void onPostExecute(Bitmap result) {
             profileImg.setImageBitmap(result);
             user.setprofilePhoto(fbImage);
-            Log.d("Prasad", "" + fbImage.getPath());
+
 
         }
     }

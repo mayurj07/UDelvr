@@ -168,14 +168,14 @@ public class SplashScreenFragmentSignIn extends Fragment implements Validator.Va
 //                            otherView.setVisibility(View.VISIBLE);
 
                             String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?type=large";
-                            Log.i(TAG, user + " " + user.getName() + " " + user.asMap().get("email").toString() + " " + imageURL);
+                            //Log.i(TAG, user + " " + user.getName() + " " + user.asMap().get("email").toString() + " " + imageURL);
                             Log.e(TAG,"user: " + user);
 //                            Log.e(TAG,"email: " + user.asMap().get("email").toString());
                             Log.e(TAG,"image: " + imageURL);
                             Intent i = new Intent(getActivity(), SplashScreenFragmentRegisterNewUser.class);
                             Bundle b = new Bundle();
                             b.putString("name", user.getName());
-                            if (user.asMap().get("email").toString()!=null || user.asMap()!=null || user.asMap().get("email")!=null){
+                            if ( user.asMap()!=null && user.asMap().get("email")!=null){
                                 b.putString("email", user.asMap().get("email").toString());
                                 //email.setText(user.asMap().get("email").toString());
                             }

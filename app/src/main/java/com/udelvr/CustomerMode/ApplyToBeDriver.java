@@ -59,7 +59,6 @@ public class ApplyToBeDriver extends Activity implements Validator.ValidationLis
     Bitmap image;
     // Widget GUI
     private ImageView datePicker, camera;
-    @NotEmpty(message = "Your license photo is required")
     private ImageView license;
     private ImageButton close;
     private Button apply;

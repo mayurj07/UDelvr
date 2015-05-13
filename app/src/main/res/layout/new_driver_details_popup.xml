@@ -30,11 +30,15 @@
                 android:weightSum="1">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:id="@+id/license"
                     android:src="@drawable/license"
-                    android:layout_centerHorizontal="true" />
+                    android:scaleType="center"
+                    android:layout_alignStart="@+id/datePicker_row"
+                    android:layout_alignParentEnd="true"
+                    android:layout_above="@+id/driver_license"
+                    android:layout_below="@+id/textView2" />
 
                     <LinearLayout
                         android:id="@+id/driver_license"
@@ -78,6 +82,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/date_expire"
                             android:ems="10"
+                            android:focusableInTouchMode="false"
                             android:id="@+id/edittext_expire_date"
                             android:textColor="@color/black_overlay"
                             android:textColorHint="@color/udelvr_hint_white"
@@ -106,10 +111,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Driver's Details"
-                    android:textColor="@color/driver_detail_yellowtext"
+                    android:text="Enter Driver's Details"
+                    android:textColor="@color/cardview_dark_background"
                     android:id="@+id/textView2"
-                    android:layout_above="@+id/driver_license"
+                    android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
 
 
@@ -124,6 +129,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/pop_up_clsoe"
                 />
+
         </RelativeLayout>
 
     </RelativeLayout>
